@@ -1,0 +1,51 @@
+
+footer {
+    background-color: #f6f4ef;
+    padding-bottom: 100px;
+    width: 100%;
+    
+    .Footer-inner {
+      display: flex;
+      position: absolute;
+      width: 380px;
+      gap: 30px;
+      right: 100px;
+
+      .wrap {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+  
+        &:hover {
+          cursor: pointer;
+        }
+        p {
+          font-size: 12px;
+          margin-top: 5px;
+        }
+      }
+    }
+    .Logo-box {
+      position: absolute;
+      left: 170px;
+
+      img{
+        width: 110px;
+        height: 90px;
+      }
+    }
+    .title {
+      position: absolute;
+      font-size: 25px;
+      width: 400px;
+      height: 40px;
+      //background-color: red;
+      margin: 0 auto;
+      left: 0;
+      right: 0;
+      margin-top: 30px;
+      
+    }
+  }

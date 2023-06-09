@@ -1,0 +1,130 @@
+.headerContainer{
+  width: 100%;
+  margin: auto;
+  height: 80px;
+  background-color: white;
+  border-bottom: 2px solid rgb(202, 159, 18);
+  max-width: 1920px;
+  //position: relative;
+
+    .itemsWrapper{
+      //width: 80%;
+      width: 1400px;
+      margin: 0 auto;
+      left: 0;
+      right: 0;
+      //background-color: greenyellow;
+      display: flex; 
+      position: absolute;
+      justify-content: space-between;
+    }
+
+  .logoBox {
+    width: 150px;
+    margin-top: 10px;
+    height: 50px;
+    display: inline-block;
+    position: relative;
+    //background-color: aqua;
+
+    img{
+      width: 80px;
+      position: absolute;
+      margin: 0 auto;
+      left: 0;
+      right: 0;
+    }
+  }
+    
+    .searchBox{
+      width: 270px;
+      height: 40px;
+      background-color: white;
+      border-radius: 10px;
+      margin-top: 10px;
+
+      input{
+        margin: auto;
+        display: flex;
+        height: 40px;
+        width: 250px;
+        outline: none;
+        border: none;
+      }
+    }
+
+
+      .Header-box {
+        display: flex;
+        //vertical-align: top;
+        align-items: center;
+        gap: 30px;
+        height: 30px;
+        margin-top: 20px;
+        //max-width: 1230px;
+        background-color: yellow;
+
+        .Header-box__text{
+          text-Decoration:none;
+          color: gray;
+          font-weight: bold;
+        }
+
+        .cart {
+          width: 50px;
+          height: 50px;
+          background-color: red;
+        }
+      }
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+// addict — 오늘 오후 3:06
+// {
+// margin: 0;
+// padding: 0;
+// box-sizing: border-box;
+// }
+// body {
+//   background-color: #e8d5c4;
+//   min-height: 100vh;
+// }
+// .container {
+//   width: 1250px;
+//   margin: auto;
+// }
+// header {
+//   display: flex;
+//   background-color: transparent;
+//   justify-content: space-between;
+//   align-items: center;
+//   padding: 0 50px;
+//   border-bottom: 1px solid;
+//   .logo {
+//     width: 150px;
+//     height: 50px;
+//     margin: 25px 0;
+//     background-color: aqua;
+//   }
+//   .user-box {
+//     display: flex;
+//     align-items: center;
+//     gap: 10px;
+//     .cart {
+//       width: 50px;
+//       height: 50px;
+//       background-color: red;
+//     }
+//   }
+// }

@@ -1,0 +1,104 @@
+@mixin Container {
+  width: 1200px;
+  //height: 780px;
+  padding-bottom: 80px;
+  background-color: aqua;
+  position: relative;
+  left: 300px;
+}
+
+@mixin FormContainerStyle {
+  width: 500px;
+  height: 700px;
+  position: relative;
+  border-radius: 10px;
+  top: 50px;
+  margin: auto;
+  background-color: white;
+  box-shadow: 10px 10px 26px gray, -12px -12px 36px white;
+}
+
+@mixin Textbox {
+  width: 200px;
+  height: 50px;
+  position: absolute;
+  display: flex;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  top: 60px;
+}
+
+
+.joinContainer {
+    @include Container;
+    font-family: 'SUITE-Regular';
+
+    .joinContainer-inner {
+      @include FormContainerStyle;
+
+      .textContainer {
+        @include Textbox;
+          p {
+            margin: auto;
+            font-size: 30px;
+            //background-color: aliceblue;
+          }
+      }
+
+      .formBox {
+        width: 400px;
+        height: 450px;
+        position: relative;
+        top: 130px;
+        margin: 0 auto;
+        //background-color: chartreuse;
+
+          .formBox-inner {
+            width: 300px;
+            height: 95px;
+            margin: 0 auto;
+            //background-color: red;
+
+            input {
+              width:100%;
+              height: 50px;
+              margin-top: 10px;
+              border-radius: 10px;
+              padding: 10px 10px 10px 10px;
+              border: 2px solid #F7E9D7;
+              outline: none;
+              font-family: '';
+            }
+
+            span {
+              width: 260px;
+              //background-color: oldlace;
+              position: relative;
+              margin: 0 auto;
+              top:10px;
+              left: 0;
+              right: 0;
+              display: flex;
+            } 
+          }
+
+          .buttonContainer {
+            width: 210px;
+            height: 50px;
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+          }
+  
+          .buttonBox {
+            width: 200px;
+            height: 50px;
+            color: black;
+            background-color: #F7E9D7;
+          }
+      }
+    }
+}

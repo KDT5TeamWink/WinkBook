@@ -1,0 +1,164 @@
+@mixin CartNameStyle {
+  height: auto;
+  //background-color: rgb(14, 133, 237);
+  font-size: 20px;
+  position: absolute;
+  top: 10px;
+}
+
+
+.CartPageTable__Buy {
+  width: inherit;
+  height: 45px;
+  background-color: #e8e0d6;
+  position: absolute;
+  border-radius: 10px 10px 0px 0px;
+
+  .LableBox {
+    width: 40px;
+    height: 40px;
+    //background-color: #e18b8b;
+    margin-left: 50px;
+    margin-top: 5px;
+    position: absolute;
+    font-size: 30px;
+  }
+}
+
+  .ProductNameBox {
+    @include CartNameStyle;
+    width: 60px;
+    left: 300px;
+  }
+
+  .PriceNameBox{
+    @include CartNameStyle;
+    right: 450px;
+  }
+
+  .NumberBox{
+    @include CartNameStyle;
+    right: 280px;
+  }
+
+  .DeleteNameBox{
+    @include CartNameStyle;
+    right: 100px;
+  }
+
+
+  .ItemsContainer {
+    width: 1300px;
+    top: 50px;
+    position: relative;
+    //background-color: #F8EDE3;
+    max-height: 450px; /* 스크롤 영역의 최대 높이 설정 */
+    overflow-y: auto; /* 세로 스크롤 생성 */  
+
+    .ItemContainer {
+      width: 1180px;
+      height: 90px;
+      position: relative;
+      margin-top: 20px;
+      border-bottom: 2px solid rgb(208, 203, 185);
+  
+      .CheckContainer{
+        width: 60px;
+        height: 40px;
+        position: absolute;
+        top: 12px;
+        left: 30px;  
+      }
+      
+      .ImageBox{
+        width: 100px;
+        height: 100px;
+        margin-left: 150px;
+
+        img{
+          position: absolute;
+          width: inherit;
+          height: 80px;
+        }
+      }
+
+      .TextInner {
+        width: 400px;
+        height: 100px;
+        position: absolute;
+        top: 1px;
+        left: 260px;
+        font-size: 20px;
+        
+        span:nth-child(1) {
+          width: 400px;
+          height: 20px;
+          position: absolute;
+          font-size: 20px;
+        }
+
+        span:nth-child(2) {
+          width: 200px;
+          height: 30px;
+          position: absolute;
+          margin-top: 35px;
+          font-size: 15px;
+        }
+      }
+
+      .PriceInner{
+        width: 150px;
+        height: 90px;
+        position: absolute;
+        top: -10px;
+        right: 350px;
+        //background-color: olivedrab;
+        display: table-column;
+        font-size: 15px;
+        
+
+        span:nth-child(1){
+          width: 100px;
+          height: 20px;
+          position: absolute;
+        }
+
+        span:nth-child(2){
+          height: 30px;
+          position: absolute;
+          margin-top: 30px;
+        }
+
+        span:nth-child(3){
+          height: 30px;
+          position: absolute;
+          margin-top: 60px;
+        }
+    }
+
+    .ChooseNumber{
+      width: 90px;
+      height: 50px;
+      //background-color: brown;
+      position: absolute;
+      right: 220px;
+      top: 15px;
+    }
+
+    .CartButtonBox{
+      width: 60px;
+      height: 60px;
+      position: absolute;
+      top: 15px;
+      right: 100px;
+      //background-color: burlywood;
+      
+      button{
+        display: block;
+        width: 50px;
+        height: 30px;
+        margin-top: 5px;
+      }
+    }
+  }
+}

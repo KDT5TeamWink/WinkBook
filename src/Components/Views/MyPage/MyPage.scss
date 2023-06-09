@@ -1,0 +1,193 @@
+// .MyPageContainer{
+//   width: 1200px;
+//   padding-bottom: 820px;
+//   //height: auto;
+//   background-color: rgb(157, 247, 244);
+//   position: relative;
+//   margin: 0 auto;
+// }
+
+
+.MyPage-AllLayout {
+  width: 1200px;
+  padding-bottom: 950px;
+  position: relative;
+  margin: 0 auto;
+  background-color: rgb(157, 247, 244);
+
+  .myPageContainer{
+    //background-color: rgb(204, 89, 89);
+    width: 1100px;
+    position: absolute;
+    display: flex;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    top:30px;
+
+    .subContainer{
+      width: 250px;
+      padding-bottom: 300px;
+      // background-color: aliceblue;
+      background-color: #F2E7D5;
+      border-radius: 10px 0px 0px 10px;
+
+      .profile{
+        //border: solid 1px rgb(228, 169, 114);
+        position: relative;
+        top:21.5px;
+        height: 250px;
+        background-color: bisque;
+        
+        .profilePhoto{
+          position: relative;
+          top:20px;
+          width: 120px;
+          height: 120px;
+          margin-left: auto;
+          margin-right: auto;
+          border: solid 1px rgb(243, 214, 172);
+          border-radius: 50%;
+          box-shadow: 2px 5px 5px rgb(0,0,0,.3);
+          background-image: url(./59932b0eb046f9fa3e063b8875032edd_crop.jpeg);
+          background-position: center;
+          background-size: contain;
+          background-repeat: no-repeat;
+          overflow: hidden;
+          object-fit: cover;
+        }
+
+        .profileContainer{
+          position: relative;
+          margin-top: 2.5rem;
+          color:black;
+          text-align: center;
+          
+          .profileName{
+            font-size: 20px;
+            font-weight: 1000;
+          }
+
+          .profileText{
+            font-size: 15px;
+            margin-top: 1rem;
+          }
+        }
+      }
+
+        .category {
+          flex-direction: column;
+          position: relative;
+          height: 350px;
+          top:30px;
+          //background-color: #ca8b25;
+          //border: solid 1px rgb(185, 58, 58);
+
+          .categoryTap {
+            font-weight: bold;
+            padding: 15px;
+            color: black;
+            //background-color: #f8e4d1;
+            //padding: 1.2rem 0 0 0;
+            border-bottom: solid 2px rgb(239, 211, 174);
+            text-align: center;
+          }
+        }
+      }
+
+      .detailsContainer{
+        width: 75%;
+        flex-direction: column;
+        border-radius: 0px 10px 10px 0px;
+        background-color: rgb(255, 255, 255);
+
+        .orderContainer{
+          position: relative;
+          padding-bottom: 50px;
+          background-color: rgb(148, 255, 124);
+          top: 50px;
+
+          .orderText{
+            position: relative;
+            left:3rem;
+            width: 120px;
+            font-size: 20px;
+            margin-left: 2rem;
+            background-color: #F2E7D5;
+          }
+           
+            
+            .orderBox{
+              position: relative;
+              background-color: cadetblue;
+              border: dotted 1px black;
+              width:700px;
+              display: flex;
+              margin: 0 auto;
+              top: 20px;
+              max-width: 650px; /* 스크롤 영역의 최대 높이 설정 */
+              overflow-x: auto;
+
+              .orderList{
+                background-image: url(./8954699375_2.jpg);
+                background-position: center;
+                background-size: contain;
+                width: 300px;
+                height: 300px;
+                margin-left: 10px;
+                gap: 10px;
+                display: flex;
+                background-repeat: no-repeat;
+                background-color: rebeccapurple;
+              }
+            
+          }
+        }
+
+
+        .rentContainer{
+          position: relative;
+          //height: 40%;
+          top: 120px;
+          padding-bottom: 100px;
+          //background-color: rgb(192, 38, 244);
+
+          .rent{
+            position: relative;
+            // background-color: rgb(224, 57, 57);
+            top:3rem;
+            
+            .rentText{
+              font-size: 20px;
+              font-weight:700;
+              color:black;
+              padding: 0 0 0 6rem;
+            }
+            
+            .rentBox{
+              position: relative;
+              margin: 2rem 6rem 0 6rem;
+              // background-color: cadetblue;
+              border:dotted 1px black;
+              width:auto;
+              height: 12rem;
+              display: flex;
+              flex-wrap: nowrap;
+
+
+              .rentList{
+                background-image: url(./8954699375_2.jpg);
+                background-position: center;
+                background-size: contain;
+                background-repeat: no-repeat;
+                overflow: hidden;
+                padding: 3rem;
+                // width: 100%;
+                margin:0 auto;
+              }
+            }
+          }
+        }
+      }
+  }
+}
