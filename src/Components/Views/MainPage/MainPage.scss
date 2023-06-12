@@ -4,14 +4,24 @@
   margin: 0;
   padding: 0;
 }
-main {
-  position: relative;
-  display: flex;
+.wrapper {
+  width: 1200px;
+  margin: 100px auto 0;
 }
 a {
   display: block;
   text-decoration: none;
   color: black;
+}
+// CATEGORY
+main {
+  position: relative;
+  display: flex;
+  width: 1200px;
+  margin: 100px auto;
+  .tag-box {
+    width: 300px;
+  }
 }
 .category-menu {
   position: sticky;
@@ -32,16 +42,6 @@ a {
   .active {
     background-color: orange;
     border-radius: 30px;
-  }
-}
-// CATEGORY
-.wrapper {
-  position: relative;
-  display: flex;
-  width: 1200px;
-  margin: 100px auto;
-  .tag-box {
-    width: 300px;
   }
 }
 

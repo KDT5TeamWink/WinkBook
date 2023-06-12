@@ -1,4 +1,3 @@
-//import axios from '@/Apis/axios';
 import axios from 'axios';
 
 const { VITE_CLIENT_ID } = import.meta.env;
@@ -19,7 +18,7 @@ export async function getList(category: number) {
         category: category,
       },
     });
-    console.log(data.products);
+    //console.log(data.products);
     return data.products;
   } catch (err) {
     console.log(err);
@@ -29,6 +28,15 @@ export async function getList(category: number) {
 export async function getRecommand() {
   try {
     const res = await ajax.get('/mains/2/products');
+    return res.data;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export async function getDetail(product_no: string) {
+  try {
+    const res = await ajax.get(`/products/${product_no}`);
     return res.data;
   } catch (err) {
     console.log(err);

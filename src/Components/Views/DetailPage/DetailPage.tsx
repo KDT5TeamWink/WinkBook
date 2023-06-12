@@ -1,5 +1,4 @@
-import BookCustom from '../../../bookcustom/bookcustom'
-import axios from 'axios';
+import BookCustom from '../../../bookcustom/bookcustom';
 import { useEffect, useState } from 'react';
 import './DetailPage.scss'
 import { useParams } from 'react-router-dom';
@@ -17,14 +16,11 @@ function DetailPage(){
     price:number,
     price_excluding_tax: string,
     selling: string,
-    description:string
-    
-    
+    description:string 
   }
-
-
   const [detail, setDetail] = useState<DetailInfo>({} as DetailInfo);
   const [book, setBook] = useState([]);
+
 
   const { productNo } = useParams();
   async function getDetails() {
@@ -41,11 +37,6 @@ function DetailPage(){
       await getDetails();
     })();
   }, []);
-
- 
-
-
-
 
   const BuyBook = (detailnum) => {
     let Cart = localStorage.getItem('cart');
@@ -72,8 +63,6 @@ function DetailPage(){
     // console.log(detail);
   }
 
-
-    
     const disableLinkClick = (event) => {
       event.preventDefault();
       // You can add any additional handling here if needed
@@ -85,8 +74,6 @@ function DetailPage(){
       )
     : '';
   
-
-
   return(
     <>
 
@@ -129,10 +116,10 @@ function DetailPage(){
           <div className="ButtonContainer">
             <button className="CartAdd" onClick={()=> BuyBook(detail.product_no)}> 책 구매하기</button>
             <button className="BookBill">책 대여하기</button>
+
           </div>
         </div>
       </div>
-
       <div className="InnerContent"dangerouslySetInnerHTML={{ __html: modifiedDescription}} 
       onClick={disableLinkClick}>
       </div>
@@ -149,6 +136,6 @@ function DetailPage(){
       <img src={detail.detail_image}/>
     </div> */}
     </>
-  )
+  );
 }
-export default DetailPage
+export default DetailPage;
