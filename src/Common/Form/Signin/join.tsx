@@ -2,7 +2,7 @@ import { FormEvent, useState, useCallback }  from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { PwCheck, emailCheck } from '../Validation ';
-import { JoinForm } from 'Apis/apis';
+import { JoinForm } from '@/Apis/register';
 import './join.scss'
 
 

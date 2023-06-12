@@ -14,23 +14,22 @@ function CartItems() {
     name: string;
     text: string;
     price: string;
-    sale: string;
-    malize:string;
+    sale: string;    
   }
 
   const [info, setInfo] = useState([])
   const [checked, setChecked] = useState([true, false]);
   const [items, setItems] = useState<Item[]>([
     { id: 1,  name: '[국내도서]시작하세요! C# 10프로그래밍', text:"*밤 11시 잠들기전 배송", 
-    price:"정가: 36000", sale:"판매가:32,400", malize:"마일리지: 1,800원"},
+    price:"정가: 36000", sale:"판매가:32,400"},
     { id: 2, name: '도서명2', text:"*밤 11시 잠들기전 배송",
-    price:"정가: 36000", sale:"판매가:32,400", malize:"마일리지: 1,800원" },
+    price:"정가: 36000", sale:"판매가:32,400" },
     { id: 3, name: '도서명3', text:"*밤 11시 잠들기전 배송",
-    price:"정가: 36000", sale:"판매가:32,400", malize:"마일리지: 1,800원"},
+    price:"정가: 36000", sale:"판매가:32,400"},
     { id: 4, name: '도서명3', text:"*밤 11시 잠들기전 배송",
-    price:"정가: 36000", sale:"판매가:32,400", malize:"마일리지: 1,800원"},
+    price:"정가: 36000", sale:"판매가:32,400"},
     { id: 5, name: '도서명3', text:"*밤 11시 잠들기전 배송",
-    price:"정가: 36000", sale:"판매가:32,400", malize:"마일리지: 1,800원"},
+    price:"정가: 36000", sale:"판매가:32,400"},
   ]);
   const [checkedItems, setCheckedItems] = useState<number[]>([]);
 
@@ -41,25 +40,40 @@ function CartItems() {
   };
 
   const handleChange2 = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const itemId = parseInt(event.target.name);
+    const itemId = parseInt(event.target.name);   
     let updatedCheckedItems: number[] = [];
-
+      
     if (event.target.checked) {
       updatedCheckedItems = [...checkedItems, itemId];
     } else {
       updatedCheckedItems = checkedItems.filter((id) => id !== itemId);
     }
-    setCheckedItems(updatedCheckedItems);
+    setCheckedItems(updatedCheckedItems);  
+    console.log(priceTotal)  
   };
+    
+  const [priceTotal,setPriceTotal] = useState(0)
+  const [saleTotal, setSaleTotal] = useState(0)
   
-  const children = (itemId: number) => (
+  const children = (itemId: number, itemPrice: number, itemSale: number) => {
+    if(priceTotal !== 0){
+    if(checkedItems.includes(itemId)){
+      setPriceTotal(priceTotal + itemPrice)
+      setSaleTotal(saleTotal + itemSale)
+    }else{
+      setPriceTotal(priceTotal - itemPrice)
+      setSaleTotal(saleTotal - itemSale)
+    }   
+  }
+
+    return (
     <Box sx={{ display: 'flex', flexDirection: 'column', ml: 3, fontSize: 'large' }}>
       <FormControlLabel
         label=""
         control={<Checkbox checked={checkedItems.includes(itemId)} onChange={handleChange2} name={itemId.toString()} />}
       />
     </Box>
-  );
+  )};
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log()
@@ -106,7 +120,7 @@ function CartItems() {
       {items.map((item) => (
         <div className='ItemContainer'>
           <div className='CheckContainer'>
-            {children(item.id)}
+            {children(item.id,+item.price,+item.sale)}
           </div>
           <div key={item.id} className='ImageBox'> 
             <img src='/images/cartbookimage.jpg' alt='cartbookimage'/> 
@@ -118,8 +132,7 @@ function CartItems() {
 
           <div className='PriceInner'>
             <span>{item.price}</span>
-            <span>{item.sale}</span>
-            <span>{item.malize}</span>
+            <span>{item.sale}</span>            
           </div>
 
          

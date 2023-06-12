@@ -1,5 +1,5 @@
 import './App.scss'
-import RoutesPage from 'routes/routes'
+import RoutesPage from './routes/routes'
 
 
 

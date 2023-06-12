@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 //import { useDispatch } from "react-redux";
 import { FormEvent, useState, ChangeEvent }  from 'react';  
 //import { loginUser } from '_reducers/user_reducer';
-import { LoginForm } from 'Apis/apis';
+import { LoginForm } from '@/Apis/register'
 
   
 function Login() {

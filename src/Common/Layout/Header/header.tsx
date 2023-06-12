@@ -4,7 +4,7 @@ import './headers.scss'
 //import { RootState } from '../_reducers';
 //import { useDispatch } from 'react-redux';
 //import { logoutUser } from '_reducers/user_reducer';
-import { LogoutForm } from 'Apis/apis';
+import { LogoutForm } from '@/Apis/register';
 
 function Header(){
 
