@@ -20,7 +20,8 @@
     left: 0;
     right: 0;
     //font-family: 'Dovemayo_gothic';
-    
+    font-family: 'SUITE-Regular';
+
     .ImgContainer{
       height: 780px;
       position: relative;
@@ -37,7 +38,7 @@
       z-index: 100;
   
       .TitleBox{
-        width: 250px;
+        width: auto;
         height: 60px;
         position: absolute;
         margin: 0 auto;
@@ -46,7 +47,7 @@
         //background-color: red;
         
         p{
-          font-size: 40px;
+          font-size: 30px;
         }
       }
       .BookimgBox{
@@ -64,7 +65,7 @@
         img{
           width: 360px;
           height: auto;
-          position: absolute;
+          //position: absolute;
           margin: auto;
           left: 0;
           right: 0;
@@ -184,6 +185,26 @@
       }
     }
   
-  
+    .InnerContent{
+      width: 900px;
+      background-color: red;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      font-family: 'SUITE-Regular';
+
+      img{
+        width: 900px;
+        //position: absolute;
+        display: flex;
+        margin: 0 auto;
+      }
+
+      p{
+        font-family: 'SUITE-Regular' !important;
+        background-color: antiquewhite;
+      }
+      
+    }
   }
   
