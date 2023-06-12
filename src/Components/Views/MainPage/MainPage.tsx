@@ -1,6 +1,6 @@
 import "./MainPage.scss";
 import Carousel from "./Component/Carousel";
-import ajax from "src/Apis/adminAuth";
+import ajax from "@/Apis/adminAuth";
 import Main from "./Component/Main";
 import Recommand from "./Component/Recommand";
 
