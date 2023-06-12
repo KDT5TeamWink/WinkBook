@@ -29,7 +29,7 @@ function RoutesPage() {
             <Route index element={<MainPage />} />
             <Route path="/join" element={<Join />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/detailPage" element={<DetailPage />} />
+            <Route path="/detail/:productNo" element={<DetailPage />} />
             <Route
               path="/cart"
               element={<PrivatePage component={<CartPage />} status={""} />}
