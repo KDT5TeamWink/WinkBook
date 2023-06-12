@@ -1,0 +1,41 @@
+.recommand {
+  border: 2px solid;
+  border-radius: 10px;
+  margin-top: 100px;
+  overflow: hidden;
+
+  h1 {
+    border-bottom: 1px solid;
+  }
+}
+.recommand-wrapper {
+  display: grid;
+  grid-template-columns: 2fr 8fr;
+}
+.title {
+  border-right: 1px solid;
+  padding: 10px 10px;
+  cursor: pointer;
+  &:not(:last-child) {
+    border-bottom: 1px solid;
+  }
+}
+.description {
+  position: relative;
+  padding: 5% 5%;
+  background-color: rgb(254, 246, 243);
+
+  a {
+    position: absolute;
+    font-size: 0.8rem;
+    right: 10%;
+    bottom: 10%;
+    &:hover {
+      color: blue;
+    }
+  }
+}
+.selected {
+  border-right: none;
+  background-color: rgb(254, 246, 243);
+}

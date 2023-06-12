@@ -43,24 +43,19 @@ export default function Main() {
 
   return (
     <main>
-      <div className="wrapper">
-        <ul className="category-menu">
-          {category.map((item) => (
-            <li
-              key={item.number}
-              className={item.type === type ? 'active' : ''}
-            >
-              <a href={`#${item.type}`}>{item.type}</a>
-            </li>
-          ))}
-        </ul>
+      <ul className="category-menu">
+        {category.map((item) => (
+          <li key={item.number} className={item.type === type ? 'active' : ''}>
+            <a href={`#${item.type}`}>{item.type}</a>
+          </li>
+        ))}
+      </ul>
 
-        <div className="books-wrapper">
-          {/* CATEGORY */}
-          {category.map((item) => (
-            <Genre key={item.number} category={item} />
-          ))}
-        </div>
+      <div className="books-wrapper">
+        {/* CATEGORY */}
+        {category.map((item) => (
+          <Genre key={item.number} category={item} />
+        ))}
       </div>
     </main>
   );
