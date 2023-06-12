@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { getList } from '@/Apis/productApi';
+import { Link } from 'react-router-dom';
 
 interface Props {
   type: string;
@@ -31,7 +32,11 @@ export default function Genre({ category }: { category: Props }) {
       <div className="right">
         {list &&
           list.map((item) => (
-            <div key={item.product_no} className="book">
+            <Link
+              to={`detail/${item.product_no}`}
+              key={item.product_no}
+              className="book"
+            >
               <img src={item.list_image} alt={item.product_name} />
               <div>
                 {item.product_name},{item.product_no}
@@ -39,7 +44,7 @@ export default function Genre({ category }: { category: Props }) {
               <div>{item.retail_price}</div>
               <div>{item.price}</div>
               {item.main ? item.main.map((v) => <div>{v}</div>) : null}
-            </div>
+            </Link>
           ))}
       </div>
     </div>
