@@ -2,36 +2,89 @@ import BookCustom from '../../../bookcustom/bookcustom'
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import './DetailPage.scss'
-
-
-const { VITE_CLIENT_ID } = import.meta.env;
-const ajax = axios.create({
-  baseURL: '/cafe24/api/v2',
-  headers: {
-    'Content-Type': 'application/json',
-    'X-Cafe24-Client-Id': VITE_CLIENT_ID,
-  },
-});
-
+import { useParams } from 'react-router-dom';
+import { getDetail } from '@/Apis/productApi';
 
 function DetailPage(){
 
-  const [detail, setDetail] = useState<Product>({} as Product);
+  interface DetailInfo {
+    detail_image:string,
+    product_name:string,
+    retail_price:number,
+    simple_description:string,
+    summary_description:string,
+    product_no:string,
+    price:number,
+    price_excluding_tax: string,
+    selling: string,
+    description:string
+    
+    
+  }
+
+
+  const [detail, setDetail] = useState<DetailInfo>({} as DetailInfo);
+  const [book, setBook] = useState([]);
+
+  const { productNo } = useParams();
   async function getDetails() {
     try {
-      const { data } = await ajax.get('/products/21');
+      const data = await getDetail(productNo as string);
       setDetail(data.product);
     } catch (err) {
       console.log(err);
     }
   }
 
-
   useEffect(() => {
     (async () => {
       await getDetails();
     })();
   }, []);
+
+ 
+
+
+
+
+  const BuyBook = (detailnum) => {
+    let Cart = localStorage.getItem('cart');
+
+    // if(Cart === null) {
+    //   Cart = [];
+    // } else {
+    //   Cart = JSON.parse(Cart);
+    // }
+
+    // let datalist = {
+    //   "buy": []
+    //   ,"rent": []
+    // }1
+
+
+    // datalist.buy[1]= productid;
+    
+    // buy - [1,2,4,56]
+    // rent - [1,3,6,7]
+    // let c = localStorage.getIte(cart);
+    // c.buy 
+    // Cart.push()
+    // console.log(detail);
+  }
+
+
+    
+    const disableLinkClick = (event) => {
+      event.preventDefault();
+      // You can add any additional handling here if needed
+    };
+  
+    const modifiedDescription = detail.description
+    ? detail.description.replace(/<a\b[^>]*>/gi, (match) =>
+        match.replace('href', 'data-disabled-href')
+      )
+    : '';
+  
 
 
   return(
@@ -44,10 +97,10 @@ function DetailPage(){
 
       <div className="LeftContainer">
         <div className="TitleBox">
-          <p>제목입니다. </p>
+          <span>{detail.product_name} </span>
         </div>
         <div className="BookimgBox">
-          <img src="/public/images/bookcover.jpg" alt="bookimgs"/>
+          <img src={detail.detail_image}/>
         </div>
       </div>
 
@@ -58,25 +111,13 @@ function DetailPage(){
 
         <div className="RightContainer-Content">
           <div className="OriginPrice">
-            <span className="PriceText">정가</span>
-            <span className="PriceNumber">22,000</span>
-          </div>
-          <div className="OriginPrice">
             <span className="PriceText">판매가</span>
-            <span className="PriceNumber">22,000</span>
-          </div>
-          <div className="OriginPrice">
-            <span className="PriceText">수량</span>
-            <span className="PriceNumber">22,000</span>
+            <span className="PriceNumber">{detail.price}</span>
           </div>
           <div className="ContentContainer">
             <span className="ContentBox">줄거리</span>
             <span className="contentText">
-            <p>더 이상 설명이 필요 없는 20세기 환경학 최고의 고전 [침묵의 봄]이
-            50주년 기념 개정판으로 나왔다. 이번 개정판에는 서문과 후기가
-            완전히 새롭게 단장되었으며, 2002년 출간본에는 없던(원서에도
-            없었음) 찾아보기를 새롭게 추가했다. 그리고 편집과 장정도 완전히
-            바뀌었다.</p>
+            <p></p>
             </span>
           </div>
           <div className="CardPrice">
@@ -86,15 +127,27 @@ function DetailPage(){
           </div>
 
           <div className="ButtonContainer">
-            <button className="CartAdd">장바구니 담기</button>
+            <button className="CartAdd" onClick={()=> BuyBook(detail.product_no)}> 책 구매하기</button>
             <button className="BookBill">책 대여하기</button>
           </div>
         </div>
       </div>
 
-    </div>
+      <div className="InnerContent"dangerouslySetInnerHTML={{ __html: modifiedDescription}} 
+      onClick={disableLinkClick}>
+      </div>
 
-    <div dangerouslySetInnerHTML={{ __html: detail.description }}></div>
+    </div>
+    {/* <div className="InnerContent"dangerouslySetInnerHTML={{ __html: modifiedDescription}} 
+    onClick={disableLinkClick}>
+      
+      </div> */}
+    {/* <div dangerouslySetInnerHTML={{ __html: detail.detail_image }}>
+    </div> */}
+
+    {/* <div>
+      <img src={detail.detail_image}/>
+    </div> */}
     </>
   )
 }
