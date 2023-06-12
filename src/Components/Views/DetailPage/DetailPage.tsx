@@ -22,6 +22,7 @@ function DetailPage(){
   const [book, setBook] = useState([]);
 
 
+
   const { productNo } = useParams();
   async function getDetails() {
     try {
@@ -37,6 +38,7 @@ function DetailPage(){
       await getDetails();
     })();
   }, []);
+
 
   const BuyBook = (detailnum) => {
     let Cart = localStorage.getItem('cart');
@@ -116,14 +118,13 @@ function DetailPage(){
           <div className="ButtonContainer">
             <button className="CartAdd" onClick={()=> BuyBook(detail.product_no)}> 책 구매하기</button>
             <button className="BookBill">책 대여하기</button>
-
+            
           </div>
         </div>
       </div>
       <div className="InnerContent"dangerouslySetInnerHTML={{ __html: modifiedDescription}} 
       onClick={disableLinkClick}>
       </div>
-
     </div>
     {/* <div className="InnerContent"dangerouslySetInnerHTML={{ __html: modifiedDescription}} 
     onClick={disableLinkClick}>
@@ -135,6 +136,7 @@ function DetailPage(){
     {/* <div>
       <img src={detail.detail_image}/>
     </div> */}
+
     </>
   );
 }
