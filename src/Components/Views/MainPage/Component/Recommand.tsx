@@ -14,7 +14,6 @@ interface RecommandProduct {
 
 export default function Recommand() {
   const [list, setList] = useState<RecommandProducts>();
-  const [recommandBook, setRecommandBook] = useState('');
   async function recommand() {
     try {
       const res = await getRecommand();
@@ -33,36 +32,21 @@ export default function Recommand() {
     <div className="recommand">
       <h1>추천도서</h1>
       <div className="recommand-wrapper">
-        <div>
-          {list &&
-            list.map((item) => (
-              <div
-                key={item.product_name}
-                onClick={() => {
-                  setRecommandBook(item.product_name);
-                }}
-                className={`title ${
-                  recommandBook === item.product_name ? 'selected' : ''
-                }`}
-              >
-                {item.product_name}
-              </div>
-            ))}
-        </div>
-
-        <div className="description">
-          {list &&
-            list.map((item) => {
-              if (recommandBook === item.product_name) {
-                return (
-                  <>
-                    {item.summary_description}
-                    <Link to={`/detail/${item.product_no}`}>책 살펴보기</Link>
-                  </>
-                );
-              }
-            })}
-        </div>
+        {list &&
+          list.map((item) => (
+            <Link
+              to={`/detail/${item.product_no}`}
+              key={item.product_no}
+              className="test"
+            >
+              <h3>{item.product_name}</h3>
+              <p>
+                {item.summary_description.length > 85
+                  ? item.summary_description.slice(0, 85) + '...'
+                  : item.summary_description}
+              </p>
+            </Link>
+          ))}
       </div>
     </div>
   );
