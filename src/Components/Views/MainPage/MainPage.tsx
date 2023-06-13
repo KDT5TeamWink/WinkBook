@@ -20,10 +20,10 @@ if (params.get('code')) {
 
 export default function MainPage() {
   return (
-    <>
+    <div className="wrapper">
       <Carousel />
       <Recommand />
       <Main />
-    </>
+    </div>
   );
 }

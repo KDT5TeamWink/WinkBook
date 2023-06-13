@@ -1,8 +1,13 @@
-// import { useState, useEffect } from 'react';
+import { FormEvent, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './MyPage.scss'
 
 function MyPage () {
+
+  const [email, setEmail] = useState<string>('');
+
+
+
     return(
         <>
         <div className='MyPage-AllLayout'>
@@ -24,7 +29,7 @@ function MyPage () {
               <Link to="/">
                 <div className='categoryTap'>주문내역조회</div>
               </Link> <br />
-              <Link to="/">
+              <Link to="/UserInfo">
                 <div className='categoryTap'>회원정보 수정</div>
               </Link> <br />
               <Link to="/">
@@ -39,12 +44,9 @@ function MyPage () {
             </div>
           </div>
 
-
-
           <div className="detailsContainer"> 
             <div className="orderContainer">
               
-               
                 <div className="orderText">
                   구매 내역
                 </div>
