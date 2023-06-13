@@ -9,21 +9,20 @@ import UserInfo from '@/Components/Views/MyPage/UserInfo'
 import PrivatePage from './privateRoute'
 import DetailPage from '@/Components/Views/DetailPage/DetailPage'
 
-import { Routes,  BrowserRouter, Route, Outlet } from 'react-router-dom'
+import { Routes, BrowserRouter, Route, Outlet } from 'react-router-dom';
 
- const Layout = () => {
-  return(
+const Layout = () => {
+  return (
     <>
-    <Header/>
+      <Header />
       <Outlet />
-    <Footer/>
+      <Footer />
     </>
-  )
-}
+  );
+};
 
 function RoutesPage() {
-
-  return(
+  return (
     <>
     <BrowserRouter>
       <Routes>
@@ -47,6 +46,6 @@ function RoutesPage() {
       </Routes>
     </BrowserRouter>
     </>
-  )
+  );
 }
-export default RoutesPage
+export default RoutesPage;

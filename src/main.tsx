@@ -7,7 +7,6 @@ import './index.scss'
 // import { createStore, applyMiddleware } from 'redux';
 // import reducer from '_reducers/user_reducer.tsx';
 
-
 //const createStoreWithMiddleware = applyMiddleware(promiseMiddleware, ReduxThunk)(createStore);
 //const store = createStore(reducer, applyMiddleware(thunk));
 
