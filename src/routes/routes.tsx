@@ -7,6 +7,7 @@ import CartPage from "@/Components/Views/CartPage/CartPage";
 import MyPage from "@/Components/Views/MyPage/MyPage";
 import PrivatePage from "./privateRoute";
 import DetailPage from "@/Components/Views/DetailPage/DetailPage";
+import UserInfo from "@/Components/Views/MyPage/UserInfo";
 
 import { Routes, BrowserRouter, Route, Outlet } from "react-router-dom";
 
@@ -38,7 +39,10 @@ function RoutesPage() {
               path="/mypage"
               element={<PrivatePage component={<MyPage />} status={""} />}
             />
-
+            <Route
+              path="/userinfo"
+              element={<PrivatePage component={<UserInfo />} status={""} />}
+            />
             {/* <Route path="/mypage" element={<MyPage/>}/> */}
           </Route>
         </Routes>
