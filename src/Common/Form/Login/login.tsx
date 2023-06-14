@@ -1,15 +1,15 @@
-import './login.scss';
-import { useNavigate, Link } from 'react-router-dom';
+import "./login.scss";
+import { useNavigate, Link } from "react-router-dom";
 //import { useDispatch } from "react-redux";
-import { FormEvent, useState, ChangeEvent } from 'react';
+import { FormEvent, useState, ChangeEvent } from "react";
 //import { loginUser } from '_reducers/user_reducer';
-import { LoginForm } from '@/Apis/register';
+import { LoginForm } from "@/Apis/register";
 
 function Login() {
   const navigate = useNavigate();
   //const dispatch = useDispatch();
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
 
   const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
@@ -29,13 +29,13 @@ function Login() {
   async function Signin(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    if (email === undefined || email === '' || email === null) {
-      alert('이메일을 입력해주세요.');
+    if (email === undefined || email === "" || email === null) {
+      alert("이메일을 입력해주세요.");
       return false;
     }
 
-    if (password === undefined || password === '' || password === null) {
-      alert('비밀번호를 입력해주세요.');
+    if (password === undefined || password === "" || password === null) {
+      alert("비밀번호를 입력해주세요.");
       return false;
     }
 
@@ -50,15 +50,15 @@ function Login() {
       console.log(data);
 
       if (data.accessToken) {
-        alert('로그인 되었습니다!');
-        window.localStorage.setItem('token', data.accessToken);
-        navigate('/');
+        alert("로그인 되었습니다!");
+        window.localStorage.setItem("token", data.accessToken);
+        navigate("/");
       } else {
-        alert('로그인에 실패하였습니다. 다시 시도해주세요.');
+        alert("로그인에 실패하였습니다. 다시 시도해주세요.");
       }
     } catch (error) {
       console.error(error);
-      alert('오류가 발생했습니다. 다시 시도해주세요.');
+      alert("오류가 발생했습니다. 다시 시도해주세요.");
     }
   }
 
@@ -104,9 +104,9 @@ function Login() {
           <p>아이디가 없으신가요?</p>
           <Link
             style={{
-              textDecoration: 'none',
-              color: 'black',
-              marginLeft: '20px',
+              textDecoration: "none",
+              color: "black",
+              marginLeft: "20px",
             }}
             to="/join"
           >

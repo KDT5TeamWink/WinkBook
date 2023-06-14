@@ -1,10 +1,10 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
 //import { useSelector } from 'react-redux';
-import './headers.scss';
+import "./headers.scss";
 //import { RootState } from '../_reducers';
 //import { useDispatch } from 'react-redux';
 //import { logoutUser } from '_reducers/user_reducer';
-import { LogoutForm } from '@/Apis/register';
+import { LogoutForm } from "@/Apis/register";
 
 function Header() {
   // const userState = useSelector((state) => state.user);
@@ -17,16 +17,16 @@ function Header() {
   const logoutHandler = () => {
     LogoutForm()
       .then(() => {
-        localStorage.removeItem('token');
-        alert('로그아웃 되셨습니다');
-        navigate('/');
+        localStorage.removeItem("token");
+        alert("로그아웃 되셨습니다");
+        navigate("/");
       })
       .catch((error: string) => {
-        console.log('Logout failed:', error);
+        console.log("Logout failed:", error);
       });
   };
 
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem("token");
 
   return (
     <>
