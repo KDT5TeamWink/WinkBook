@@ -28,12 +28,12 @@
   .ProductNameBox {
     @include CartNameStyle;
     width: 60px;
-    left: 300px;
+    left: 400px;
   }
 
   .PriceNameBox{
     @include CartNameStyle;
-    right: 450px;
+    right: 400px;
   }
 
   .NumberBox{
@@ -43,7 +43,7 @@
 
   .DeleteNameBox{
     @include CartNameStyle;
-    right: 100px;
+    right: 120px;
   }
 
 
@@ -56,8 +56,8 @@
     overflow-y: auto; /* 세로 스크롤 생성 */  
 
     .ItemContainer {
-      width: 1180px;
-      height: 90px;
+      width: 1182px;
+      padding-bottom: 5px;
       position: relative;
       margin-top: 20px;
       border-bottom: 2px solid rgb(208, 203, 185);
@@ -66,34 +66,34 @@
         width: 60px;
         height: 40px;
         position: absolute;
-        top: 12px;
+        top: 40px;
         left: 30px;  
       }
       
       .ImageBox{
         width: 100px;
-        height: 100px;
-        margin-left: 150px;
+        //height: 100px;
+        position: relative;
+        bottom: 10px;
+        margin-left: 120px;
+        background-color: rebeccapurple;
 
         img{
-          position: absolute;
+          //position: absolute;
           width: inherit;
-          height: 80px;
+          background-color: orange;
+          height: auto;
         }
       }
 
       .TextInner {
-        width: 400px;
-        height: 100px;
+        width: 450px;
+        padding-bottom: 30px;
         position: absolute;
-        top: 1px;
+        top: 50px;
         left: 260px;
-        font-size: 20px;
-        
+
         span:nth-child(1) {
-          width: 400px;
-          height: 20px;
-          position: absolute;
           font-size: 20px;
         }
 
@@ -107,49 +107,21 @@
       }
 
       .PriceInner{
-        width: 150px;
-        height: 90px;
+        width: auto;
+        padding-bottom: 10px;
+        top: 50px;
         position: absolute;
-        top: -10px;
-        right: 350px;
-        //background-color: olivedrab;
-        display: table-column;
+        right: 370px;
+        background-color: olivedrab;
         font-size: 15px;
         
-
-        span:nth-child(1){
-          width: 100px;
-          height: 20px;
-          position: absolute;
-        }
-
-        span:nth-child(2){
-          height: 30px;
-          position: absolute;
-          margin-top: 30px;
-        }
-
-        span:nth-child(3){
-          height: 30px;
-          position: absolute;
-          margin-top: 60px;
-        }
-    }
-
-    .ChooseNumber{
-      width: 90px;
-      height: 50px;
-      //background-color: brown;
-      position: absolute;
-      right: 220px;
-      top: 15px;
+       
     }
 
     .CartButtonBox{
       width: 60px;
-      height: 60px;
       position: absolute;
-      top: 15px;
+      top: 30px;
       right: 100px;
       //background-color: burlywood;
       
@@ -157,7 +129,7 @@
         display: block;
         width: 50px;
         height: 30px;
-        margin-top: 5px;
+        margin-top: 10px;
       }
     }
   }
