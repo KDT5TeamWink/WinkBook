@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
@@ -6,99 +6,76 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import YearBox from 'Common/section/number';
 import './CartItems.scss';
 
-function CartItems() {
-  interface Item {
-    id: number;
-    // image:string;
-    name: string;
-    text: string;
-    price: string;
-    sale: string;
-    malize: string;
-  }
+interface BuyItem {
+  id: number;
+  product_name: string;
+  price: number;
+  detail_image: string;
+}
 
+interface CartItemsProps {
+  check: number[];
+  pitem: any;
+  setItems:any;
+
+}
+
+const CartItems = ({ check, pitem, setItems }: CartItemsProps) => {
   const [info, setInfo] = useState([]);
-  const [checked, setChecked] = useState([true, false]);
-  const [items, setItems] = useState<Item[]>([
-    {
-      id: 1,
-      name: '[국내도서]시작하세요! C# 10프로그래밍',
-      text: '*밤 11시 잠들기전 배송',
-      price: '정가: 36000',
-      sale: '판매가:32,400',
-      malize: '마일리지: 1,800원',
-    },
-    {
-      id: 2,
-      name: '도서명2',
-      text: '*밤 11시 잠들기전 배송',
-      price: '정가: 36000',
-      sale: '판매가:32,400',
-      malize: '마일리지: 1,800원',
-    },
-    {
-      id: 3,
-      name: '도서명3',
-      text: '*밤 11시 잠들기전 배송',
-      price: '정가: 36000',
-      sale: '판매가:32,400',
-      malize: '마일리지: 1,800원',
-    },
-    {
-      id: 4,
-      name: '도서명3',
-      text: '*밤 11시 잠들기전 배송',
-      price: '정가: 36000',
-      sale: '판매가:32,400',
-      malize: '마일리지: 1,800원',
-    },
-    {
-      id: 5,
-      name: '도서명3',
-      text: '*밤 11시 잠들기전 배송',
-      price: '정가: 36000',
-      sale: '판매가:32,400',
-      malize: '마일리지: 1,800원',
-    },
-  ]);
-  const [checkedItems, setCheckedItems] = useState<number[]>([]);
+  const [buyItem, setbuyItem] = useState<BuyItem[]>([]);
+  const [checkedItems, setCheckedItems] = useState<number[]>(check);
+
+
+  useEffect(() => {
+    BuyCart();
+  }, []);
+
+  const BuyCart = () => {
+    const BuyItems = JSON.parse(localStorage.getItem("cart")) || [];
+    setbuyItem(BuyItems);
+    console.log(BuyItems)
+  }
 
   const handleChange1 = (event: React.ChangeEvent<HTMLInputElement>) => {
     const checkedValue = event.target.checked;
     const updatedCheckedItems = checkedValue
-      ? items.map((item) => item.id)
+      ? buyItem.map((item) => item.id)
       : [];
-    setCheckedItems(updatedCheckedItems);
+    setCheckedItems(updatedCheckedItems);  
   };
 
-  const handleChange2 = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange2 = (el: any) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(el);
     const itemId = parseInt(event.target.name);
     let updatedCheckedItems: number[] = [];
-
+    let updatedItems: any[] = [];
     if (event.target.checked) {
       updatedCheckedItems = [...checkedItems, itemId];
+      updatedItems = [...pitem , el];
     } else {
       updatedCheckedItems = checkedItems.filter((id) => id !== itemId);
-    }
+      updatedItems = pitem.filter((key) => key.product_no !== el.product_no);
+    } 
+    setItems(updatedItems);
     setCheckedItems(updatedCheckedItems);
+    setCheck(updatedCheckedItems);
   };
 
-  const children = (itemId: number) => (
+  const children = (el:any ,index:number) => (
     <Box
       sx={{
         display: 'flex',
         flexDirection: 'column',
         ml: 3,
         fontSize: 'large',
-      }}
-    >
+      }}>
       <FormControlLabel
         label=""
         control={
           <Checkbox
-            checked={checkedItems.includes(itemId)}
-            onChange={handleChange2}
-            name={itemId.toString()}
+            checked={checkedItems.includes(index)}
+            onChange={handleChange2(el)}
+            name={index}
           />
         }
       />
@@ -113,6 +90,26 @@ function CartItems() {
     });
   };
 
+  const RemoveBuyItem = (index: number, key:any) => {
+    console.log(key);
+    const confirmation = window.confirm('삭제하시겠습니까?');
+    if (confirmation) {
+
+      const updatedCartData = JSON.parse(localStorage.getItem('cart'));
+      localStorage.setItem('cart', JSON.stringify(updatedCartData.filter((item) => item.product_no !== key)));
+      
+      const updatedBuyItem = [...buyItem];
+      //선택한 index 1개를 buyItem 배열에서 제거.
+      updatedBuyItem.splice(index, 1);
+      // 제거한후의 값 setState 갑에 담아줌.
+      setbuyItem(updatedBuyItem);
+      // cart 키 값으로 로컬에서 데이터 찾아옴
+      alert('삭제되었습니다.');
+    } else {
+      alert('취소되었습니다.');
+    }
+  };
+
   return (
     <>
       <div className="CartPageTable__Buy">
@@ -122,19 +119,15 @@ function CartItems() {
             <div className="LableBox">
               <Checkbox
                 size="large"
-                checked={checkedItems.length === items.length}
+                checked={checkedItems.length === buyItem.length}
                 indeterminate={
-                  checkedItems.length > 0 && checkedItems.length < items.length
+                  checkedItems.length > 0 && checkedItems.length < buyItem.length
                 }
                 onChange={handleChange1}
               />
             </div>
           }
         />
-
-        {/* <div className="Product-Buy">
-        <span>구매</span>
-      </div> */}
 
         <div className="ProductNameBox">
           <span>상품명</span>
@@ -150,25 +143,23 @@ function CartItems() {
       </div>
 
       <div className="ItemsContainer">
-        {items.map((item) => (
-          <div className="ItemContainer">
-            <div className="CheckContainer">{children(item.id)}</div>
-            <div key={item.id} className="ImageBox">
-              <img src="/images/cartbookimage.jpg" alt="cartbookimage" />
+        {buyItem.map((el, index) => (
+          <div className="ItemContainer" key={index}>
+            {/* 아이템 체크 하는 부분 */}
+            <div className="CheckContainer">{children(el, index)}</div>
+            <div key={el.id} className="ImageBox">
+              <img src={el.detail_image} alt="cartbookimage" />
             </div>
             <div className="TextInner">
-              <span>{item.name}</span>
-              <span>{item.text}</span>
+              <span>{el.product_name}</span>
             </div>
 
             <div className="PriceInner">
-              <span>{item.price}</span>
-              <span>{item.sale}</span>
-              <span>{item.malize}</span>
+              <span>{Number(el.price).toFixed(0)}원</span>
             </div>
 
             <div className="CartButtonBox">
-              <button>삭제</button>
+              <button onClick={() => RemoveBuyItem(index, el.product_no)}>삭제</button>
             </div>
           </div>
         ))}
