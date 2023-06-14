@@ -1,49 +1,68 @@
 import './CartPage.scss'
-import { FormEvent, useState } from 'react';
+import { useState, useEffect } from 'react';
 import CartItems from './CartItems/CartItems';
-import { Value } from 'sass';
 import RentalItems from './CartRent/CartRent';
 
 
 function CartPage() {
 
-    // const [rentalbook, setRentalBook] = useState<Item[]>([
-    //   { id: 1,  name: '[국내도서]시작하세요! C# 10프로그래밍', text:"*밤 11시 잠들기전 배송", 
-    //   price:"정가: 36000", sale:"판매가:32,400", malize:"마일리지: 1,800원"},
-    // ])
+  const BuyProducts = () => {
+    alert("주문완료!")
+  }
 
-    const Text = {
-      '1':'상품명',
-      '2':'가격',
-      '3':'수량',
-      '4':'대여날자',
-    } as const;
+  const [CartItemsValue, setCartItemsValue] = useState<number[]>([]);
+  const [selectedItem, setSelectedItem] = useState<any[]>([]);
+  const [Total, setTotal] = useState(0)
+  const [ShowTotal, setShowTotal] = useState(false)
+  
+  const [RentalItemsValue, setRentalItemsValue] = useState<number[]>([]);
 
-    const BuyProducts = () => {
-      alert("주문완료!")
+  useEffect(() => {
+    console.log(CartItemsValue+"k");
+    console.log(selectedItem)
+  }, [CartItemsValue]);
+
+  useEffect(() => {
+    calculateTotal();
+  }, [selectedItem]);
+
+  const calculateTotal = () => {
+    console.log('ccccccc' + Array.isArray(selectedItem))
+    let total = 0;
+    if (Array.isArray(selectedItem)) {
+      selectedItem.forEach((item) => {
+        console.log(item);
+        const itemPrice = parseFloat(item.price);
+        console.log(itemPrice)
+        if (!isNaN(itemPrice)) {
+          console.log(itemPrice)
+          total += itemPrice;
+        }
+      });
     }
- 
+    setTotal(total);
+    console.log(total + "토");
+    setShowTotal(true);
+  };
+
+
   return (
   <>
   <div className='CartPage-AllLayout'>  
-
-    {/* <div className="CartPageTable">    */}
-
       <span className="ProductText">구매</span>  
       <div className="CartContainer">
-        <CartItems/>
+        <CartItems 
+          check={CartItemsValue} 
+          pitem={selectedItem} 
+          setItems={setSelectedItem}
+        />
       </div>  
-    
-    
-    {/* </div> */}
-
     {/* 여기에서는 대여 부분  */}
     <span className='RentText'>대여 </span>
       <div className='RentContainer'>
         <RentalItems/>
       </div>
 
-    
     <span className='BuyText'>결제</span>
       <div className='BuyContainer'>
         
@@ -51,12 +70,7 @@ function CartPage() {
           <div className='Buy-Container'>
             <div className='Pay-Container'> 
               <span>총 상품 가격 </span>
-              <span>28,000</span>
-            </div>
-
-            <div className='Pay-Container'> 
-              <span>총 주문 상품수</span>
-              <span>1종 1권(개)</span>
+              {ShowTotal && <h2>Total Amount: ${Total}</h2>}
             </div>
           </div>
         </div>
