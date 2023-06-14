@@ -47,7 +47,7 @@ function CartPage() {
 
 
   return (
-  <>
+  
   <div className='CartPage-AllLayout'>  
       <span className="ProductText">구매</span>  
       <div className="CartContainer">
@@ -88,7 +88,7 @@ function CartPage() {
 
       </div>
   </div>
-  </>
+
   );
 }
 export default CartPage;
