@@ -22,7 +22,7 @@ function CartPage() {
     const BuyProducts = () => {
       alert("주문완료!")
     }
- 
+
   return (
   <>
   <div className='CartPage-AllLayout'>  
@@ -33,7 +33,6 @@ function CartPage() {
       <div className="CartContainer">
         <CartItems/>
       </div>  
-    
     
     {/* </div> */}
 

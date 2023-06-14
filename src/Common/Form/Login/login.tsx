@@ -11,6 +11,7 @@ function Login() {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
+
   const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
@@ -18,6 +19,7 @@ function Login() {
   const onChangeName = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
+
 
   interface DataToSubmit {
     email: string; // 사용자 아이디 (필수!)
