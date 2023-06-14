@@ -23,6 +23,7 @@ function DetailPage(){
   const navigate = useNavigate();
   const [detail, setDetail] = useState<DetailInfo>({} as DetailInfo);
 
+
   const { productNo } = useParams();
   async function getDetails() {
     try {
