@@ -38,42 +38,11 @@ main {
     justify-content: center;
     height: 50px;
     width: 100px;
+    border-radius: 30px;
+    transition: background-color 0.3s;
   }
   .active {
     background-color: orange;
-    border-radius: 30px;
-  }
-}
-
-.books {
-  display: flex;
-  overflow: hidden;
-  &:not(:last-child) {
-    margin-bottom: 50px;
-  }
-}
-.left {
-  background-color: rgb(219, 218, 218);
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
-
-  .tag-box {
-    padding: 30px 10px;
-  }
-}
-.right {
-  display: flex;
-  flex-wrap: wrap;
-  border-top: 1px solid rgb(219, 218, 218);
-  border-bottom: 1px solid rgb(219, 218, 218);
-
-  .book {
-    width: calc(100% / 5);
-    padding: 30px 10px;
-    img {
-      border-radius: 10px;
-      width: 100%;
-      //height: 200px;
-    }
+    //border-radius: 30px;
   }
 }
