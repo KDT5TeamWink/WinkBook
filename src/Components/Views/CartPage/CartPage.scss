@@ -6,28 +6,27 @@
 }
 
 @mixin TableStyle {
-  
 }
 
 // 장바구니 전체 레이아웃
 .CartPage-AllLayout {
   //font-family: 'SUITE-Regular';
   width: 1200px;
-  padding-bottom: 1400px;  
+  padding-bottom: 1400px;
   position: relative;
-  margin:  0 auto;
+  margin: 0 auto;
   font-weight: 600;
   //background-color: aquamarine;
 
-  .ProductText{
+  .ProductText {
     @include CartNameStyle;
-    top:10px;
+    top: 10px;
     left: 45px;
     position: absolute;
     //background-color: red;
   }
 
-  .CartContainer{
+  .CartContainer {
     position: absolute;
     display: flex;
     justify-content: center;
@@ -38,11 +37,11 @@
     background-color: rgb(249, 249, 249);
   }
 
-  //장바구니 나타나는 부분 
+  //장바구니 나타나는 부분
   .CartPageTable {
-    position: relative; 
+    position: relative;
     width: 1200px;
-    //padding-bottom: 520px;  
+    //padding-bottom: 520px;
     //background-color: #7fe41f;
     margin: 0 auto;
     left: 0;
@@ -50,7 +49,7 @@
     top: 50px;
   }
 
-  .RentText{
+  .RentText {
     //background-color: olive;
     position: absolute;
     font-size: 20px;
@@ -78,15 +77,15 @@
     left: 45px;
   }
 
-  .BuyContainer{
+  .BuyContainer {
     position: absolute;
     //justify-content: center;
     width: inherit;
     padding-bottom: 200px;
-    bottom:10px;
-    background-color: #EDDBC7;
-  
-    .NowBuy{
+    bottom: 10px;
+    background-color: #eddbc7;
+
+    .NowBuy {
       width: 500px;
       position: absolute;
       height: 100px;
@@ -96,7 +95,7 @@
       //background-color: wheat;
       border-bottom: 2px solid black;
       //bottom: 100px;
-  
+
       .Buy-Container {
         width: 250px;
         position: absolute;
@@ -106,17 +105,17 @@
         left: 0;
         right: 0;
         top: 30px;
-  
+
         .Pay-Container {
           width: inherit;
           height: 30px;
           //background-color: rosybrown;
           display: flex;
           gap: 40px;
-        }  
+        }
       }
     }
-  
+
     .AllCount-Container {
       width: 500px;
       position: absolute;
@@ -125,17 +124,17 @@
       top: 120px;
       left: 100px;
 
-      .AllCount-Container__box{
+      .AllCount-Container__box {
         width: 300px;
         height: 50px;
         //background-color: darkblue;
         display: flex;
         gap: 50px;
-        margin:  0 auto;
+        margin: 0 auto;
       }
-    } 
+    }
 
-    .Buy-ButtonBox{
+    .Buy-ButtonBox {
       width: 300px;
       height: 55px;
       //background-color: firebrick;
@@ -143,19 +142,19 @@
       right: 100px;
       top: 50px;
 
-      button{
+      button {
         width: inherit;
         height: inherit;
         border-radius: 5px;
         color: white;
         font-weight: bold;
-        background-color: #F99417;
+        background-color: #f99417;
         border: none;
+        cursor: pointer;
+        &:hover {
+          background-color: #ffa12e;
+        }
       }
     }
   }
-
-  
 }
-
-

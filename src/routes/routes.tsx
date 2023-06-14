@@ -1,15 +1,15 @@
-import Header from '@/Common/Layout/Header/header';
-import Footer from '@/Common/Layout/Footer/footer';
-import MainPage from '@/Components/Views/MainPage/MainPage';
-import Join from '@/Common/Form/Signin/join';
-import Login from '@/Common/Form/Login/login';
-import CartPage from '@/Components/Views/CartPage/CartPage';
-import MyPage from '@/Components/Views/MyPage/MyPage';
-import PrivatePage from './privateRoute';
-import DetailPage from '@/Components/Views/DetailPage/DetailPage';
-import UserInfo from '@/Components/Views/MyPage/UserInfo';
+import Header from "@/Common/Layout/Header/header";
+import Footer from "@/Common/Layout/Footer/footer";
+import MainPage from "@/Components/Views/MainPage/MainPage";
+import Join from "@/Common/Form/Signin/join";
+import Login from "@/Common/Form/Login/login";
+import CartPage from "@/Components/Views/CartPage/CartPage";
+import MyPage from "@/Components/Views/MyPage/MyPage";
+import PrivatePage from "./privateRoute";
+import DetailPage from "@/Components/Views/DetailPage/DetailPage";
+import UserInfo from "@/Components/Views/MyPage/UserInfo";
 
-import { Routes, BrowserRouter, Route, Outlet } from 'react-router-dom';
+import { Routes, BrowserRouter, Route, Outlet } from "react-router-dom";
 
 const Layout = () => {
   return (
@@ -33,15 +33,15 @@ function RoutesPage() {
             <Route path="/detail/:productNo" element={<DetailPage />} />
             <Route
               path="/cart"
-              element={<PrivatePage component={<CartPage />} status={''} />}
+              element={<PrivatePage component={<CartPage />} status={""} />}
             />
             <Route
               path="/mypage"
-              element={<PrivatePage component={<MyPage />} status={''} />}
+              element={<PrivatePage component={<MyPage />} status={""} />}
             />
             <Route
               path="/userinfo"
-              element={<PrivatePage component={<UserInfo />} status={''} />}
+              element={<PrivatePage component={<UserInfo />} status={""} />}
             />
             {/* <Route path="/mypage" element={<MyPage/>}/> */}
           </Route>
