@@ -29,7 +29,7 @@ function MyPage () {
               <Link to="/">
                 <div className='categoryTap'>주문내역조회</div>
               </Link> <br />
-              <Link to="/UserInfo">
+              <Link to="/userinfo">
                 <div className='categoryTap'>회원정보 수정</div>
               </Link> <br />
               <Link to="/">
