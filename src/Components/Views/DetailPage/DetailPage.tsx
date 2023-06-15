@@ -127,7 +127,7 @@ function DetailPage(){
       <div className="LeftContainer">
         <div className="TitleBox">
           <span>{detail.product_name}</span>
-          <span>-단돈 1,000원으로 시작할수 있는</span>
+          {/* <span>-단돈 1,000원으로 시작할수 있는</span> */}
           <div className='InnerTitleBox'>
             <p>윙크북 {detail.product_name} 전자책 출간일  2023-0505</p>
           </div>
@@ -175,14 +175,14 @@ function DetailPage(){
       onClick={disableLinkClick}>
       </div>
 
-      <div className='Bookple-Container'>
+      {/* <div className='Bookple-Container'>
         <span className='Bookple-Container__text'>북플 BOOKPLE</span>
         <ul className='Bookple-Container__coment'>
           <li>이책의 마니아가 남긴글</li>
           <li>친구가 남긴글</li>
           <li>내가 남긴글</li>
         </ul>
-      </div>
+      </div> */}
     </div>
     </>
   );

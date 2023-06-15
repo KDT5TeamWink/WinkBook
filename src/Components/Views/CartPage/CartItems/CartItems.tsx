@@ -10,6 +10,7 @@ interface BuyItem {
   product_name: string;
   price: number;
   detail_image: string;
+  product_no: number;
 }
 
 interface CartItemsProps {
@@ -57,7 +58,7 @@ const CartItems = ({ check, pitem, setItems }: CartItemsProps) => {
     } 
     setItems(updatedItems);
     setCheckedItems(updatedCheckedItems);
-    setCheck(updatedCheckedItems);
+    //setCheck(updatedCheckedItems);
   };
 
   const children = (el:any ,index:number) => (
@@ -81,13 +82,6 @@ const CartItems = ({ check, pitem, setItems }: CartItemsProps) => {
     </Box>
   );
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log();
-    setInfo({
-      ...info,
-      [e.target.name]: e.target.value,
-    });
-  };
 
   const RemoveBuyItem = (index: number, key:any) => {
     console.log(key);
