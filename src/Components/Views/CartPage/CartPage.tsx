@@ -21,17 +21,16 @@ function CartPage() {
 
   const [RentalItemsValue, setRentalItemsValue] = useState<number[]>([]);
 
-  useEffect(() => {
-    console.log(CartItemsValue + "k");
-    console.log(selectedItem);
-  }, [CartItemsValue]);
+  // useEffect(() => {
+  //   console.log(CartItemsValue + "k");
+  //   console.log(selectedItem);
+  // }, [CartItemsValue]);
 
   useEffect(() => {
     calculateTotal();
-  }, [selectedItem]);
+  }, [selectedItem,CartItemsValue]);
 
   const calculateTotal = () => {
-    console.log("ccccccc" + Array.isArray(selectedItem));
     let total = 0;
     if (Array.isArray(selectedItem)) {
       selectedItem.forEach((item) => {
@@ -45,7 +44,6 @@ function CartPage() {
       });
     }
     setTotal(total);
-    console.log(total + "토");
     setShowTotal(true);
   };
 
@@ -72,7 +70,7 @@ function CartPage() {
             <div className="Buy-Container">
               <div className="Pay-Container">
                 <span>총 상품 가격 </span>
-                {ShowTotal && <h2>Total Amount: ${Total}</h2>}
+                {ShowTotal && <h2> ${Total}</h2>}
               </div>
             </div>
 
