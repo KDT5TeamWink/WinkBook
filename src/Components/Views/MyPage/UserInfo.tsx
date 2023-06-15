@@ -5,6 +5,7 @@ import './UserInfo.scss'
 import { NONAME } from 'dns';
 
 function UserInfo () {
+  const navigate = useNavigate();
 
   // 이름 , 프로필사진 , 구 비밀번호 , 새 비밀번호
   const [displayName, setDisplayName] = useState('');
@@ -26,7 +27,16 @@ function UserInfo () {
 
   async function submit(e) {
     e.preventDefault();
+
     alert('수정완료');
+    if (res.accessToken) {
+      alert("가입되었습니다.");
+      //localStorage.setItem('token', res.accessToken);
+      navigate("/login");
+    } else {
+      alert("가입에 실패했습니다. 다시 시도해주세요.");
+    }
+
 
     try {
       const res = await axios.put('https://asia-northeast3-heropy-api.cloudfunctions.net/api/auth/user', {
@@ -103,6 +113,38 @@ function UserInfo () {
     [oldPassword]
   );
 
+  // const setProfileImgBase64 = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   e.preventDefault();
+    
+  //   if(e.target.files){
+  //     const uploadFile = e.target.files[0]
+  //     const formData = new FormData()
+  //     formData.append('files',uploadFile)
+      
+  //     await axios({
+  //       method: 'post',
+  //       url: '/api/files/images',
+  //       data: formData,
+  //       headers: {
+  //         'Content-Type': 'multipart/form-data',
+  //       },
+  //     });
+  //   }
+  // }
+
+  // if(e.target.files){
+  //   const uploadFile = e.target.files[0]
+  //   console.log(uploadFile)
+
+  //   const setProfileImgBase64 = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //     e.preventDefault();
+  
+  //     if(e.target.files){
+  //       const uploadFile = e.target.files[0]
+  //       const formData = new FormData()
+  //       formData.append('files',uploadFile)
+  //     }
+  //   }
 
     return(
         <>
@@ -221,6 +263,7 @@ function UserInfo () {
                           value={profileImgBase64}
                           onChange={(e)=>{setProfileImgBase64(e.target.value)}}
                         />
+                        
                       </div>
                     </div>
                     <div className="infoList">
@@ -239,8 +282,6 @@ function UserInfo () {
 
               </div>
             </div>
-
-
 
           </div>
 
