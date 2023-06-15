@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import './BookInfo.scss'
 
 interface Props {
   productNo: number;
@@ -39,16 +40,22 @@ export default function BookInfo({
         </div>
       ) : null}
 
-      <img src={productImg} alt={productName} />
-      <h4>{productName}</h4>
-      {retailPrice === price ? (
-        <div>{price.slice(0, -3)}원</div>
-      ) : (
-        <div style={{ display: 'flex', gap: '10px' }}>
-          <div className="retail-price">{retailPrice.slice(0, -3)}원</div>
-          <div>{price.slice(0, -3)}원</div>
+      <div className='Book-container'>
+        <img src={productImg} alt={productName} />
+      
+        <div className='BookInfo-Inner'>
+          <h4>{productName}</h4>
+      
+          {retailPrice === price ? (
+            <div>{price.slice(0, -3)}원</div>
+          ) : (
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <div className="retail-price">{retailPrice.slice(0, -3)}원</div>
+              <div>{price.slice(0, -3)}원</div>
+            </div>
+          )}
         </div>
-      )}
+      </div>
     </Link>
   );
 }
