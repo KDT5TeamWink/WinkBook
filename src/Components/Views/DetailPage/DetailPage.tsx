@@ -126,6 +126,10 @@ function DetailPage() {
               <p>윙크북 {detail.product_name} 전자책 출간일 2023-0505</p>
             </div>
           </div>
+        
+          <div className="BookimgBox">
+            <img src={detail.detail_image}/>
+          </div>        
         </div>
 
         <div className="RightContainer">
