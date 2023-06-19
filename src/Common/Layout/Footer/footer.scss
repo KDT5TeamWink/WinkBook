@@ -1,8 +1,7 @@
-
 footer {
     background-color: #f6f4ef;
     padding-bottom: 100px;
-    width: 100%;
+    position: relative;
     
     .Footer-inner {
       display: flex;
@@ -14,6 +13,7 @@ footer {
       .wrap {
         display: flex;
         flex-direction: column;
+        position: relative;
         justify-content: center;
         align-items: center;
         margin-top: 20px;
@@ -41,7 +41,6 @@ footer {
       font-size: 25px;
       width: 400px;
       height: 40px;
-      //background-color: red;
       margin: 0 auto;
       left: 0;
       right: 0;
