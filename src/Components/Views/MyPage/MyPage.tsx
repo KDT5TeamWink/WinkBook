@@ -1,10 +1,9 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
-import './MyPage.scss'
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
+import "./MyPage.scss";
 
-function MyPage () {
-
+function MyPage() {
   /* 구현해야할일
   1.  아임포트 결제 내역을 조회해오기 위해서는 acesstoken 이 필요함. 
   2. 이 acesstoken 을 발급받기 위해서는 POST /users/getToken 을 사용해 헤더에 API 키, API secret  보낸후 
@@ -26,17 +25,10 @@ function MyPage () {
     fetchdata();
   }, []);
 
-
-
-
-
-
-
-    return(
-        <>
-        <div className='MyPage-AllLayout'>
-          <div className="myPageContainer">
-            
+  return (
+    <>
+      <div className="MyPage-AllLayout">
+        <div className="myPageContainer">
           <div className="subContainer">
             <div className="profile">
               <div className="profilePhoto"></div>
@@ -51,29 +43,27 @@ function MyPage () {
             </div>
             <div className="category">
               <Link to="/">
-                <div className='categoryTap'>주문내역조회</div>
-              </Link> <br />
+                <div className="categoryTap">주문내역조회</div>
+              </Link>{" "}
+              <br />
               <Link to="/userinfo">
-                <div className='categoryTap'>회원정보 수정</div>
-              </Link> <br />
+                <div className="categoryTap">회원정보 수정</div>
+              </Link>{" "}
+              <br />
             </div>
           </div>
 
-          <div className="detailsContainer"> 
+          <div className="detailsContainer">
             <div className="orderContainer">
-              
-                <div className="orderText">
-                  구매 내역
-                </div>
-              
-                <div className="orderBox">
-                  <div className="orderList"></div>
-                  <div className="orderList"></div>
-                  <div className="orderList"></div>
-                  <div className="orderList"></div>
-                  <div className="orderList"></div>
-                </div>
-              
+              <div className="orderText">구매 내역</div>
+
+              <div className="orderBox">
+                <div className="orderList"></div>
+                <div className="orderList"></div>
+                <div className="orderList"></div>
+                <div className="orderList"></div>
+                <div className="orderList"></div>
+              </div>
             </div>
 
             <div className="rentContainer">
@@ -88,10 +78,10 @@ function MyPage () {
               </div>
             </div>
           </div>
-          </div>
         </div>
-      </>
-    )
+      </div>
+    </>
+  );
 }
 
-export default MyPage
+export default MyPage;

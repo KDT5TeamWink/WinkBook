@@ -1,5 +1,5 @@
 import BookCustom from "../../../bookcustom/bookcustom";
-import { useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import TopHeader from "./components/TopHeader";
 import { getDetail } from "@/Apis/productApi";
@@ -56,14 +56,14 @@ function DetailPage() {
   });
 
   useEffect(() => {
-    window.scrollTo(0,0);
+    window.scrollTo(0, 0);
     (async () => {
       await getDetails();
     })();
   }, []);
 
-  const BuyBook = (detail: any, type:string) => {
-    let Cart = localStorage.getItem('cart');
+  const BuyBook = (detail: any, type: string) => {
+    let Cart = localStorage.getItem("cart");
 
     if (Cart === null) {
       Cart = [];
@@ -72,11 +72,11 @@ function DetailPage() {
     }
 
     if (Cart.some((item) => item.product_no === detail.product_no)) {
-        alert('이미 장바구니에 담으셨습니다.');
-        return false;
+      alert("이미 장바구니에 담으셨습니다.");
+      return false;
     }
 
-    if(type === "rent"){
+    if (type === "rent") {
       detail.rentdate = 7;
     }
     detail.gubun = type;
@@ -88,7 +88,7 @@ function DetailPage() {
     navigate("/cart");
   };
 
-  // html 안에 a 링크 이벤트를 막기 위한 함수 
+  // html 안에 a 링크 이벤트를 막기 위한 함수
   const disableLinkClick = (event) => {
     event.preventDefault();
   };
@@ -126,10 +126,10 @@ function DetailPage() {
               <p>윙크북 {detail.product_name} 전자책 출간일 2023-0505</p>
             </div>
           </div>
-        
+
           <div className="BookimgBox">
-            <img src={detail.detail_image}/>
-          </div>        
+            <img src={detail.detail_image} />
+          </div>
         </div>
 
         <div className="RightContainer">
@@ -143,7 +143,10 @@ function DetailPage() {
           <div className="RightContainer-Content">
             <div className="OriginPrice">
               <span className="PriceText">판매가</span>
-              <span className="PriceNumber"> {Number(detail.price).toFixed(0)}원 </span>
+              <span className="PriceNumber">
+                {" "}
+                {Number(detail.price).toFixed(0)}원{" "}
+              </span>
             </div>
             <div className="ContentContainer">
               <span className="ContentBox">줄거리</span>
@@ -154,11 +157,19 @@ function DetailPage() {
             <div className="CardPrice">{renderCardPriceItems()}</div>
 
             <div className="ButtonContainer">
-              <button className="CartAdd" onClick={() => BuyBook(detail , 'buy')}>
+              <button
+                className="CartAdd"
+                onClick={() => BuyBook(detail, "buy")}
+              >
                 {" "}
                 책 구매하기
               </button>
-              <button className="BookBill" onClick={() => BuyBook(detail , 'rent')}>책 대여하기</button>
+              <button
+                className="BookBill"
+                onClick={() => BuyBook(detail, "rent")}
+              >
+                책 대여하기
+              </button>
             </div>
           </div>
         </div>
@@ -172,7 +183,8 @@ function DetailPage() {
           {isScrolled ? (
             <TopHeader
               productName={detail.product_name}
-              productPrice={detail.price}/>
+              productPrice={detail.price}
+            />
           ) : (
             ""
           )}
@@ -181,8 +193,8 @@ function DetailPage() {
         <div
           className="InnerContent"
           dangerouslySetInnerHTML={{ __html: modifiedDescription }}
-          onClick={disableLinkClick}>
-        </div>
+          onClick={disableLinkClick}
+        ></div>
 
         {/* <div className='Bookple-Container'>
         <span className='Bookple-Container__text'>북플 BOOKPLE</span>
