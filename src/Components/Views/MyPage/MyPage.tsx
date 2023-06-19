@@ -21,10 +21,10 @@ function MyPage () {
               </div>
             </div>
             <div className="category">
-              <Link to="/">
+              <Link to="/mypage">
                 <div className='categoryTap'>주문내역조회</div>
               </Link> <br />
-              <Link to="/userinfo">
+              <Link to="/mypage/userinfo">
                 <div className='categoryTap'>회원정보 수정</div>
               </Link> <br />
               <Link to="/">
@@ -44,7 +44,6 @@ function MyPage () {
           <div className="detailsContainer"> 
             <div className="orderContainer">
               
-               
                 <div className="orderText">
                   구매 내역
                 </div>
