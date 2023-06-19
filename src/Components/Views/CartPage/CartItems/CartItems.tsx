@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
-import { useState } from 'react';
-import Box from '@mui/material/Box';
-import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import './CartItems.scss';
+import React, { useEffect } from "react";
+import { useState } from "react";
+import Box from "@mui/material/Box";
+import Checkbox from "@mui/material/Checkbox";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import "./CartItems.scss";
 
 interface BuyItem {
   id: number;
@@ -16,15 +16,12 @@ interface BuyItem {
 interface CartItemsProps {
   check: number[];
   pitem: string;
-  setItems:string;
-
+  setItems: string;
 }
 
 const CartItems = ({ check, pitem, setItems }: CartItemsProps) => {
-
   const [buyItem, setbuyItem] = useState<BuyItem[]>([]);
   const [checkedItems, setCheckedItems] = useState<number[]>(check);
-
 
   useEffect(() => {
     BuyCart();
@@ -33,42 +30,44 @@ const CartItems = ({ check, pitem, setItems }: CartItemsProps) => {
   const BuyCart = () => {
     const BuyItems = JSON.parse(localStorage.getItem("cart")) || [];
     setbuyItem(BuyItems);
-    console.log(BuyItems)
-  }
+    console.log(BuyItems);
+  };
 
   const handleChange1 = (event: React.ChangeEvent<HTMLInputElement>) => {
     const checkedValue = event.target.checked;
     const updatedCheckedItems = checkedValue
       ? buyItem.map((item) => item.id)
       : [];
-    setCheckedItems(updatedCheckedItems);  
-  };
-
-  const handleChange2 = (el: any) => (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(el);
-    const itemId = parseInt(event.target.name);
-    let updatedCheckedItems: number[] = [];
-    let updatedItems: any[] = [];
-    if (event.target.checked) {
-      updatedCheckedItems = [...checkedItems, itemId];
-      updatedItems = [...pitem , el];
-    } else {
-      updatedCheckedItems = checkedItems.filter((id) => id !== itemId);
-      updatedItems = pitem.filter((key) => key.product_no !== el.product_no);
-    } 
-    setItems(updatedItems);
     setCheckedItems(updatedCheckedItems);
-    //setCheck(updatedCheckedItems);
   };
 
-  const children = (el:any ,index:number) => (
+  const handleChange2 =
+    (el: any) => (event: React.ChangeEvent<HTMLInputElement>) => {
+      console.log(el);
+      const itemId = parseInt(event.target.name);
+      let updatedCheckedItems: number[] = [];
+      let updatedItems: any[] = [];
+      if (event.target.checked) {
+        updatedCheckedItems = [...checkedItems, itemId];
+        updatedItems = [...pitem, el];
+      } else {
+        updatedCheckedItems = checkedItems.filter((id) => id !== itemId);
+        updatedItems = pitem.filter((key) => key.product_no !== el.product_no);
+      }
+      setItems(updatedItems);
+      setCheckedItems(updatedCheckedItems);
+      //setCheck(updatedCheckedItems);
+    };
+
+  const children = (el: any, index: number) => (
     <Box
       sx={{
-        display: 'flex',
-        flexDirection: 'column',
+        display: "flex",
+        flexDirection: "column",
         ml: 3,
-        fontSize: 'large',
-      }}>
+        fontSize: "large",
+      }}
+    >
       <FormControlLabel
         label=""
         control={
@@ -82,24 +81,27 @@ const CartItems = ({ check, pitem, setItems }: CartItemsProps) => {
     </Box>
   );
 
-
-  const RemoveBuyItem = (index: number, key:any) => {
+  const RemoveBuyItem = (index: number, key: any) => {
     console.log(key);
-    const confirmation = window.confirm('삭제하시겠습니까?');
+    const confirmation = window.confirm("삭제하시겠습니까?");
     if (confirmation) {
+      const updatedCartData = JSON.parse(localStorage.getItem("cart"));
+      localStorage.setItem(
+        "cart",
+        JSON.stringify(
+          updatedCartData.filter((item) => item.product_no !== key)
+        )
+      );
 
-      const updatedCartData = JSON.parse(localStorage.getItem('cart'));
-      localStorage.setItem('cart', JSON.stringify(updatedCartData.filter((item) => item.product_no !== key)));
-      
       const updatedBuyItem = [...buyItem];
       //선택한 index 1개를 buyItem 배열에서 제거.
       updatedBuyItem.splice(index, 1);
       // 제거한후의 값 setState 갑에 담아줌.
       setbuyItem(updatedBuyItem);
       // cart 키 값으로 로컬에서 데이터 찾아옴
-      alert('삭제되었습니다.');
+      alert("삭제되었습니다.");
     } else {
-      alert('취소되었습니다.');
+      alert("취소되었습니다.");
     }
   };
 
@@ -114,7 +116,8 @@ const CartItems = ({ check, pitem, setItems }: CartItemsProps) => {
                 size="large"
                 checked={checkedItems.length === buyItem.length}
                 indeterminate={
-                  checkedItems.length > 0 && checkedItems.length < buyItem.length
+                  checkedItems.length > 0 &&
+                  checkedItems.length < buyItem.length
                 }
                 onChange={handleChange1}
               />
@@ -137,29 +140,30 @@ const CartItems = ({ check, pitem, setItems }: CartItemsProps) => {
 
       <div className="ItemsContainer">
         {buyItem
-          .filter(el => el.gubun === 'buy') 
+          .filter((el) => el.gubun === "buy")
           .map((el, index) => (
             <div className="ItemContainer" key={index}>
-            <div className="CheckContainer">{children(el, index)}</div>
-            <div key={el.id} className="ImageBox">
-              <img src={el.detail_image} alt="cartbookimage" />
-            </div>
-            <div className="TextInner">
-              <span>{el.product_name}</span>
-            </div>
+              <div className="CheckContainer">{children(el, index)}</div>
+              <div key={el.id} className="ImageBox">
+                <img src={el.detail_image} alt="cartbookimage" />
+              </div>
+              <div className="TextInner">
+                <span>{el.product_name}</span>
+              </div>
 
-            <div className="PriceInner">
-              <span>{Number(el.price).toFixed(0)}원</span>
-            </div>
+              <div className="PriceInner">
+                <span>{Number(el.price).toFixed(0)}원</span>
+              </div>
 
-            <div className="CartButtonBox">
-              <button onClick={() => RemoveBuyItem(index, el.product_no)}>삭제</button>
+              <div className="CartButtonBox">
+                <button onClick={() => RemoveBuyItem(index, el.product_no)}>
+                  삭제
+                </button>
+              </div>
             </div>
-          </div>
-       
-        ))}
+          ))}
       </div>
     </>
   );
-}
+};
 export default CartItems;

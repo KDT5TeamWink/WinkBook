@@ -5,8 +5,6 @@ import RentalItems from "./CartRent/CartRent";
 import Payment from "./Payment/Payment";
 
 function CartPage() {
-  
-
   const [CartItemsValue, setCartItemsValue] = useState<number[]>([]);
   const [selectedItem, setSelectedItem] = useState<string[]>([]);
   const [Total, setTotal] = useState(0);
@@ -14,12 +12,12 @@ function CartPage() {
 
   const [RentalItemsValue, setRentalItemsValue] = useState<number[]>([]);
 
-
   useEffect(() => {
     calculateTotal();
-  }, [selectedItem,CartItemsValue]);
+  }, [selectedItem]);
 
   const calculateTotal = () => {
+    console.log("ccccccc" + Array.isArray(selectedItem));
     let total = 0;
     if (Array.isArray(selectedItem)) {
       selectedItem.forEach((item) => {
@@ -33,6 +31,7 @@ function CartPage() {
       });
     }
     setTotal(total);
+    console.log(total + "토");
     setShowTotal(true);
   };
 
@@ -50,7 +49,7 @@ function CartPage() {
         {/* 여기에서는 대여 부분  */}
         <span className="RentText">대여 </span>
         <div className="RentContainer">
-          <RentalItems 
+          <RentalItems
             check={CartItemsValue}
             pitem={selectedItem}
             setItems={setSelectedItem}
@@ -63,7 +62,7 @@ function CartPage() {
             <div className="Buy-Container">
               <div className="Pay-Container">
                 <span>총 상품 가격 </span>
-                {ShowTotal && <h2> ${Total}</h2>}
+                {ShowTotal && <h2>Total Amount: ${Total}</h2>}
               </div>
             </div>
 
