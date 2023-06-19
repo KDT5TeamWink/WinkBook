@@ -1,6 +1,10 @@
-import  { useEffect } from "react";
+import { useEffect } from "react";
 
-const Payment = () => {
+export interface PaymentInfo {
+  amount: number;
+}
+
+const Payment = ({ amount }: PaymentInfo) => {
   useEffect(() => {
     const jquery = document.createElement("script");
     jquery.src = "https://code.jquery.com/jquery-1.12.4.min.js";
@@ -20,7 +24,7 @@ const Payment = () => {
       pg: "html5_inicis", // PG사 html5_inicis: KG이니시스, kakaopay: 카카오페이, naverpay: 네이버페이, payco: 페이코
       pay_method: "card", // 결제수단
       merchant_uid: `mid_${new Date().getTime()}`, // 주문번호
-      amount: 100, // 결제금액
+      amount: amount, // 결제금액
       name: "아임포트 결제 데이터 분석", // 주문명
       buyer_name: "김세연", // 구매자 이름
       // buyer_tel: "01032752740", // 구매자 전화번호
