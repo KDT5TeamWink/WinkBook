@@ -1,6 +1,14 @@
-import  { useEffect } from "react";
+import { useEffect } from "react";
 
-const Payment = () => {
+export interface PaymentInfo {
+  amount: number;
+  productlists: any;
+}
+
+const Payment = ({ amount, productlists }: PaymentInfo) => {
+  const orderNumber = `mid_${new Date().getTime()}`;
+  console.log(orderNumber);
+
   useEffect(() => {
     const jquery = document.createElement("script");
     jquery.src = "https://code.jquery.com/jquery-1.12.4.min.js";
@@ -14,19 +22,28 @@ const Payment = () => {
     };
   }, []);
   const onClickPayment = () => {
+    console.log(productlists);
+
+    const itemName = productlists.map((obj) => obj.product_name).join(",");
+
+    console.log(itemName);
     const { IMP }: any = window;
     IMP.init("imp36252452");
+
     const data = {
       pg: "html5_inicis", // PG사 html5_inicis: KG이니시스, kakaopay: 카카오페이, naverpay: 네이버페이, payco: 페이코
       pay_method: "card", // 결제수단
-      merchant_uid: `mid_${new Date().getTime()}`, // 주문번호
-      amount: 100, // 결제금액
-      name: "아임포트 결제 데이터 분석", // 주문명
+      merchant_uid: orderNumber, // 주문번호 // 만약 여기에 에세스키
+      amount: amount, // 결제금액
+      name: `${itemName}`, // 주문명
       buyer_name: "김세연", // 구매자 이름
       // buyer_tel: "01032752740", // 구매자 전화번호
       // 전화번호: 일단 빼고 나중에 추가 시도..
       buyer_email: "", // 구매자 이메일 - 작성시 구매창에서 이메일 부분에 들어가있음
+      //https://developers.portone.io/docs/ko/api/api-1/api-1
+      //productinfos : productlists
     };
+
     IMP.request_pay(data, callback);
   };
 
@@ -35,6 +52,20 @@ const Payment = () => {
 
     if (success) {
       alert("결제 성공");
+      //mypayment []
+      //mypayment: [orderNumber1]
+      let mypayarray = window.localStorage.getItem("mypayment");
+      let combinedArray = JSON.parse(mypayarray);
+      if (!combinedArray) {
+        //mypayment: [orderNumber1]
+        window.localStorage.setItem("mypayment", JSON.stringify([orderNumber]));
+      } else {
+        ////mypayment: [orderNumber1,orderNumber2] 배열을 다시 추가.
+        combinedArray.push(orderNumber);
+        window.localStorage.setItem("mypayment", JSON.stringify(combinedArray));
+      }
+
+      //결제 성공을 하고 성공된 데이터가 로컬스토리지에서 지워져야함. produc_id
     } else {
       alert(`결제 실패: ${error_msg}`);
     }

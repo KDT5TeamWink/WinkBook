@@ -43,15 +43,18 @@ export default function Main() {
 
   return (
     <main>
-      <ul className="category-menu">
+      <div className="Category-menu">
+      <img src="/public/images/pick.png" alt='책갈피'/>
+        <ul className="Category-menu__text">
         {category.map((item) => (
           <li key={item.number} className={item.type === type ? 'active' : ''}>
             <a href={`#${item.type}`}>{item.type}</a>
           </li>
         ))}
-      </ul>
+        </ul>
+      </div>
 
-      <div className="books-wrapper">
+      <div className="Books-wrapper">
         {/* CATEGORY */}
         {category.map((item) => (
           <Genre key={item.number} category={item} />
