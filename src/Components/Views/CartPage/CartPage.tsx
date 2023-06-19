@@ -5,26 +5,15 @@ import RentalItems from "./CartRent/CartRent";
 import Payment from "./Payment/Payment";
 
 function CartPage() {
-  // const [rentalbook, setRentalBook] = useState<Item[]>([
-  //   { id: 1,  name: '[국내도서]시작하세요! C# 10프로그래밍', text:"*밤 11시 잠들기전 배송",
-  //   price:"정가: 36000", sale:"판매가:32,400", malize:"마일리지: 1,800원"},
-  // ])
-
-  // const BuyProducts = () => {
-  //   alert("주문완료!")
-  // }
+  
 
   const [CartItemsValue, setCartItemsValue] = useState<number[]>([]);
-  const [selectedItem, setSelectedItem] = useState<any[]>([]);
+  const [selectedItem, setSelectedItem] = useState<string[]>([]);
   const [Total, setTotal] = useState(0);
   const [ShowTotal, setShowTotal] = useState(false);
 
   const [RentalItemsValue, setRentalItemsValue] = useState<number[]>([]);
 
-  // useEffect(() => {
-  //   console.log(CartItemsValue + "k");
-  //   console.log(selectedItem);
-  // }, [CartItemsValue]);
 
   useEffect(() => {
     calculateTotal();
@@ -61,7 +50,11 @@ function CartPage() {
         {/* 여기에서는 대여 부분  */}
         <span className="RentText">대여 </span>
         <div className="RentContainer">
-          <RentalItems />
+          <RentalItems 
+            check={CartItemsValue}
+            pitem={selectedItem}
+            setItems={setSelectedItem}
+          />
         </div>
 
         <span className="BuyText">결제</span>
@@ -83,7 +76,7 @@ function CartPage() {
 
             <div className="Buy-ButtonBox">
               {/* <button onClick={BuyProducts}>선택한 상품 주문하기</button> */}
-              <Payment />
+              <Payment amount={Total} productlists={selectedItem} />
             </div>
           </div>
         </div>

@@ -11,11 +11,12 @@ const ajax = axios.create({
   },
 });
 
-export async function getList(category: number) {
+export async function getList(category?: number, product_no:string) {
   try {
     const { data } = await ajax.get('/products', {
       params: {
         category: category,
+        product_no : product_no
       },
     });
     //console.log(data.products);
