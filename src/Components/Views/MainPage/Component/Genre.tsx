@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { getList } from '@/Apis/productApi';
 import './Genre.scss';
@@ -26,7 +25,6 @@ export default function Genre({ category }: { category: Props }) {
       <div className="left">
         <div className="tag-box">
           <h1 id={category.type}>{category.type}</h1>
-          {/* <div>tags....</div> */}
         </div>
       </div>
 
@@ -35,7 +33,6 @@ export default function Genre({ category }: { category: Props }) {
         {list &&
           list.map((item) => (
             <>
-            {/* <img className='Bottom-bookContainer' src="./public/images/Group 8.png"/> */}
             <BookInfo
               key={item.product_no}
               productNo={item.product_no}
@@ -45,17 +42,6 @@ export default function Genre({ category }: { category: Props }) {
               price={item.price}
               summary={item.summary_description}
             />
-            {/* <div className='bottombook'>
-              <img src="./public/images/Group 8.png"/>
-            </div> */}
-            {/* {Array.from({ length: 1 }).map((_, index) => (
-              <div className='bottomImage-container'>
-              <img
-                key={index}
-                src="./public/images/Group 8.png"
-              />
-              </div>
-            ))} */}
             </>
           ))}
           <img className='Bottom-bookContainer' src="./public/images/Group 8.png"/>

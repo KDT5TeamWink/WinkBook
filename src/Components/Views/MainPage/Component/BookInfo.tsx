@@ -44,18 +44,22 @@ export default function BookInfo({
         <img src={productImg} alt={productName} />
       
         <div className='BookInfo-Inner'>
-          <h4>{productName}</h4>
-      
+          <div className='RoundCircle'></div>
+          <div className='Namebox'>
+            <span>{productName}</span>
+          </div>
           {retailPrice === price ? (
-            <div>{price.slice(0, -3)}원</div>
+            <div className='Main-Pricebox'>{price.slice(0, -3)}원</div>
           ) : (
-            <div style={{ display: 'flex', gap: '10px' }}>
-              <div className="retail-price">{retailPrice.slice(0, -3)}원</div>
-              <div>{price.slice(0, -3)}원</div>
+            <div className='Main-Pricebox'>
+              <span className="retail-price">{retailPrice.slice(0, -3)}원</span>
+              <span>{price.slice(0, -3)}원</span>
             </div>
           )}
+
         </div>
       </div>
     </Link>
+    
   );
 }

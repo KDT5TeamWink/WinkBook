@@ -15,13 +15,13 @@ interface BuyItem {
 
 interface CartItemsProps {
   check: number[];
-  pitem: any;
-  setItems:any;
+  pitem: string;
+  setItems:string;
 
 }
 
 const CartItems = ({ check, pitem, setItems }: CartItemsProps) => {
-  const [info, setInfo] = useState([]);
+
   const [buyItem, setbuyItem] = useState<BuyItem[]>([]);
   const [checkedItems, setCheckedItems] = useState<number[]>(check);
 
@@ -136,9 +136,10 @@ const CartItems = ({ check, pitem, setItems }: CartItemsProps) => {
       </div>
 
       <div className="ItemsContainer">
-        {buyItem.map((el, index) => (
-          <div className="ItemContainer" key={index}>
-            {/* 아이템 체크 하는 부분 */}
+        {buyItem
+          .filter(el => el.gubun === 'buy') 
+          .map((el, index) => (
+            <div className="ItemContainer" key={index}>
             <div className="CheckContainer">{children(el, index)}</div>
             <div key={el.id} className="ImageBox">
               <img src={el.detail_image} alt="cartbookimage" />
@@ -155,6 +156,7 @@ const CartItems = ({ check, pitem, setItems }: CartItemsProps) => {
               <button onClick={() => RemoveBuyItem(index, el.product_no)}>삭제</button>
             </div>
           </div>
+       
         ))}
       </div>
     </>
