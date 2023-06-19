@@ -5,9 +5,6 @@
   top: 10px;
 }
 
-@mixin TableStyle {
-}
-
 // 장바구니 전체 레이아웃
 .CartPage-AllLayout {
   //font-family: 'SUITE-Regular';
@@ -41,8 +38,6 @@
   .CartPageTable {
     position: relative;
     width: 1200px;
-    //padding-bottom: 520px;
-    //background-color: #7fe41f;
     margin: 0 auto;
     left: 0;
     right: 0;
@@ -62,10 +57,8 @@
     display: flex;
     justify-content: center;
     width: inherit;
-    //height: 500px;
     padding-bottom: 50px;
     top: 640px;
-    //background-color: rgb(207, 119, 245);
   }
 
   .BuyText {
@@ -79,7 +72,6 @@
 
   .BuyContainer {
     position: absolute;
-    //justify-content: center;
     width: inherit;
     padding-bottom: 200px;
     bottom: 10px;
@@ -89,12 +81,8 @@
       width: 500px;
       position: absolute;
       height: 100px;
-      //margin: 0 auto;
       left: 100px;
-      //right: 0;
-      //background-color: wheat;
       border-bottom: 2px solid black;
-      //bottom: 100px;
 
       .Buy-Container {
         width: 250px;
