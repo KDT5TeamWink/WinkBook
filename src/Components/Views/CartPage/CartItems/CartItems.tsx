@@ -57,24 +57,10 @@ const CartItems = ({ check, pitem, setItems }: CartItemsProps) => {
       updatedItems = pitem.filter((key) => key.product_no !== el.product_no);
     } 
     setItems(updatedItems);
-    setCheckedItems(updatedCheckedItems);
+    setCheckedItems(updatedCheckedItems);   
     //setCheck(updatedCheckedItems);
   };
     
-  const [priceTotal,setPriceTotal] = useState(0)
-  const [saleTotal, setSaleTotal] = useState(0)
-  
-  const children = (itemId: number, itemPrice: number, itemSale: number) => {
-    if(priceTotal !== 0){
-    if(checkedItems.includes(itemId)){
-      setPriceTotal(priceTotal + itemPrice)
-      setSaleTotal(saleTotal + itemSale)
-    }else{
-      setPriceTotal(priceTotal - itemPrice)
-      setSaleTotal(saleTotal - itemSale)
-    }   
-  }
-
   const children = (el:any ,index:number) => (
     <Box
       sx={{
@@ -94,7 +80,7 @@ const CartItems = ({ check, pitem, setItems }: CartItemsProps) => {
         }
       />
     </Box>
-  )};
+  );
 
 
   const RemoveBuyItem = (index: number, key:any) => {
@@ -146,27 +132,8 @@ const CartItems = ({ check, pitem, setItems }: CartItemsProps) => {
 
         <div className="DeleteNameBox">
           <span>보관/삭제</span>
-      </div>  
-    </div>
-    
-    <div className='ItemsContainer'>
-      {items.map((item) => (
-        <div className='ItemContainer'>
-          <div className='CheckContainer'>
-            {children(item.id,+item.price,+item.sale)}
-          </div>
-          <div key={item.id} className='ImageBox'> 
-            <img src='/images/cartbookimage.jpg' alt='cartbookimage'/> 
-          </div>
-          <div className='TextInner'>
-            <span>{item.name}</span> 
-            <span>{item.text}</span>  
-          </div>
-
-          <div className='PriceInner'>
-            <span>{item.price}</span>
-            <span>{item.sale}</span>            
-          </div>
+        </div>
+      </div>
 
       <div className="ItemsContainer">
         {buyItem.map((el, index) => (

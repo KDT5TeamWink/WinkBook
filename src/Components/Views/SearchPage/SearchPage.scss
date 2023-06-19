@@ -1,0 +1,75 @@
+.SearchPage {
+  width: inherit;
+  height: 600px;
+  border-bottom: 2px solid #ca9f12;
+}
+// 책 표지
+.SearchPage__Images {
+  width: 370px;
+  height: 500px;
+  position: relative;
+  left: 13em;
+  margin: 70px 0;
+}
+
+//  상세설명
+.SearchPage__Items {
+  position: relative;
+  width: 800px;
+  height: 600px;
+  top: -575px;
+  left: 40em;
+
+  //제목
+  h1 {
+    font-size: 30px;
+  }
+
+  // 줄거리
+  p:nth-child(2) {
+    width: 700px;
+    font-size: 20px;
+    margin: 100px 0;
+    color: #595959;
+  }
+
+  // 판매가
+  p:nth-child(3) {
+    position: absolute;
+    color: red;
+    font-size: 30px;
+    bottom: 150px;
+  }
+  // 정가
+  p:nth-child(4) {
+    position: absolute;
+    color: #808080;
+    font-size: 20px;
+    bottom: 100px;
+  }
+}
+
+// 구매,대여 버튼
+.SearchPage__ButtonBox button {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  border-radius: 30px;
+  width: 120px;
+  height: 40px;
+  color: #fff;
+  border: none;
+  font-size: 17px;
+  margin: 20px;
+  left: 99em;
+  top: -47em;
+  cursor: pointer;
+}
+
+button:first-child {
+  background-color: #4dac27;
+}
+button:last-child {
+  background-color: #5055b1;
+}
