@@ -51,7 +51,7 @@ const dummy = [
 
 export default function SearchPage() {
   return (
-    <div>
+    <div className="wrapper">
       {dummy.map((v) => {
         return (
           <div className="SearchPage">
@@ -61,8 +61,10 @@ export default function SearchPage() {
             <div className="SearchPage__Items">
               <h1>{v.product_name}</h1>
               <p>{v.summary_description}</p>
-              <p> {v.price}</p>
-              <p> {v.retail_price}</p>
+              <div className="SearchPage__Price">
+                <p> {v.price}</p>
+                <p> {v.retail_price}</p>
+              </div>
             </div>
             <div className="SearchPage__ButtonBox">
               <button>구매하기</button>

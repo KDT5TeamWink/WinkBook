@@ -1,75 +1,82 @@
+.wrapper {
+  width: 1200px;
+  margin: auto;
+}
 .SearchPage {
-  width: inherit;
-  height: 600px;
+  display: flex;
+  padding: 40px 0;
   border-bottom: 2px solid #ca9f12;
 }
+
 // 책 표지
 .SearchPage__Images {
-  width: 370px;
-  height: 500px;
-  position: relative;
-  left: 13em;
-  margin: 70px 0;
+  display: flex;
+  justify-content: center;
+  width: 270px;
+
+  img {
+    height: 200px;
+    aspect-ratio: auto;
+  }
 }
 
 //  상세설명
 .SearchPage__Items {
-  position: relative;
-  width: 800px;
-  height: 600px;
-  top: -575px;
-  left: 40em;
-
-  //제목
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  width: 500px;
+  gap: 30px;
   h1 {
-    font-size: 30px;
+    font-size: 34px;
+    margin-top: 10px;
+    width: 70%;
   }
 
   // 줄거리
   p:nth-child(2) {
-    width: 700px;
-    font-size: 20px;
-    margin: 100px 0;
+    font-size: 19px;
+    width: 70%;
     color: #595959;
   }
-
+}
+.SearchPage__Price {
   // 판매가
-  p:nth-child(3) {
-    position: absolute;
+  p:nth-child(1) {
     color: red;
-    font-size: 30px;
-    bottom: 150px;
+    font-size: 24px;
+    margin-bottom: 10px;
   }
   // 정가
-  p:nth-child(4) {
-    position: absolute;
+  p:nth-child(2) {
     color: #808080;
-    font-size: 20px;
-    bottom: 100px;
+    font-size: 16px;
   }
 }
 
-// 구매,대여 버튼
-.SearchPage__ButtonBox button {
-  display: flex;
+// 구매,대여 공통
+.SearchPage__ButtonBox {
   position: relative;
-  align-items: center;
-  justify-content: center;
-  border-radius: 30px;
-  width: 120px;
-  height: 40px;
-  color: #fff;
-  border: none;
-  font-size: 17px;
-  margin: 20px;
-  left: 99em;
-  top: -47em;
-  cursor: pointer;
-}
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 
-button:first-child {
-  background-color: #4dac27;
+  button {
+    border-radius: 5px;
+    margin: 8px;
+    width: 120px;
+    height: 40px;
+    color: #fff;
+    border: none;
+    font-size: 17px;
+    cursor: pointer;
+  }
 }
+// 구매버튼
+button:first-child {
+  background-color: #df307f;
+}
+// 대여버튼
 button:last-child {
-  background-color: #5055b1;
+  background-color: #e24457;
 }
