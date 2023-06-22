@@ -59,6 +59,9 @@
         height: 50px;
         color: black;
         background-color: #F7E9D7;
+        // border: solid 2px #F7E9D7;
+        cursor: pointer;
+        border-radius: 10px;
       }
     }
   }
@@ -68,9 +71,11 @@
     width: 350px;
     height: 20px;
     //background-color: teal;
+    // padding-top: 20px;
     font-size: 18px;
     position: absolute;
-    bottom: 300px;
+    bottom: 350px;
     left: 445px;
+    
   }
 }
