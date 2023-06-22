@@ -1,16 +1,18 @@
 @mixin Container {
   width: 1200px;
-  //height: 780px;
+  height: 900px;
   padding-bottom: 80px;
-  background-color: aqua;
+  // background-color: aqua;
   position: relative;
-  left: 300px;
+  // left: 300px;
+  margin: 0 auto;
 }
 
 @mixin FormContainerStyle {
   width: 500px;
   height: 700px;
   position: relative;
+  // border: solid 1px #c6c6c6;
   border-radius: 10px;
   top: 50px;
   margin: auto;
@@ -73,7 +75,7 @@
 
             span {
               width: 260px;
-              //background-color: oldlace;
+              // background-color: oldlace;
               position: relative;
               margin: 0 auto;
               top:10px;
@@ -98,6 +100,9 @@
             height: 50px;
             color: black;
             background-color: #F7E9D7;
+            // border: solid 1px #dfdfdf;
+            border-radius: 10px;
+            cursor: pointer;
           }
       }
     }

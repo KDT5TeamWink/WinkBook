@@ -40,7 +40,7 @@ function RoutesPage() {
               element={<PrivatePage component={<MyPage />} status={""} />}
             />
             <Route
-              path="/userinfo"
+              path="/mypage/userinfo"
               element={<PrivatePage component={<UserInfo />} status={""} />}
             />
             {/* <Route path="/mypage" element={<MyPage/>}/> */}

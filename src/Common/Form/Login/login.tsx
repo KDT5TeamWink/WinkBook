@@ -53,6 +53,7 @@ function Login() {
         alert("로그인 되었습니다!");
         window.localStorage.setItem("token", data.accessToken);
         navigate("/");
+        location.reload();
       } else {
         alert("로그인에 실패하였습니다. 다시 시도해주세요.");
       }
@@ -95,7 +96,7 @@ function Login() {
 
             <div className="buttonContainer">
               <button className="buttonBox" type="submit">
-                등록
+                로그인
               </button>
             </div>
           </div>

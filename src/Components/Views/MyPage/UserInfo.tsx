@@ -1,80 +1,97 @@
-import {
-  FormEvent,
-  useState,
-  useEffect,
-  ChangeEvent,
-  useCallback,
-  useRef,
-} from "react";
+import { FormEvent, useState, useEffect, ChangeEvent, useCallback, useRef } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "./UserInfo.scss";
-import { NONAME } from "dns";
+import { ReadStream } from "fs";
+
+interface User {
+  displayName: string // 사용자 표시 이름
+  profileImg: string // 사용자 프로필 이미지 URL
+}
 
 function UserInfo() {
   const navigate = useNavigate();
 
   // 이름 , 프로필사진 , 구 비밀번호 , 새 비밀번호
-  const [displayName, setDisplayName] = useState("");
+  const [user, setUser] =useState<User>({} as User)
+  const [displayName, setDisplayName] = useState(); // <User> {} as User
   const [profileImgBase64, setProfileImgBase64] = useState<string>("");
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
 
+
   async function submit(e: any) {
     e.preventDefault();
     try {
-      const res = await axios.put(
-        "https://asia-northeast3-heropy-api.cloudfunctions.net/api/auth/user",
-        {
+      const res = await axios.put("https://asia-northeast3-heropy-api.cloudfunctions.net/api/auth/user", {
           displayName: displayName, // 새로운 표시 이름
           profileImgBase64: profileImgBase64, // 사용자 프로필 이미지(base64) - jpg, jpeg, webp, png, gif, svg
           oldPassword: oldPassword, // 기존 비밀번호
           newPassword: newPassword, // 새로운 비밀번호
-        },
-        {
+        },{
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
             "Content-Type": "application/json",
-            //"Content-Type": "multipart/form-data",
             apikey: "KDT5_nREmPe9B",
             username: "KDT5_TeamWink",
           },
-        }
+        },
       );
-      console.log("res:", res.data);
       alert("수정완료");
+      window.location.reload();
     } catch (err) {
       console.error("error");
       alert("수정 실패");
+      window.location.reload(); 
     }
   }
 
-  // const goToMyPage = () => {
-  //   navigate("/MyPage");
-  // }
+  function uploadImage(event: Event){
+    const files = (event.target as HTMLInputElement).files as FileList
+    for (const file of files) {
+      const reader = new FileReader()
+      reader.readAsDataURL(file)  // 파일을 base64형식으로 읽음
+      reader.addEventListener('load', e => {
+        setProfileImgBase64((e.target as FileReader).result as string)
+      })
+    }
+  }
+
+  async function authenticate() {
+    axios('https://asia-northeast3-heropy-api.cloudfunctions.net/api/auth/me',{
+      method:"post",
+      headers:{
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+        apikey: "KDT5_nREmPe9B",
+        username: "KDT5_TeamWink",
+      },
+    }).then((res) => {
+      console.log("res:",res);
+      setUser(res.data);
+      
+    })
+  }
+
+  useEffect(() => {
+    authenticate()
+  }, [])
+
 
   return (
     <>
       <div className="myPageeContainer">
         <div className="subContainer">
-          <span>My Page</span>
+          <div className="subText">My Page</div>
           <div className="profile">
-            <img
-              style={{
-                width: "120px",
-                height: "120px",
-                borderRadius: "50%",
-                objectFit: "cover",
-                border: "1px solid",
-              }}
-              src={profileImgBase64}
-              alt=""
-            ></img>
-
-            {/* <div className="profilePhoto"></div> */}
+            <img 
+              className="profilePhoto"
+              src={user.profileImg} 
+              alt="프로필사진" 
+            />
             <div className="profileContainer">
               <div className="profileName">
-                <p>{displayName}</p>
+                <p>{user.displayName}</p>
               </div>
             </div>
           </div>
@@ -85,18 +102,6 @@ function UserInfo() {
             <br />
             <Link to="/mypage/userinfo">
               <div className="categoryTap">회원정보 수정</div>
-            </Link>{" "}
-            <br />
-            <Link to="/">
-              <div className="categoryTap">배송지 관리</div>
-            </Link>{" "}
-            <br />
-            <Link to="/">
-              <div className="categoryTap">결제수단 관리</div>
-            </Link>{" "}
-            <br />
-            <Link to="/">
-              <div className="categoryTap">1:1 문의</div>
             </Link>{" "}
             <br />
           </div>
@@ -116,12 +121,10 @@ function UserInfo() {
                       <input
                         className="infoItemForm"
                         placeholder="비밀번호를 입력해주세요"
-                        type="password"
+                        type="text"
                         name="oldPassword"
                         value={oldPassword}
-                        onChange={(e) => {
-                          setOldPassword(e.target.value);
-                        }}
+                        onChange={(e) => {setOldPassword(e.target.value)}}
                       />
                     </div>
                   </div>
@@ -131,12 +134,10 @@ function UserInfo() {
                       <input
                         className="infoItemForm"
                         placeholder="비밀번호를 입력해주세요"
-                        type="password"
+                        type="text"
                         name="newPassword"
                         value={newPassword}
-                        onChange={(e) => {
-                          setNewPassword(e.target.value);
-                        }}
+                        onChange={(e) => {setNewPassword(e.target.value)}}
                       />
                     </div>
                   </div>
@@ -149,65 +150,29 @@ function UserInfo() {
                         type="text"
                         name="disPlayname"
                         value={displayName}
-                        onChange={(e) => {
-                          setDisplayName(e.target.value);
-                        }}
+                        onChange={(e) => {setDisplayName(e.target.value)}}
                       />
                     </div>
                   </div>
                   <div className="infoList">
                     <div className="infoTitle">프로필 이미지</div>
                     <div className="infoItem">
-                      {/* <button className='infoPic'>사진 업로드</button> */}
-                      {/* <input type="file" style={{ display: "none" }} ref={imageInput} />
-                        // <button onClick={onCickImageUpload}>이미지업로드</button> */}
                       <input
                         className="infoItemForm"
                         type="file"
                         id="file"
                         name="profileImgBase64"
                         accept="image/*"
-                        onChange={(e) => {
-                          const files = e.target.files;
-                          console.log("111111", e.target.files);
-                          //console.log("files:", files);
-                          var reader = new FileReader();
-                          reader.onload = function (upload) {
-                            if (upload.target != null) {
-                              console.log(
-                                "asd:",
-                                upload.target.result?.toString()
-                              );
-                              setProfileImgBase64(
-                                upload.target.result
-                                  ? upload.target.result.toString()
-                                  : ""
-                              );
-                            }
-                          };
-                          if (files != null) {
-                            reader.readAsDataURL(files[0]);
-                          }
-                          //setProfileImgBase64(files);
-
-                          console.log("profileImgBase64:", profileImgBase64);
-                        }}
+                        onChange={uploadImage}
                       />
-                      {/* <form>
-                            <label htmlFor="profile-upload" />
-                            <input type="file" id="profile-upload" accept="image/*" onChange={onChangeImg}/>
-                          </form> */}
                     </div>
                   </div>
                   <div className="infoList">
                     <div className="infoItem">
-                      <button
+                      <button 
+                        onClick={authenticate}
                         className="infoFix"
                         type="submit"
-                        onSubmit={(e) => {
-                          e.preventDefault();
-                        }}
-                        // onClick={goToMyPage}
                       >
                         회원 정보 수정
                       </button>
