@@ -3,8 +3,7 @@ import Carousel from "./Component/Carousel";
 import ajax from "@/Apis/adminAuth";
 import Main from "./Component/Main";
 import Recommand from "./Component/Recommand";
-import { useEffect } from "react";
-import axios from "axios";
+
 
 const params = new URLSearchParams(location.search);
 console.log(params.get("code"));
