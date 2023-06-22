@@ -11,7 +11,6 @@ function Login() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-
   const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
@@ -19,7 +18,6 @@ function Login() {
   const onChangeName = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
-
 
   interface DataToSubmit {
     email: string; // 사용자 아이디 (필수!)
@@ -53,7 +51,7 @@ function Login() {
         alert("로그인 되었습니다!");
         window.localStorage.setItem("token", data.accessToken);
         navigate("/");
-        location.reload();
+        // location.reload();
       } else {
         alert("로그인에 실패하였습니다. 다시 시도해주세요.");
       }
