@@ -80,7 +80,7 @@ function UserInfo() {
 
   return (
     <>
-      <div className="myPageContainer">
+      <div className="myPageeContainer">
         <div className="subContainer">
           <div className="subText">My Page</div>
           <div className="profile">

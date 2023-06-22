@@ -4,26 +4,79 @@ import { Link } from "react-router-dom";
 import "./MyPage.scss";
 
 function MyPage() {
-  /* 구현해야할일
-  1.  아임포트 결제 내역을 조회해오기 위해서는 acesstoken 이 필요함. 
-  2. 이 acesstoken 을 발급받기 위해서는 POST /users/getToken 을 사용해 헤더에 API 키, API secret  보낸후 
-  발급받음. 
-  3. 발급받은 acesstoken 은 30분마다 새롭게 발급받아야함. 
-  4. 그럼 헤더에 보내는 관리자 api키 ,  API secret 은 고정으로 있기때문에  만약 30분이 지나 기존 
-  acesstoken 맞지 않을때 , 기존 acesstoken 값을 삭제함과 동시에 새로 발급 받을수 있도록 조건식을 써야함.
-  5. 그렇게 30분마다 기존 토큰값을 삭세한후 새로운 토큰 값을 사용해 결제 내역을 받아옴
-  ()
-  */
 
-  useEffect(() => {
-    async function fetchdata() {
-      const { data } = await axios.get(
-        "/iamport/status/all?limit=20&sorting=-started&_token=a293f3ff21b8cfdc954b49b6957eef717c6e580a"
-      );
-      console.log("data:", data);
-    }
-    fetchdata();
-  }, []);
+  const TopCategory = {
+    orderId:'주문번호',
+    orderDate:'주문날짜',
+    productname:'상품이름',
+    price:'상품가격',
+    cancel:'구매취소'
+  } as const;
+
+const [itemList, setItemList] = useState([]);
+const [mydataList, setMydataList] = useState([]);
+
+useEffect(() => {
+  const paynumber = window.localStorage.getItem("mypayment");
+  const merchantUids = JSON.parse(paynumber);
+
+  axios({
+    method: "post",
+    url: "/iamport/users/getToken",
+    data: JSON.stringify({
+      imp_key: "5758023681388354",
+      imp_secret: "tCdwGmiflqhMA3It54n6aLBIeA7LCg0O3WYu5qI1SKpwQ85FKXtJsiHu8yUWTynhDx7fxCFY1wsA3KVc",
+    }),
+    headers: { "Content-Type": "application/json" },
+  })
+    .then((res) => res.data.response)
+    .then((data) => {
+      axios.get(`/iamport/payments/status/paid?limit=20&sorting=paid&_token=${data.access_token}`)
+        .then((res) => res.data.response)
+        .then((res) => {
+          if (res && res.list) {
+            const filteredList = res.list.filter((item) => merchantUids.includes(item.merchant_uid));
+            setItemList(filteredList);
+          } else {
+            console.log('Invalid response format');
+          }
+        })
+        .catch((error) => {
+          console.log('Error occurred:', error);
+        });
+    });
+}, []);
+
+useEffect(() => {
+    const useData = itemList.filter((item) => item.custom_data);
+    useData.forEach((item) => {
+      if(item.custom_data){ 
+          let parsedData = JSON.parse(item.custom_data);
+          parsedData = parsedData.map((data) => ({
+            ...data,
+            paid_at: item.paid_at, //결제날짜 
+            merchant_uid: item.merchant_uid,//주문번호 
+            // Add more properties as needed
+          }));
+          setMydataList((prevDataList) => [...prevDataList, ...parsedData]);
+        }
+    });
+}, [itemList]);
+
+useEffect(() => {
+  console.log(mydataList);
+},[mydataList]);
+
+const getDate = function(param){
+  const date = new Date(param * 1000);
+  const koreaTime = date.toLocaleString("ko-KR", { 
+      timeZone: "Asia/Seoul",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    });
+  return koreaTime;
+}
 
   return (
     <>
@@ -54,29 +107,71 @@ function MyPage() {
           </div>
 
           <div className="detailsContainer">
-            <div className="orderContainer">
-              <div className="orderText">구매 내역</div>
+            <div className="orderText">구매 내역</div>
 
+
+            <div className="orderContainer">
+
+            <div className="TopCategory">
+                {Object.keys(TopCategory).map(key => {
+                  return <span className="TopCategory-inner" key={key}>
+                    {TopCategory[key]}
+                  </span>
+                })}
+            </div>
               <div className="orderBox">
-                <div className="orderList"></div>
-                <div className="orderList"></div>
-                <div className="orderList"></div>
-                <div className="orderList"></div>
-                <div className="orderList"></div>
+                {mydataList
+                .filter(el => el.gubun === 'buy') 
+                .map((item, index) => (
+                 
+                  <div className="orderList" key={index}>
+                    <span>{item.merchant_uid.replace("mid_","")}</span>
+                      <span>{getDate(item.paid_at)}</span>
+                          <div className="orderList-ImageBox">
+                            <img src={item.small_image} alt="책이미지"/>
+                            <span className="orderList-ImageBox__text">{item.product_name}</span>
+                          </div>
+                      <span className="orderList-priceBox">{item.price}</span> 
+                      <div className="Buy-ButtonBox">
+                        <button>x</button>
+                      </div>
+                  </div>
+                
+                ))}
               </div>
             </div>
 
-            <div className="rentContainer">
-              <div className="rent">
-                <div className="rentText">대여 내역</div>
-                <div className="rentBox">
-                  {/* <div className="rentList"></div>
-                  <div className="rentList"></div>
-                  <div className="rentList"></div>
-                  <div className="rentList"></div> */}
+            <div className="RentContainer-text">대여 내역</div>
+              <div className="RentContainer">
+                <div className="RentTop-Category">
+                  {Object.keys(TopCategory).map(key => {
+                    return <span className="RentCategory-inner" key={key}>
+                      {TopCategory[key]}
+                    </span>
+                  })}
+                </div>
+                <div className="RentBox">
+                {mydataList
+                .filter(el => el.gubun === 'rent') 
+                .map((item, index) => (
+                 
+                  <div className="RentList" key={index}>
+                    <span>{item.merchant_uid.replace("mid_","")}</span>
+                      <span>{getDate(item.paid_at)}</span>
+                          <div className="RentList-ImageBox">
+                            <img src={item.small_image} alt="책이미지"/>
+                            <span className="RentList-ImageBox__text">{item.product_name}</span>
+                          </div>
+                      <span className="RentList-priceBox">{item.price}</span> 
+                      <div className="Rent-ButtonBox">
+                        <button>x</button>
+                      </div>
+                  </div>
+                
+                ))}
                 </div>
               </div>
-            </div>
+          
           </div>
         </div>
       </div>
