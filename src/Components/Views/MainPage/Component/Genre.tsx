@@ -11,7 +11,8 @@ interface Props {
 export default function Genre({ category }: { category: Props }) {
   const [list, setList] = useState<Products>([] as Products);
   async function sortByCategory() {
-    const data = await getList(category.number);
+    const data = await getList({ category: category.number });
+    //console.log(category.number);
     setList(data);
   }
   useEffect(() => {
@@ -29,10 +30,9 @@ export default function Genre({ category }: { category: Props }) {
       </div>
 
       <div className="right">
-        <img className='Top-bookContainer' src="./public/images/Group 8.png"/>
+        <img className="Top-bookContainer" src="./public/images/Group 8.png" />
         {list &&
           list.map((item) => (
-            <>
             <BookInfo
               key={item.product_no}
               productNo={item.product_no}
@@ -42,9 +42,11 @@ export default function Genre({ category }: { category: Props }) {
               price={item.price}
               summary={item.summary_description}
             />
-            </>
           ))}
-          <img className='Bottom-bookContainer' src="./public/images/Group 8.png"/>
+        <img
+          className="Bottom-bookContainer"
+          src="./public/images/Group 8.png"
+        />
       </div>
     </div>
   );

@@ -11,12 +11,18 @@ const ajax = axios.create({
   },
 });
 
-export async function getList(category?: number, product_no:string) {
+interface GetList {
+  category?: number;
+  product_no?: string;
+}
+export async function getList(info: GetList) {
   try {
     const { data } = await ajax.get('/products', {
       params: {
-        category: category,
-        product_no : product_no
+        display: 'T',
+        selling: 'T',
+        category: info.category,
+        product_no: info.product_no,
       },
     });
     //console.log(data.products);
