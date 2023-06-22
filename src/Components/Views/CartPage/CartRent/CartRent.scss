@@ -12,7 +12,8 @@
   // background-color: #bff12b;
   background-color: #f6e4cc;
   position: absolute;
-  
+  border-radius: 10px 10px 0px 0px;
+
   .Rent-LableBox{
     width: 40px;
     height: 40px;
@@ -25,52 +26,62 @@
 
   .Rental-Namebox{
     @include CartNameStyle;
-    left: 300px;
+    left: 140px;
   }
 
   .Renatal-Price{
     @include CartNameStyle;
-    right: 420px;
+    left: 420px;
   }
 
   .RentDay{
     @include CartNameStyle;
-    right: 100px;
-  }  
+    right: 440px;
+  }
+  
+  .DeleteDay{
+    @include CartNameStyle;
+    right: 150px;
+  }
+  
 }
 
 .Rental-ItemsContainer {
     width: 1300px;
     top: 50px;
     position: relative;
+    border-radius: 0px 0px 10px 10px;
     //background-color: #d16f14;
+    background-color: white;
     max-height: 450px; /* 스크롤 영역의 최대 높이 설정 */
     overflow-y: auto; /* 세로 스크롤 생성 */ 
 
     .Rental-ItemContainer {
-      width: 1180px;
-      height: 90px;
+      width: 1182px;
+      padding-bottom: 5px;
+      //height: 90px;
       position: relative;
       margin-top: 20px;
-      border-bottom: 2px solid rgb(202, 159, 18);
-  
+      border-bottom: 2px solid rgb(208, 203, 185);
       .Rental-CheckContainer{
         width: 60px;
         height: 40px;
         position: absolute;
-        top: 12px;
+        top: 45px;
         left: 30px;  
       }
       
       .ImageBox{
         width: 100px;
-        height: 100px;
-        margin-left: 150px;
+        position: relative;
+        bottom: 10px;
+        margin-left: 120px;
+        background-color: rebeccapurple;
 
         img{
-          position: absolute;
           width: inherit;
-          height: 80px;
+          background-color: orange;
+          height: auto;
         }
       }
 
@@ -81,52 +92,41 @@
         top: 1px;
         left: 260px;
         font-size: 20px;
-        
-        span:nth-child(1) {
-          position: absolute;
-          font-size: 20px;
-        }
-
-        span:nth-child(2) {
-          position: absolute;
-          margin-top: 35px;
-          font-size: 15px;
-        }
       }
 
       .Rental-PriceInner{
-        width: 120px;
+        width: 100px;
         height: 30px;
         position: absolute;
-        top: 20px;
-        right: 370px;
-        ///background-color: olivedrab;
-        display: table-column;
+        top: 50px;
+        left: 420px;
         font-size: 18px;
-        
-        span {
-          position: absolute;
-          //background-color: red;
-        }  
       }
 
       .Rental-RentDay{
-        width: 70px;
-        height: 30px;
+        width: 50px;
         position: absolute;
-        top: 20px;
-        right: 80px;
-        background-color: olivedrab;
-        display: table-column;
+        top: 50px;
+        right: 420px;
         font-size: 18px;
 
         span{
+          width: auto;
+        }
+      }
+
+      .RentButtonBox{
+        width: 60px;
+        position: absolute;
+        top: 40px;
+        right: 110px;
+        //background-color: burlywood;
+        
+        button{
+          display: block;
           width: 50px;
-          position: absolute;
-          margin: 0 auto;
-          left: 0;
-          right: 0;
-          background-color: #bff12b;
+          height: 30px;
+          margin-top: 10px;
         }
       }
   }
