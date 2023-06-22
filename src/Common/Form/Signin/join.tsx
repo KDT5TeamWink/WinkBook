@@ -22,7 +22,7 @@ function Join() {
 
   //오류 메세지 저장
   const [nameMessage, setNameMessage] = useState("");
-  const [emailMessage, setEmailMessage] = useState("");
+  const [emailMessage, setEmailMessage] = useState(""); 
   const [passwordMessage, setPasswordMessage] = useState("");
   const [passwordConfirmMessage, setPasswordConfirmMessage] = useState("");
 

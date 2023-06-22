@@ -1,19 +1,19 @@
+
 .headerContainer{
   width: 100%;
   margin: auto;
   height: 80px;
-  background-color: white;
+  background-color: rgb(255, 255, 255);
   border-bottom: 2px solid rgb(202, 159, 18);
-  max-width: 1920px;
+  // max-width: 1920px;
   //position: relative;
 
     .itemsWrapper{
-      //width: 80%;
-      width: 1400px;
+      width: 80%;
       margin: 0 auto;
       left: 0;
       right: 0;
-      //background-color: greenyellow;
+      // background-color: greenyellow;
       display: flex; 
       position: absolute;
       justify-content: space-between;
@@ -25,7 +25,7 @@
     height: 50px;
     display: inline-block;
     position: relative;
-    //background-color: aqua;
+    // background-color: aqua;
 
     img{
       width: 80px;
@@ -37,43 +37,84 @@
   }
     
     .searchBox{
-      width: 270px;
-      height: 40px;
-      background-color: white;
-      border-radius: 10px;
-      margin-top: 10px;
+      margin-top: 20px;
 
       input{
-        margin: auto;
+        padding-left: 30px;
+        border: solid 1px #c6c6c6;
+        border-radius: 10px;
+        margin: 0 auto;
         display: flex;
         height: 40px;
-        width: 250px;
+        width: 400px;
         outline: none;
-        border: none;
+        left: 0;
+        right: 0; 
+        // background-color:aqua;
       }
     }
 
-
       .Header-box {
         display: flex;
-        //vertical-align: top;
+        // vertical-align: top;
         align-items: center;
         gap: 30px;
         height: 30px;
         margin-top: 20px;
-        //max-width: 1230px;
-        background-color: yellow;
+        // max-width: 1230px;
+        // background-color: yellow;
 
         .Header-box__text{
           text-Decoration:none;
           color: gray;
           font-weight: bold;
+          cursor: pointer;
+          display: flex;
+
+          .Header-box__logout{
+            padding: 15px 20px 0 0;
+          }
         }
 
         .cart {
+          // border: solid 1px red;
+          position: relative;
           width: 50px;
           height: 50px;
-          background-color: red;
+          border-radius: 50%;
+          overflow: hidden;
+          border: none;
+          background-position: center;
+          background-size: contain;
+          background-repeat: no-repeat;
+          overflow: hidden;
+          object-fit: cover;
+
+          .cartPhoto{
+            // border: solid 1px blue;
+
+            // position: absolute;
+            // width: 100%;
+            // height: 100%;
+            // top: 0;
+            // left: 0;
+            // object-fit: cover;
+            
+            cursor:auto;
+            box-sizing: border-box;
+            position: relative;
+            // top:-5px;
+            // left:-5px;
+            width: 50px;
+            height: 50px;
+            // border-width:2px;
+            border-radius: 50%;
+            background-position: center;
+            background-size: contain;
+            background-repeat: no-repeat;
+            overflow: hidden;
+            object-fit: cover;
+          }
         }
       }
     

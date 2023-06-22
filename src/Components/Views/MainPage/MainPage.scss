@@ -1,7 +1,7 @@
 .wrapper {
   width: 1500px;
   margin: 100px auto 0;
-  //background-color: yellow;
+  // background-color: yellow;
   position: relative;
 }
 a {
@@ -52,6 +52,17 @@ main {
     }
   }
 
-
+  li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    width: 100px;
+    border-radius: 30px;
+    transition: background-color 0.3s;
+  }
+  .active {
+    background-color: orange;
+    //border-radius: 30px;
+  }
 }
-

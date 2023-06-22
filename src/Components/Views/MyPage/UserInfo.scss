@@ -8,6 +8,12 @@
   
       .subContainer{
         width: 25%;
+        
+        .subText{
+          font-size: 15px;
+          padding: 0 0 0 15px;
+          
+        }
         .profile{
           border: solid 1px rgb(221, 221, 221);
           position: relative;
@@ -17,14 +23,14 @@
           .profilePhoto{
             position: relative;
             top:20px;
-            width: 120px;
-            height: 120px;
+            left:75px;
+            width: 150px;
+            height: 150px;
             margin-left: auto;
             margin-right: auto;
             border: solid 1px rgb(221,221,221);
             border-radius: 50%;
             box-shadow: 2px 5px 5px rgb(0,0,0,.3);
-            background-image: url(./59932b0eb046f9fa3e063b8875032edd_crop.jpeg);
             background-position: center;
             background-size: contain;
             background-repeat: no-repeat;

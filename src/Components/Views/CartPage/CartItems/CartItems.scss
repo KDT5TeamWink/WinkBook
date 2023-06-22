@@ -71,11 +71,11 @@
       
       .ImageBox{
         width: 100px;
-        //height: 100px;
+        // height: 100px;
         position: relative;
         bottom: 10px;
-        margin-left: 120px;
-        background-color: rebeccapurple;
+        margin-left: 140px;
+        // background-color: rebeccapurple;
 
         img{
           //position: absolute;
@@ -91,6 +91,7 @@
         position: absolute;
         top: 50px;
         left: 260px;
+        text-align: center;
 
         span:nth-child(1) {
           font-size: 20px;
@@ -111,16 +112,16 @@
         top: 50px;
         position: absolute;
         right: 370px;
-        background-color: olivedrab;
+        // background-color: olivedrab;
         font-size: 15px; 
     }
 
     .CartButtonBox{
       width: 60px;
       position: absolute;
-      top: 30px;
+      top: 35px;
       right: 100px;
-      //background-color: burlywood;
+      // background-color: burlywood;
       
       button{
         display: block;

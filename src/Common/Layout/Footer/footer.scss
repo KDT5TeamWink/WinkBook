@@ -1,7 +1,8 @@
 footer {
-    background-color: #f6f4ef;
-    padding-bottom: 100px;
+    background-color: rgb(255, 255, 255);
+    height: 100px;
     position: relative;
+    border-top: solid 2px rgb(202, 159, 18);
     
     .Footer-inner {
       display: flex;
