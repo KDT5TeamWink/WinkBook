@@ -21,7 +21,7 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/cafe24/, ""),
       },
       "/iamport": {
-        target: "https://api.iamport.kr/payments",
+        target: "https://api.iamport.kr/",
         changeOrigin: true,
         secure: false,
         rewrite: (path) => path.replace(/^\/iamport/, ""),

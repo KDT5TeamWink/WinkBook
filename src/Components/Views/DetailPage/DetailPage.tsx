@@ -195,15 +195,6 @@ function DetailPage() {
           dangerouslySetInnerHTML={{ __html: modifiedDescription }}
           onClick={disableLinkClick}
         ></div>
-
-        {/* <div className='Bookple-Container'>
-        <span className='Bookple-Container__text'>북플 BOOKPLE</span>
-        <ul className='Bookple-Container__coment'>
-          <li>이책의 마니아가 남긴글</li>
-          <li>친구가 남긴글</li>
-          <li>내가 남긴글</li>
-        </ul>
-      </div> */}
       </div>
     </>
   );

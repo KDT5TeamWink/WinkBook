@@ -55,7 +55,7 @@ function UserInfo() {
 
   return (
     <>
-      <div className="myPageContainer">
+      <div className="myPageeContainer">
         <div className="subContainer">
           <span>My Page</span>
           <div className="profile">
