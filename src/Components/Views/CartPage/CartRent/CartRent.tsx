@@ -3,69 +3,65 @@ import { useState, useEffect } from "react";
 import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
-//import YearBox from "Common/section/number";
-// import './CartItems.scss'
 import './CartRent.scss'
 
+interface RentItem {
+  id: number;
+  product_name: string;
+  price: number;
+  detail_image: string;
+  product_no: number;
+  gubun: string;
+  name: string;
+  rentdate: string;
 
+}
 
-  interface RentItem {
-    id: number;
-    product_name: string;
-    price: number;
-    detail_image: string;
-    product_no: number;
-  }
+interface CartItem {
+  product_no: number;
+}
   
   interface CartItemsProps {
     check: number[];
     pitem: string;
-    setItems:string;
-  
+    setItems: React.Dispatch<React.SetStateAction<CartItem[]>>;
+    delete: (index: number, key: any) => void;
+    datalist : any
+    setdata : React.Dispatch<React.SetStateAction<RentItem[]>>;
+    checkOne : any;
+    checkTwo : any;
   }
   
-  const RentalItems = ({ check, pitem, setItems }: CartItemsProps) => {
+  const RentalItems = ({ check,delete: RemoveBuyItem, datalist, checkOne, checkTwo  }: CartItemsProps) => {
     
-    const [buyItem, setbuyItem] = useState<RentItem[]>([]);
-    const [checkedItems, setCheckedItems] = useState<number[]>(check);
+     const [buyItem, setbuyItem] = useState<RentItem[]>([]);
+     const [checkedItems, setCheckedItems] = useState<number[]>(check);
 
-    useEffect(() => {
-      BuyCart();
-    }, []);
+     useEffect(() => {
+      setbuyItem(datalist)
+    }, [datalist]);
 
-    const BuyCart = () => {
-      const BuyItems = JSON.parse(localStorage.getItem("cart")) || [];
-      setbuyItem(BuyItems);
-      console.log(BuyItems)
-    }
+
+    // useEffect(() => {
+    //   BuyCart();
+    // }, []);
+
+    // const BuyCart = () => {
+    //   const BuyItems = JSON.parse(localStorage.getItem("cart")) || [];
+    //   setbuyItem(BuyItems);
+    //   console.log(BuyItems)
+    // }
   
+
     const handleChange1 = (event: React.ChangeEvent<HTMLInputElement>) => {
-      const checkedValue = event.target.checked;
-      const updatedCheckedItems = checkedValue
-        ? buyItem.map((item) => item.id)
-        : [];
-      setCheckedItems(updatedCheckedItems);  
+      setCheckedItems(checkOne(event, buyItem,'rent'));
     };
 
-    const handleChange2 = (el: any) => (event: React.ChangeEvent<HTMLInputElement>) => {
-      console.log(el);
-      const itemId = parseInt(event.target.name);
-      let updatedCheckedItems: number[] = [];
-      let updatedItems: any[] = [];
-      if (event.target.checked) {
-        console.log(itemId)
-        updatedCheckedItems = [...checkedItems, itemId];
-        updatedItems = [...pitem , el];
-      } else {
-        updatedCheckedItems = checkedItems.filter((id) => id !== itemId);
-        updatedItems = pitem.filter((key) => key.product_no !== el.product_no);
-      } 
-      console.log(updatedCheckedItems)
-      setItems(updatedItems);
-      setCheckedItems(updatedCheckedItems);
-      //setCheck(updatedCheckedItems);
+    const handleChange2 =
+    (el: any) => (event: React.ChangeEvent<HTMLInputElement>) => {
+      setCheckedItems(checkTwo(event, checkedItems,el))
     };
-  
+   
     const children = (el:any ,index:number) => (
       <Box
         sx={{
@@ -77,16 +73,17 @@ import './CartRent.scss'
         <FormControlLabel
           label=""
           control={
+            <div className="LableBox">
             <Checkbox
               checked={checkedItems.includes(index)}
               onChange={handleChange2(el)}
               name={index}
             />
+            </div>
           }
         />
       </Box>
     );
-
 
   return(
     <>
@@ -116,6 +113,10 @@ import './CartRent.scss'
       <div className='RentDay'>
           <span>대여날짜</span>
       </div>  
+
+      <div className="DeleteDay">
+        <span>삭제</span>
+      </div>
     </div>
     
     <div className='Rental-ItemsContainer'>
@@ -137,10 +138,13 @@ import './CartRent.scss'
             <span>{Number(el.price).toFixed(0)}원</span>
           </div>
           <div className='Rental-RentDay'>
-            <span>{el.rentdate}</span>
+            <span>{el.rentdate}일</span>
           </div>
-
-    
+          <div className="RentButtonBox">
+            <button onClick={() => RemoveBuyItem(index, el.product_no)}>
+              삭제
+            </button>
+          </div>    
         </div>
       ))}
     </div>
