@@ -13,40 +13,51 @@ const ajax = axios.create({
   },
 });
 
-async function SearchAPI(product_name: string) {
-  try {
-    const res = await ajax.get("/products", {
-      params: {
-        product_name: product_name,
-      },
-    });
-    return res.data.products;
-  } catch (err) {
-    console.log(err);
-  }
-}
-
 export default function SearchPage() {
   const [input, setInput] = useState("");
   const [search, setSearch] = useState<Products>([] as Products);
   const params = useParams();
   const [offset, setOffset] = useState(0);
+  const [count, setCount] = useState(0);
+
+  async function SearchAPI(product_name: string) {
+    try {
+      const res = await ajax.get("/products", {
+        params: {
+          product_name: product_name,
+          offset: offset * 10,
+        },
+      });
+      return res.data.products;
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   const searchInputChange = (e) => {
     setInput(e.target.value);
   };
 
   useEffect(() => {
-    searchUpload();
-  }, [offset]);
-  useEffect(() => {
-    (async () => {
-      const result = await SearchAPI(params.keyword);
-      setSearch(result);
-      console.log(result);
-    })();
-  }, [params]);
+    const searchUpload = () => {
+      (async () => {
+        await ajax
+          .get("/products/count", {
+            params: {
+              product_name: input,
+            },
+          })
+          .then((res) => setCount(res.data.count));
+        const result = await SearchAPI(params.keyword);
+        setSearch(result);
+        console.log(result);
+      })();
+    };
+  }, [params, offset]);
 
+  // useEffect(() => {
+  //   searchUpload();
+  // }, [offset]);
   return (
     <div className="wrapper">
       {/* <input
