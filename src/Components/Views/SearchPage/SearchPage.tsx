@@ -34,17 +34,17 @@ export default function SearchPage() {
     }
   }
 
-  const searchInputChange = (e) => {
-    setInput(e.target.value);
-  };
+  // const searchInputChange = (e: any) => {
+  //   setInput(e.target.value);
+  // };
 
-  useEffect(() => {
-    const searchUpload = () => {
+  const searchUpload = () => {
+    useEffect(() => {
       (async () => {
         await ajax
           .get("/products/count", {
             params: {
-              product_name: input,
+              product_name: params.keyword,
             },
           })
           .then((res) => setCount(res.data.count));
@@ -52,12 +52,12 @@ export default function SearchPage() {
         setSearch(result);
         console.log(result);
       })();
-    };
-  }, [params, offset]);
+    }, [params]);
+  };
 
-  // useEffect(() => {
-  //   searchUpload();
-  // }, [offset]);
+  useEffect(() => {
+    searchUpload();
+  }, [offset]);
   return (
     <div className="wrapper">
       {/* <input
