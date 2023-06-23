@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import "./SearchPage.scss";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-
 const { VITE_CLIENT_ID } = import.meta.env;
+
 const ajax = axios.create({
   baseURL: "/cafe24",
   headers: {
@@ -16,9 +16,9 @@ const ajax = axios.create({
 export default function SearchPage() {
   const [input, setInput] = useState("");
   const [search, setSearch] = useState<Products>([] as Products);
-  const params = useParams();
   const [offset, setOffset] = useState(0);
   const [count, setCount] = useState(0);
+  const params = useParams();
 
   async function SearchAPI(product_name: string) {
     try {
@@ -33,31 +33,28 @@ export default function SearchPage() {
       console.log(err);
     }
   }
-
-  // const searchInputChange = (e: any) => {
-  //   setInput(e.target.value);
-  // };
-
-  const searchUpload = () => {
-    useEffect(() => {
-      (async () => {
-        await ajax
-          .get("/products/count", {
-            params: {
-              product_name: params.keyword,
-            },
-          })
-          .then((res) => setCount(res.data.count));
-        const result = await SearchAPI(params.keyword);
-        setSearch(result);
-        console.log(result);
-      })();
-    }, [params]);
-  };
-
   useEffect(() => {
     searchUpload();
   }, [offset]);
+
+  const searchInputChange = (e: any) => {
+    setInput(e.target.value);
+  };
+
+  const searchUpload = async () => {
+    await ajax
+      .get("/products/count", {
+        params: {
+          product_name: input,
+        },
+      })
+      .then((res) => setCount(res.data.count));
+    const result = await SearchAPI(input);
+    setSearch(result);
+    console.log(result);
+  };
+  // console.log("search:", search);
+
   return (
     <div className="wrapper">
       {/* <input
@@ -70,57 +67,62 @@ export default function SearchPage() {
       {search &&
         search.map((v) => {
           return (
-            <div className="SearchPage">
-              <div className="SearchPage__Images">
-                <img src={v.list_image} alt="책표지" />
-              </div>
-              <div className="SearchPage__Items">
-                <h1>{v.product_name}</h1>
-                <div className="SearchPage__Item">
-                  <p>{v.summary_description}</p>
-                  <p>{v.product_tag}</p>
+            <>
+              <div className="SearchPage">
+                <div className="SearchPage__Images">
+                  <img src={v.list_image} alt="책표지" />
                 </div>
-                <div className="SearchPage__Price">
-                  <p> {v.price.slice(0, -3)}원</p>
-                  <p> {v.retail_price.slice(0, -3)}원</p>
+
+                <div className="SearchPage__Items">
+                  <h1>{v.product_name}</h1>
+                  <div className="SearchPage__Item">
+                    <p>{v.summary_description}</p>
+                    <p>{v.product_tag}</p>
+                  </div>
+                  <div className="SearchPage__Price">
+                    <p> {v.price.slice(0, -3)}원</p>
+                    <p> {v.retail_price.slice(0, -3)}원</p>
+                  </div>
+                </div>
+                <div className="SearchPage__ButtonBox">
+                  <button>구매하기</button>
+                  <button>대여하기</button>
                 </div>
               </div>
-              <div className="SearchPage__ButtonBox">
-                <button>구매하기</button>
-                <button>대여하기</button>
-              </div>
-            </div>
+            </>
           );
         })}
-      <ul
-        onClick={(e) => {
-          if (e.target instanceof HTMLLIElement) {
-            setOffset(e.target.value);
-            // console.log("e:", e.target.value);
-          }
-        }}
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          paddingTop: 20,
-          paddingBottom: 20,
-        }}
-      >
-        {Array(parseInt(((count - 0.1) / 10 + 1).toString()))
-          .fill(0)
-          .map((i, index) => (
-            <li style={{ listStyle: "none" }} key={index}>
-              <button
-                style={{ width: 30, height: 30 }}
-                onClick={() => {
-                  setOffset(index);
-                }}
-              >
-                {index + 1}
-              </button>
-            </li>
-          ))}
-      </ul>
+      <div>
+        <ul
+          onClick={(e) => {
+            if (e.target instanceof HTMLLIElement) {
+              setOffset(e.target.value);
+              // console.log("e:", e.target.value);
+            }
+          }}
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            paddingTop: 20,
+            paddingBottom: 20,
+          }}
+        >
+          {Array(parseInt(((count - 0.1) / 10 + 1).toString()))
+            .fill(0)
+            .map((i, index) => (
+              <li style={{ listStyle: "none" }} key={index}>
+                <button
+                  style={{ width: 30, height: 30 }}
+                  onClick={() => {
+                    setOffset(index);
+                  }}
+                >
+                  {index + 1}
+                </button>
+              </li>
+            ))}
+        </ul>
+      </div>
     </div>
   );
 }
