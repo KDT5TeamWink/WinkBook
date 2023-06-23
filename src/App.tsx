@@ -5,8 +5,8 @@ import SearchPage from "./Components/Views/SearchPage/SearchPage";
 function App() {
   return (
     <>
-      <RoutesPage />
-      {/* <SearchPage /> */}
+      {/* <RoutesPage /> */}
+      <SearchPage />
     </>
   );
 }

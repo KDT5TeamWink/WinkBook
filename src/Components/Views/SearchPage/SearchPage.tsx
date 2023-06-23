@@ -30,10 +30,15 @@ export default function SearchPage() {
   const [input, setInput] = useState("");
   const [search, setSearch] = useState<Products>([] as Products);
   const params = useParams();
+  const [offset, setOffset] = useState(0);
 
   const searchInputChange = (e) => {
     setInput(e.target.value);
   };
+
+  useEffect(() => {
+    searchUpload();
+  }, [offset]);
   useEffect(() => {
     (async () => {
       const result = await SearchAPI(params.keyword);
@@ -76,6 +81,35 @@ export default function SearchPage() {
             </div>
           );
         })}
+      <ul
+        onClick={(e) => {
+          if (e.target instanceof HTMLLIElement) {
+            setOffset(e.target.value);
+            // console.log("e:", e.target.value);
+          }
+        }}
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          paddingTop: 20,
+          paddingBottom: 20,
+        }}
+      >
+        {Array(parseInt(((count - 0.1) / 10 + 1).toString()))
+          .fill(0)
+          .map((i, index) => (
+            <li style={{ listStyle: "none" }} key={index}>
+              <button
+                style={{ width: 30, height: 30 }}
+                onClick={() => {
+                  setOffset(index);
+                }}
+              >
+                {index + 1}
+              </button>
+            </li>
+          ))}
+      </ul>
     </div>
   );
 }
