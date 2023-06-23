@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useEffect } from "react";
 import { useState } from "react";
 import Box from "@mui/material/Box";
@@ -6,14 +5,6 @@ import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 //import RemoveItemButton from "../Components/DeletButton";
 import "./CartItems.scss";
-=======
-import React, { useEffect } from 'react';
-import { useState } from 'react';
-import Box from '@mui/material/Box';
-import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import './CartItems.scss';
->>>>>>> 9dd5bd33b85c19daa2055001fa2bb5c25bc900cf
 
 interface BuyItem {
   id: number;
@@ -53,19 +44,8 @@ const CartItems = ({
   const [checkedItems, setCheckedItems] = useState<number[]>(check);
 
   useEffect(() => {
-<<<<<<< HEAD
     setbuyItem(datalist);
   }, [datalist]);
-=======
-    BuyCart();
-  }, []);
-
-  const BuyCart = () => {
-    const BuyItems = JSON.parse(localStorage.getItem('cart')) || [];
-    setbuyItem(BuyItems);
-    console.log(BuyItems);
-  };
->>>>>>> 9dd5bd33b85c19daa2055001fa2bb5c25bc900cf
 
   const handleChange1 = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCheckedItems(checkOne(event, buyItem, "buy"));
@@ -79,10 +59,10 @@ const CartItems = ({
   const children = (el: any, index: number) => (
     <Box
       sx={{
-        display: 'flex',
-        flexDirection: 'column',
+        display: "flex",
+        flexDirection: "column",
         ml: 3,
-        fontSize: 'large',
+        fontSize: "large",
       }}
     >
       <FormControlLabel
@@ -98,33 +78,6 @@ const CartItems = ({
     </Box>
   );
 
-<<<<<<< HEAD
-=======
-  const RemoveBuyItem = (index: number, key: any) => {
-    console.log(key);
-    const confirmation = window.confirm('삭제하시겠습니까?');
-    if (confirmation) {
-      const updatedCartData = JSON.parse(localStorage.getItem('cart'));
-      localStorage.setItem(
-        'cart',
-        JSON.stringify(
-          updatedCartData.filter((item) => item.product_no !== key)
-        )
-      );
-
-      const updatedBuyItem = [...buyItem];
-      //선택한 index 1개를 buyItem 배열에서 제거.
-      updatedBuyItem.splice(index, 1);
-      // 제거한후의 값 setState 갑에 담아줌.
-      setbuyItem(updatedBuyItem);
-      // cart 키 값으로 로컬에서 데이터 찾아옴
-      alert('삭제되었습니다.');
-    } else {
-      alert('취소되었습니다.');
-    }
-  };
-
->>>>>>> 9dd5bd33b85c19daa2055001fa2bb5c25bc900cf
   return (
     <>
       <div className="CartPageTable__Buy">
@@ -160,7 +113,7 @@ const CartItems = ({
 
       <div className="ItemsContainer">
         {buyItem
-          .filter((el) => el.gubun === 'buy')
+          .filter((el) => el.gubun === "buy")
           .map((el, index) => (
             <div className="ItemContainer" key={index}>
               <div className="CheckContainer">{children(el, index)}</div>

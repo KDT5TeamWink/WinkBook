@@ -7,10 +7,11 @@ import "./headers.scss";
 //import { useDispatch } from 'react-redux';
 //import { logoutUser } from '_reducers/user_reducer';
 import { LogoutForm } from "@/Apis/register";
+import SearchPage from "@/Components/Views/SearchPage/SearchPage";
 
 interface User {
-  displayName: string // 사용자 표시 이름
-  profileImg: string // 사용자 프로필 이미지 URL
+  displayName: string; // 사용자 표시 이름
+  profileImg: string; // 사용자 프로필 이미지 URL
 }
 
 function Header() {
@@ -18,9 +19,18 @@ function Header() {
   // const accessToken = userState.accessToken;
   // console.log("1", accessToken);
   // const dispatch = useDispatch();
-  const [user, setUser] =useState<User>({} as User)
+  const [user, setUser] = useState<User>({} as User);
+  const [search, setSearch] = useState<Products>([] as Products);
+  const [input, setInput] = useState("");
+  const [keyword, setKeyWord] = useState("");
 
   const navigate = useNavigate();
+
+  // const searchUpload = async () => {
+  //   const result = await SearchAPI(input);
+  //   setSearch(result);
+  //   console.log(result);
+  // };
 
   const logoutHandler = () => {
     LogoutForm()
@@ -34,29 +44,31 @@ function Header() {
         console.log("Logout failed:", error);
       });
   };
+  const onSubmit = async () => {
+    // window.location.href = "/search/" + keyword;
+    navigate("/search/" + keyword);
+  };
 
   const token = localStorage.getItem("token");
 
-
   async function authenticate() {
-    axios('https://asia-northeast3-heropy-api.cloudfunctions.net/api/auth/me',{
-      method:"post",
-      headers:{
+    axios("https://asia-northeast3-heropy-api.cloudfunctions.net/api/auth/me", {
+      method: "post",
+      headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
         "Content-Type": "application/json",
         apikey: "KDT5_nREmPe9B",
         username: "KDT5_TeamWink",
       },
     }).then((res) => {
-      console.log("res:",res);
+      console.log("res:", res);
       setUser(res.data);
-    })
+    });
   }
 
-  
   useEffect(() => {
-    authenticate()
-  }, [])
+    authenticate();
+  }, []);
 
   return (
     <>
@@ -66,7 +78,20 @@ function Header() {
             <img src="/public/images/Wink_logo.png" alt="logo" />
           </Link>
           <div className="searchBox">
-            <input type="text" placeholder="검색" />
+            <input
+              type="text"
+              placeholder="검색"
+              onChange={(e) => {
+                setKeyWord(e.target.value);
+              }}
+            />
+            <button
+              onClick={() => {
+                onSubmit();
+              }}
+            >
+              검색
+            </button>
           </div>
 
           <div className="Header-box">
@@ -78,14 +103,13 @@ function Header() {
             </Link>
             {token ? (
               // <div className="Header-box__text" onClick={logoutHandler}>
-              <div className="Header-box__text" >
-                <div className="Header-box__logout" onClick={logoutHandler}>로그아웃</div>
+              <div className="Header-box__text">
+                <div className="Header-box__logout" onClick={logoutHandler}>
+                  로그아웃
+                </div>
                 <div className="cart">
-                  <img 
-                    className="cartPhoto"
-                    src={user.profileImg} 
-                  />
-                  </div>
+                  <img className="cartPhoto" src={user.profileImg} />
+                </div>
               </div>
             ) : (
               <>
