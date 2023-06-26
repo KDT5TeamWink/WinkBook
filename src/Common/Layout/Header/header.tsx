@@ -28,14 +28,13 @@ function Header() {
         localStorage.removeItem("token");
         alert("로그아웃 되셨습니다");
         navigate("/");
-        // location.reload();
       })
       .catch((error: string) => {
         console.log("Logout failed:", error);
       });
   };
 
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
     const authenticate = async () => {
@@ -89,7 +88,6 @@ function Header() {
               마이페이지
             </Link>
             {token ? (
-              // <div className="Header-box__text" onClick={logoutHandler}>
               <div className="Header-box__text" >
                 <div className="Header-box__logout" onClick={logoutHandler}>로그아웃</div>
                 <div className="cart">

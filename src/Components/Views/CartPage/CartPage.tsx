@@ -3,8 +3,6 @@ import { useState, useEffect } from "react";
 import CartItems from "./CartItems/CartItems";
 import RentalItems from "./CartRent/CartRent";
 import Payment from "./Payment/Payment";
-//import useCheckedItems from "../Custom/useChecked";
-
 
 interface BuyItem {
   id: number;
@@ -31,24 +29,6 @@ function CartPage() {
     calculateTotal();
   }, [selectedItem]);
 
-  // const checkOne = (event: React.ChangeEvent<HTMLInputElement>,buyItem:any) => {
-  //   const checkedValue = event.target.checked;
-  //   const updatedCheckedItems = checkedValue
-  //     ? buyItem.map((item,index) => index)
-  //     : [];
-  //   //setCheckedItems(updatedCheckedItems);
-  //   setSelectedItem(buyItem);
-  //   return updatedCheckedItems;
-  // };
-
-  // const checkOne = (event: React.ChangeEvent<HTMLInputElement>, buyItem: any[], gubun:string) => {
-  //   const checkedValue = event.target.checked;
-  //   const updatedCheckedItems = checkedValue ? buyItem.map((item, index) => index) : [];
-  //   // Update selectedItem based on checkedValue
-  //   const updatedSelectedItems = checkedValue ? buyItem : [];
-  //   setSelectedItem(updatedSelectedItems);
-  //   return updatedCheckedItems;
-  // };
   const checkOne = (event: React.ChangeEvent<HTMLInputElement>, buyItem: any[], gubun: string) => {
     const checkedValue = event.target.checked;
       // Filter buyItem based on the condition (item.gubun === gubun)
@@ -83,8 +63,6 @@ function CartPage() {
   };
 
   const calculateTotal = () => {
-    console.log(selectedItem)
-    console.log("ccccccc" + Array.isArray(selectedItem));
     let total = 0;
     if (Array.isArray(selectedItem)) {
       selectedItem.forEach((item) => {
@@ -98,7 +76,6 @@ function CartPage() {
       });
     }
     setTotal(total);
-    console.log(total + "토");
     setShowTotal(true);
   };
 
@@ -123,15 +100,11 @@ function CartPage() {
       setbuyItem(updatedBuyItem);
       // cart 키 값으로 로컬에서 데이터 찾아옴
       console.log(buyItem);
-      
       alert("삭제되었습니다.");
     } else {
       alert("취소되었습니다.");
     }
   };
-
-
-
 
   return (
     <>
