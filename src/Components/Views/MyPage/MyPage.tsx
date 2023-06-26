@@ -2,6 +2,13 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import "./MyPage.scss";
+import Category from "./Common/components/Category";
+
+interface User {
+  displayName: string // 사용자 표시 이름
+  profileImg: string // 사용자 프로필 이미지 URL
+}
+
 
 function MyPage() {
 
@@ -13,6 +20,11 @@ function MyPage() {
     cancel:'구매취소'
   } as const;
 
+  const defaultProfileImgUrl = "/public/images/default-profile.jpg";
+
+  const [user, setUser] = useState<User>({ displayName: "", profileImg: defaultProfileImgUrl });
+
+  // const [user, setUser] =useState<User>({} as User)
 const [itemList, setItemList] = useState([]);
 const [mydataList, setMydataList] = useState([]);
 
@@ -78,19 +90,54 @@ const getDate = function(param){
   return koreaTime;
 }
 
+useEffect(() => {
+  const authenticate = async () => {
+    try {
+      const response = await axios.post(
+        "https://asia-northeast3-heropy-api.cloudfunctions.net/api/auth/me",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+            apikey: "KDT5_nREmPe9B",
+            username: "KDT5_TeamWink",
+          },
+        }
+      );
+      const userData = response.data;
+
+      // 사용자 정보를 업데이트하기 전에 profileImg가 존재하지 않을 경우에만 기본 프로필 이미지 URL을 사용
+      setUser((prevUser) => ({
+        ...prevUser,
+        displayName: userData.displayName,
+        profileImg: userData.profileImg || defaultProfileImgUrl,
+      }));
+    } catch (error) {
+      console.error(error);
+      // 오류 처리
+    }
+  };
+
+  authenticate();
+}, []);
+
   return (
     <>
       <div className="MyPage-AllLayout">
-        <div className="myPageContainer">
-          <div className="subContainer">
-            <div className="profile">
-              <div className="profilePhoto"></div>
+        <div className="myPage-AllLayout__center">
+          <div className="LeftContainer">
+            <Category/>
+            {/* <div className="profile">
+            <img 
+              className="profilePhoto"
+              src={user.profileImg} 
+              alt="프로필사진" 
+              // style={{display:"inline-block"}}
+            />
               <div className="profileContainer">
                 <div className="profileName">
-                  <p>닉네임</p>
-                </div>
-                <div className="profileText">
-                  <p>프로필 자기소개란입니다.</p>
+                  <p>{user.displayName}</p>
                 </div>
               </div>
             </div>
@@ -103,12 +150,11 @@ const getDate = function(param){
                 <div className="categoryTap">회원정보 수정</div>
               </Link>{" "}
               <br />
-            </div>
+            </div> */}
           </div>
 
           <div className="detailsContainer">
             <div className="orderText">구매 내역</div>
-
 
             <div className="orderContainer">
 

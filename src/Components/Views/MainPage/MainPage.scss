@@ -1,6 +1,6 @@
 .wrapper {
   width: 1500px;
-  margin: 100px auto 0;
+  margin: 100px auto;
   // background-color: yellow;
   position: relative;
 }
@@ -14,15 +14,17 @@ main {
   position: relative;
   display: flex;
   width: 1200px;
+  text-align: center;
   margin: 100px auto;
   
   .Category-menu {
     position: sticky;
     top: 0px;
-    margin-left: -80px;
+    margin-left: -60px;
     height: 410px;
   
     img {
+      border-radius: 10px 10px 0 0;
       position: sticky;
       width: 120px;
       height: inherit;
@@ -43,7 +45,7 @@ main {
         margin-top: 10px;
         border-radius: 30px;
         font-weight: bold;
-        font-size: 20px;
+        font-size: 19px;
         transition: background-color 0.3s;
       }
       .active {

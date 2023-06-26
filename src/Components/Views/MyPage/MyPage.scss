@@ -1,57 +1,50 @@
+@import './Common/StyleCommons.scss';
+
 .MyPage-AllLayout {
-  width: 1200px;
-  padding-bottom: 1500px;
-  position: relative;
-  margin: 0 auto;
+  @include AllLayoutStyle;
 
-  .myPageContainer{
-    width: 1200px;
-    position: absolute;
-    display: flex;
-    margin: 0 auto;
-    left: 0;
-    right: 0;
-    top:100px;
-   
+  .myPage-AllLayout__center{
+    @include LayoutCenterStyle;
 
-    .subContainer{
-      width: 250px;
-      background-color: #F2E7D5;
-      border-radius: 10px 0px 0px 10px;
+    .LeftContainer{
+      @include LeftContainerStyle;
 
       .profile{
         position: relative;
-        top:21.5px;
-        height: 250px;
+        // border: solid 1px rgb(221, 221, 221);
+        // top: 21.5px;
+        border-radius: 10px 0 0 0;
+        height: 220px;
         background-color: bisque;
-        
+        text-align: center;
+
         .profilePhoto{
           position: relative;
-          top:20px;
+          top: 30px;
           width: 120px;
           height: 120px;
-          margin-left: auto;
-          margin-right: auto;
+          // margin-left: auto;
+          // margin-right: auto;
           border: solid 1px rgb(243, 214, 172);
           border-radius: 50%;
           box-shadow: 2px 5px 5px rgb(0,0,0,.3);
           background-position: center;
+          background-position: center;
+          background-size: contain;
+          background-repeat: no-repeat;
+          overflow: hidden;
+          object-fit: cover;
         }
 
         .profileContainer{
           position: relative;
           margin-top: 2.5rem;
           color:black;
-          text-align: center;
+          // text-align: center;
           
           .profileName{
-            font-size: 20px;
+            font-size: 25px;
             font-weight: 1000;
-          }
-
-          .profileText{
-            font-size: 15px;
-            margin-top: 1rem;
           }
         }
       }
@@ -61,14 +54,21 @@
           position: relative;
           height: 350px;
           width: 200px;
-          top:30px;
+          top: 10px;
 
           .categoryTap {
             font-weight: bold;
-            padding: 15px;
+            padding: 1.2rem;
             color: black;
-            border-bottom: solid 2px rgb(239, 211, 174);
+            // border-bottom: solid 2px rgb(239, 211, 174);
             text-align: center;
+          }
+          
+          .categoryTap:hover {
+            color: white;
+          }
+          .categoryTap:hover {
+            color: white;
           }
         }
       }
@@ -85,14 +85,15 @@
           top: 30px;
           width: 100px;
           font-size: 20px;
+          font-weight: bold;
           margin-left: 2rem;
-          background-color: #F2E7D5;
+          // background-color: #F2E7D5;
         }
 
         .orderContainer{
           position: relative;
           padding-bottom: 400px;
-          //background-color: rgb(148, 255, 124);
+          // background-color: rgb(148, 255, 124);
           top: 50px;
 
           .TopCategory{
@@ -182,8 +183,6 @@
                   position: relative;
                 }  
               }
-              
-             
 
               span:nth-child(1) {
                 position: relative;
@@ -216,9 +215,10 @@
           left:10px;
           top: 100px;
           width: 100px;
-          //font-size: 20px;
+          font-size: 20px;
+          font-weight: bold;
           margin-left: 2rem;
-          background-color: #F2E7D5;
+          // background-color: #F2E7D5;
         }
 
         .RentContainer{

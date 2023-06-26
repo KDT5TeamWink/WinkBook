@@ -1,12 +1,13 @@
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
-//import { useSelector } from 'react-redux';
 import "./headers.scss";
+import { LogoutForm } from "@/Apis/register";
+//import { useSelector } from 'react-redux';
 //import { RootState } from '../_reducers';
 //import { useDispatch } from 'react-redux';
 //import { logoutUser } from '_reducers/user_reducer';
-import { LogoutForm } from "@/Apis/register";
+
 
 interface User {
   displayName: string // 사용자 표시 이름
@@ -14,11 +15,10 @@ interface User {
 }
 
 function Header() {
-  // const userState = useSelector((state) => state.user);
-  // const accessToken = userState.accessToken;
-  // console.log("1", accessToken);
-  // const dispatch = useDispatch();
-  const [user, setUser] =useState<User>({} as User)
+
+  const defaultProfileImgUrl = "/public/images/default-profile.jpg";
+
+  const [user, setUser] = useState<User>({ displayName: "", profileImg: "" });
 
   const navigate = useNavigate();
 
@@ -37,27 +37,39 @@ function Header() {
 
   const token = localStorage.getItem("token");
 
-
-  async function authenticate() {
-    axios('https://asia-northeast3-heropy-api.cloudfunctions.net/api/auth/me',{
-      method:"post",
-      headers:{
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json",
-        apikey: "KDT5_nREmPe9B",
-        username: "KDT5_TeamWink",
-      },
-    }).then((res) => {
-      console.log("res:",res);
-      setUser(res.data);
-    })
-  }
+  useEffect(() => {
+    const authenticate = async () => {
+      try {
+        const response = await axios.post(
+          "https://asia-northeast3-heropy-api.cloudfunctions.net/api/auth/me",
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              "Content-Type": "application/json",
+              apikey: "KDT5_nREmPe9B",
+              username: "KDT5_TeamWink",
+            },
+          }
+        );
+        const userData = response.data;
+  
+        // 사용자 정보를 업데이트하기 전에 profileImg가 존재하지 않을 경우에만 기본 프로필 이미지 URL을 사용
+        setUser((prevUser) => ({
+          ...prevUser,
+          displayName: userData.displayName,
+          profileImg: userData.profileImg || defaultProfileImgUrl,
+        }));
+      } catch (error) {
+        console.error(error);
+        // 오류 처리
+      }
+    };
+  
+    authenticate();
+  }, []);
 
   
-  useEffect(() => {
-    authenticate()
-  }, [])
-
   return (
     <>
       <header className="headerContainer">
@@ -83,7 +95,7 @@ function Header() {
                 <div className="cart">
                   <img 
                     className="cartPhoto"
-                    src={user.profileImg} 
+                    src={user.profileImg}
                   />
                   </div>
               </div>

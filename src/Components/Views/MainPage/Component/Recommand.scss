@@ -1,7 +1,7 @@
 .Recommand {
   margin: 100px auto 0;
   width: 90%;
- 
+
   h1 {
     width: 150px;
     padding-bottom: 10px; 
@@ -25,7 +25,13 @@
     margin-top: 10px;
   }
 }
+
+h3 {
+  padding-top: 5px;
+}
 .test {
+  border-bottom: solid 1px #c6c6c6;
+  padding: 5px;
   margin-right: 20px;
   width: 220px;
   display: inline-block;

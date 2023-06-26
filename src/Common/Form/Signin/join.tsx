@@ -7,7 +7,7 @@ import "./join.scss";
 
 function Join() {
   const navigate = useNavigate();
-
+  
   // 이름 , 비밀번호, 이메일 , 비밀번호 확인
   const [email, setUserEmail] = useState("");
   const [displayName, setdDisplayName] = useState("");

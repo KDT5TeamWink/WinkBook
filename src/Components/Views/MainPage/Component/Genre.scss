@@ -4,10 +4,12 @@
   &:not(:last-child) {
     margin-bottom: 50px;
   }
+  margin: 0 15px;
 }
 .left {
   background-color: #fed19a;
-  width: 180px;
+  width: 150px;
+  text-align: center;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
 

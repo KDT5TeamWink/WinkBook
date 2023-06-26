@@ -1,0 +1,79 @@
+.LeftContainer{
+  width: 250px;
+  background-color: #F2E7D5;
+  border-radius: 10px 0px 0px 10px;
+
+  .LeftContainer-profile{
+    position: relative;
+    // border: solid 1px rgb(221, 221, 221);
+    // top: 21.5px;
+    border-radius: 10px 0 0 0;
+    height: 220px;
+    background-color: bisque;
+    text-align: center;
+
+    .LeftContainer-profilePhoto{
+      background-color: white;
+      position: relative;
+      top: 30px;
+      width: 120px;
+      height: 120px;
+      // margin-left: auto;
+      // margin-right: auto;
+      border: solid 1px rgb(243, 214, 172);
+      border-radius: 50%;
+      box-shadow: 2px 5px 5px rgb(0,0,0,.3);
+      background-position: center;
+      background-position: center;
+      background-size: contain;
+      background-repeat: no-repeat;
+      overflow: hidden;
+      object-fit: cover;
+    }
+
+    .LeftContainer-profilebox{
+      position: relative;
+      margin-top: 2.5rem;
+      color:rgb(192, 138, 138);
+      text-align: center;
+
+      .LeftContainer-profiletext{
+        font-size: 20px;
+        font-weight: bold; // 1000
+      }
+
+
+    }
+  }
+
+    .LeftContainer-category {
+      flex-direction: column;
+      position: relative;
+      height: 290px;
+      width: 200px;
+      top:30px;
+      // background-color: rebeccapurple;
+
+      .categoryTap{
+        font-weight: bold;
+        
+        color: black;
+        // border-bottom: solid 2px rgb(239, 211, 174);
+        text-align: center;
+      }
+
+      .active {
+        background-color: var(--red);
+        position: relative;
+        top: 2px;
+        padding: 10px 15px 33px 10px;
+        border-radius: 0.25rem;
+      }
+
+      a {
+        color: var(--white);
+        top: 13px;
+        position: relative;
+      }
+    }
+}
