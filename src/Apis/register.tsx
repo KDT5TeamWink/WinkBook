@@ -2,8 +2,8 @@ import axios from 'axios';
 
 const headers = {
   'Content-Type': 'application/json',
-  'apikey': 'KDT5_nREmPe9B',
-  'username': 'KDT5_TeamWink',
+  apikey: 'KDT5_nREmPe9B',
+  username: 'KDT5_TeamWink',
 };
 
 const axiosInstance = axios.create({
@@ -11,9 +11,9 @@ const axiosInstance = axios.create({
   headers,
 });
 
-export const JoinForm = async (email: string, displayName: string, password: string, profileImg:string) => {
+export const JoinForm = async (email: string, displayName: string, password: string) => {
   const URL = '/signup';
-  const res = await axiosInstance.post(URL, { email, displayName, password, profileImg });
+  const res = await axiosInstance.post(URL, { email, displayName, password});
   return res.data;
 };
 
