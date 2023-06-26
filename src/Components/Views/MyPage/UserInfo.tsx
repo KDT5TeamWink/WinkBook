@@ -2,7 +2,7 @@ import { FormEvent, useState, useEffect, ChangeEvent, useCallback, useRef } from
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "./UserInfo.scss";
-import { ReadStream } from "fs";
+import Category from "./common/components/category";
 
 interface User {
   displayName: string // 사용자 표시 이름
@@ -80,109 +80,21 @@ function UserInfo() {
 
   return (
     <>
-      <div className="myPageeContainer">
-        <div className="subContainer">
-          <div className="subText">My Page</div>
-          <div className="profile">
-            <img 
-              className="profilePhoto"
-              src={user.profileImg} 
-              alt="프로필사진" 
-            />
-            <div className="profileContainer">
-              <div className="profileName">
-                <p>{user.displayName}</p>
-              </div>
-            </div>
+      <div className="UserInfo-AllLayout">
+        <div className="UserInfo-AllLayout__center">
+          <div className="LeftContainer">
+            <Category/>
           </div>
-          <div className="category">
-            <Link to="/mypage">
-              <div className="categoryTap">주문내역조회</div>
-            </Link>{" "}
-            <br />
-            <Link to="/mypage/userinfo">
-              <div className="categoryTap">회원정보 수정</div>
-            </Link>{" "}
-            <br />
+        
+          <div className="RightContainer">
+            
+
           </div>
+        
+        
         </div>
 
-        <div className="detailsContainer">
-          <div className="infoContainer">
-            <div className="info">
-              <div className="infoTag">
-                <div className="infoText">회원정보 수정</div>
-              </div>
-              <div className="infoBox">
-                <form onSubmit={submit}>
-                  <div className="infoList">
-                    <div className="infoTitle">기존 비밀번호</div>
-                    <div className="infoItem">
-                      <input
-                        className="infoItemForm"
-                        placeholder="비밀번호를 입력해주세요"
-                        type="text"
-                        name="oldPassword"
-                        value={oldPassword}
-                        onChange={(e) => {setOldPassword(e.target.value)}}
-                      />
-                    </div>
-                  </div>
-                  <div className="infoList">
-                    <div className="infoTitle">새 비밀번호</div>
-                    <div className="infoItem">
-                      <input
-                        className="infoItemForm"
-                        placeholder="비밀번호를 입력해주세요"
-                        type="text"
-                        name="newPassword"
-                        value={newPassword}
-                        onChange={(e) => {setNewPassword(e.target.value)}}
-                      />
-                    </div>
-                  </div>
-                  <div className="infoList">
-                    <div className="infoTitle">닉네임 변경</div>
-                    <div className="infoItem">
-                      <input
-                        className="infoItemForm"
-                        placeholder="닉네임을 입력해주세요"
-                        type="text"
-                        name="disPlayname"
-                        value={displayName}
-                        onChange={(e) => {setDisplayName(e.target.value)}}
-                      />
-                    </div>
-                  </div>
-                  <div className="infoList">
-                    <div className="infoTitle">프로필 이미지</div>
-                    <div className="infoItem">
-                      <input
-                        className="infoItemForm"
-                        type="file"
-                        id="file"
-                        name="profileImgBase64"
-                        accept="image/*"
-                        onChange={uploadImage}
-                      />
-                    </div>
-                  </div>
-                  <div className="infoList">
-                    <div className="infoItem">
-                      <button 
-                        onClick={authenticate}
-                        className="infoFix"
-                        type="submit"
-                      >
-                        회원 정보 수정
-                      </button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
+
       </div>
     </>
   );

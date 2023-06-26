@@ -1,5 +1,4 @@
 import { FormEvent, useState, useCallback } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { PwCheck, emailCheck } from "../Validation ";
 import { JoinForm } from "@/Apis/register";
@@ -113,17 +112,11 @@ function Join() {
       return false;
     }
 
-    const param = {
-      email: email,
-      password: password,
-      displayName: displayName,
-    };
-
+  
     try {
-      const res = await JoinForm(email, displayName, password);
+      const res = await JoinForm(email, displayName, password,profileImg );
       if (res.accessToken) {
         alert("가입되었습니다.");
-        //localStorage.setItem('token', res.accessToken);
         navigate("/login");
       } else {
         alert("가입에 실패했습니다. 다시 시도해주세요.");

@@ -62,110 +62,44 @@
         height: 30px;
         margin-top: 20px;
         // max-width: 1230px;
-        // background-color: yellow;
+        width: 400px;
+        background-color: yellow;
 
-        .Header-box__text{
-          text-Decoration:none;
+        .Header-box__text {      
           color: gray;
-          font-weight: bold;
+          background-color: orange;
+          font-weight: bold;  
+          width: 100px;
+          height: 30px;
           cursor: pointer;
-          display: flex;
+
 
           .Header-box__logout{
-            padding: 15px 20px 0 0;
+            width: inherit;
           }
         }
 
         .cart {
-          // border: solid 1px red;
           position: relative;
-          width: 50px;
-          height: 50px;
-          border-radius: 50%;
-          overflow: hidden;
-          border: none;
-          background-position: center;
-          background-size: contain;
-          background-repeat: no-repeat;
-          overflow: hidden;
-          object-fit: cover;
+          width: 60px;
+          height: 60px;
+          //background-color: pink;
+          left: 130px;
+          bottom: 30px;
 
-          .cartPhoto{
-            // border: solid 1px blue;
-
-            // position: absolute;
-            // width: 100%;
-            // height: 100%;
-            // top: 0;
-            // left: 0;
-            // object-fit: cover;
-            
+          .img {
             cursor:auto;
+            background-color: olive;
             box-sizing: border-box;
-            position: relative;
-            // top:-5px;
-            // left:-5px;
+            position: absolute;
             width: 50px;
             height: 50px;
-            // border-width:2px;
             border-radius: 50%;
             background-position: center;
             background-size: contain;
             background-repeat: no-repeat;
-            overflow: hidden;
-            object-fit: cover;
           }
         }
       }
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
-// addict — 오늘 오후 3:06
-// {
-// margin: 0;
-// padding: 0;
-// box-sizing: border-box;
-// }
-// body {
-//   background-color: #e8d5c4;
-//   min-height: 100vh;
-// }
-// .container {
-//   width: 1250px;
-//   margin: auto;
-// }
-// header {
-//   display: flex;
-//   background-color: transparent;
-//   justify-content: space-between;
-//   align-items: center;
-//   padding: 0 50px;
-//   border-bottom: 1px solid;
-//   .logo {
-//     width: 150px;
-//     height: 50px;
-//     margin: 25px 0;
-//     background-color: aqua;
-//   }
-//   .user-box {
-//     display: flex;
-//     align-items: center;
-//     gap: 10px;
-//     .cart {
-//       width: 50px;
-//       height: 50px;
-//       background-color: red;
-//     }
-//   }
-// }
