@@ -45,7 +45,7 @@ export default function Genre({ category }: { category: Props }) {
           ))}
         <img
           className="Bottom-bookContainer"
-          src="./public/images/Group 8.png"
+          src="/images/Group 8.png"
         />
       </div>
     </div>
