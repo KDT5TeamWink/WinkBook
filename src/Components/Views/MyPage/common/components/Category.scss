@@ -1,0 +1,87 @@
+.LeftContainer{
+    width: 250px;
+    background-color: #F2E7D5;
+    border-radius: 10px 0px 0px 10px;
+
+    .LeftContainer-profile{
+      position: relative;
+      top:22px;
+      height: 250px;
+      background-color: bisque;
+      
+      .LeftContainer-profile__Photo{
+        position: relative;
+        margin-top:20px;
+        width: 120px;
+        height: 120px;
+        margin-left: auto;
+        margin-right: auto;
+        border: solid 1px rgb(243, 214, 172);
+        border-radius: 50%;
+        box-shadow: 2px 5px 5px rgb(0,0,0,.3);
+        background-position: center;
+      }
+
+      .LeftContainer-profile__box{
+        position: relative;
+        margin-top: 2.5rem;
+        color:rgb(192, 138, 138);
+        text-align: center;
+        background-color: yellow;
+        
+        .LeftContainer-profile__text{
+          font-size: 20px;
+          font-weight: bold; // 1000
+        }
+
+        .LeftContainer-profile__name{
+          font-size: 15px;
+          margin-top: 1rem;
+        }
+      }
+    }
+
+      .LeftContainer-category {
+        flex-direction: column;
+        position: relative;
+        height: 290px;
+        width: 200px;
+        top:30px;
+    
+       .active{
+        background-color: red;
+       }
+
+        a {
+          color: white;
+          top: 13px;
+          position: relative;
+        }
+
+        .LeftContainer-category__order {
+          width: 190px;
+          margin: 0 auto;
+          font-weight: bold;
+          position: relative;
+          padding: 15px;
+          color: black;
+          border-radius: 40px;
+          //border-bottom: solid 2px rgb(239, 211, 174);
+          text-align: center;
+          top: 20px;
+        }
+
+        .LeftContainer-category__infoTap{
+          width: 190px;
+          margin: 0 auto;
+          font-weight: bold;
+          position: relative;
+          padding: 15px;
+          color: black;
+          //border-bottom: solid 2px rgb(239, 211, 174);
+          text-align: center;
+          border-radius: 40px;
+          top: 40px;
+        }
+      }
+}

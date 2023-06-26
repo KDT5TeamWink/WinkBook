@@ -1,83 +1,17 @@
+@import './common/StyleCommon.scss';
+
 .MyPage-AllLayout {
-  width: 1200px;
-  padding-bottom: 1500px;
-  position: relative;
-  margin: 0 auto;
+  @include AllLayoutStyle;
 
-  .myPageContainer{
-    width: 1200px;
-    position: absolute;
-    display: flex;
-    margin: 0 auto;
-    left: 0;
-    right: 0;
-    top:100px;
-   
+  .MyPage-AllLayout__center{
+    @include LayoutCenterStyle;
+  
+    .LeftContainer{
+      @include LeftContainerStyle;
+    }
 
-    .subContainer{
-      width: 250px;
-      background-color: #F2E7D5;
-      border-radius: 10px 0px 0px 10px;
-
-      .profile{
-        position: relative;
-        top:21.5px;
-        height: 250px;
-        background-color: bisque;
-        
-        .profilePhoto{
-          position: relative;
-          top:20px;
-          width: 120px;
-          height: 120px;
-          margin-left: auto;
-          margin-right: auto;
-          border: solid 1px rgb(243, 214, 172);
-          border-radius: 50%;
-          box-shadow: 2px 5px 5px rgb(0,0,0,.3);
-          background-position: center;
-        }
-
-        .profileContainer{
-          position: relative;
-          margin-top: 2.5rem;
-          color:black;
-          text-align: center;
-          
-          .profileName{
-            font-size: 20px;
-            font-weight: 1000;
-          }
-
-          .profileText{
-            font-size: 15px;
-            margin-top: 1rem;
-          }
-        }
-      }
-
-        .category {
-          flex-direction: column;
-          position: relative;
-          height: 350px;
-          width: 200px;
-          top:30px;
-
-          .categoryTap {
-            font-weight: bold;
-            padding: 15px;
-            color: black;
-            border-bottom: solid 2px rgb(239, 211, 174);
-            text-align: center;
-          }
-        }
-      }
-
-      .detailsContainer{
-        width: 1500px;
-        border-radius: 0px 10px 10px 0px;
-        padding-bottom: 178px;
-        background-color: rgb(227 213 197);
+      .RightContainer{
+        @include RightContainerStyle;
 
         .orderText{
           position: relative;

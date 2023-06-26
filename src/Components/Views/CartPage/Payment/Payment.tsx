@@ -26,14 +26,6 @@ const Payment = ({ amount, productlists }: PaymentInfo) => {
 
     const itemName = productlists.map((obj) => obj.product_name).join(",");
 
-    const custom_data = [{productlists}];
-    // custom_data = { 
-    //                 0: [product_no:1,gubun:'buy'];
-    //                 1: [product_no:3,gubun:'buy'];
-    //                 2: [product_no:4,gubun:'rent'];
-    //               }
-
-
     console.log(itemName);
     const { IMP }: any = window;
     IMP.init("imp36252452");
@@ -41,15 +33,14 @@ const Payment = ({ amount, productlists }: PaymentInfo) => {
     const data = {
       pg: "html5_inicis", // PG사 html5_inicis: KG이니시스, kakaopay: 카카오페이, naverpay: 네이버페이, payco: 페이코
       pay_method: "card", // 결제수단
-      merchant_uid: orderNumber, // 주문번호 // 만약 여기에 에세스키
+      merchant_uid: orderNumber, 
       amount: amount, // 결제금액
       name: `${itemName}`, // 주문명
       buyer_name: "", // 구매자 이름
       // buyer_tel: "01032752740", // 구매자 전화번호
       // 전화번호: 일단 빼고 나중에 추가 시도..
       buyer_email: "", // 구매자 이메일 - 작성시 구매창에서 이메일 부분에 들어가있음
-      //https://developers.portone.io/docs/ko/api/api-1/api-1
-      //productinfos : productlists
+   
       custom_data:productlists
     };
 
@@ -73,7 +64,7 @@ const Payment = ({ amount, productlists }: PaymentInfo) => {
         combinedArray.push(orderNumber);
         window.localStorage.setItem("mypayment", JSON.stringify(combinedArray));
       }
-
+      
       
 
       //결제 성공을 하고 성공된 데이터가 로컬스토리지에서 지워져야함. produc_id
