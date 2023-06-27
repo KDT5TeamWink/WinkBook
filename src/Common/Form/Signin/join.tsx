@@ -96,6 +96,8 @@ function Join() {
     [password]
   );
 
+  
+
   async function signUp(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (email === undefined || email === "" || email === null) {
@@ -204,9 +206,7 @@ function Join() {
                 className="buttonBox"
                 type="submit"
                 disabled={
-                  !(isName && isEmail && isPassword && isPasswordConfirm)
-                }
-              >
+                  !(isName && isEmail && isPassword && isPasswordConfirm)}>
                 등록
               </button>
             </div>
