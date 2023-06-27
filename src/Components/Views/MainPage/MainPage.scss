@@ -15,26 +15,26 @@ main {
   display: flex;
   width: 1200px;
   margin: 100px auto;
-  
+
   .Category-menu {
     position: sticky;
     top: 0px;
     margin-left: -80px;
     height: 410px;
-  
+
     img {
       position: sticky;
       width: 120px;
       height: inherit;
     }
-  
-    .Category-menu__text{
-      width: 125px;
+
+    .Category-menu__text {
+      width: 127px;
       position: absolute;
       bottom: 50px;
       height: 360px;
-      padding: 10px;
-  
+      padding: 4px;
+
       li {
         display: flex;
         align-items: center;
@@ -57,7 +57,7 @@ main {
     align-items: center;
     justify-content: center;
     height: 50px;
-    width: 100px;
+    width: 110px;
     border-radius: 30px;
     transition: background-color 0.3s;
   }

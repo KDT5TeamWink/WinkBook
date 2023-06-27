@@ -1,4 +1,4 @@
-.wrapper {
+.Search-wrapper {
   width: 1200px;
   margin: auto;
 }
@@ -86,5 +86,27 @@
   // 대여버튼
   button:last-child {
     background-color: #e24457;
+  }
+}
+// 페이지네이션
+.pagination {
+  ul {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+
+    li {
+      list-style: none;
+
+      button {
+        width: 30px;
+        height: 30px;
+        background-color: #ca9f12;
+        border: none;
+        border-radius: 50%;
+        margin: 0 5px;
+        color: #fff;
+      }
+    }
   }
 }

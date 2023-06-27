@@ -14,7 +14,7 @@ const ajax = axios.create({
 });
 
 export default function SearchPage() {
-  const [input, setInput] = useState("");
+  // const [input, setInput] = useState("");
   const [search, setSearch] = useState<Products>([] as Products);
   const [offset, setOffset] = useState(0);
   const [count, setCount] = useState(0);
@@ -33,37 +33,33 @@ export default function SearchPage() {
       console.log(err);
     }
   }
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
+  //   searchUpload();
+  // }, [offset]);
+
+  // const searchInputChange = (e: any) => {
+  //   setInput(e.target.value);
+  // };
+
   useEffect(() => {
-    searchUpload();
-  }, [offset]);
-
-  const searchInputChange = (e: any) => {
-    setInput(e.target.value);
-  };
-
-  const searchUpload = async () => {
-    await ajax
-      .get("/products/count", {
-        params: {
-          product_name: input,
-        },
-      })
-      .then((res) => setCount(res.data.count));
-    const result = await SearchAPI(input);
-    setSearch(result);
-    console.log(result);
-  };
-  // console.log("search:", search);
+    (async () => {
+      await ajax
+        .get("/products/count", {
+          params: {
+            product_name: params.keyword,
+          },
+        })
+        .then((res) => setCount(res.data.count));
+      const result = await SearchAPI(params.keyword);
+      setSearch(result);
+      console.log(result);
+      window.scrollTo(0, 0);
+    })();
+  }, [params, offset]);
 
   return (
-    <div className="wrapper">
-      {/* <input
-        type="text"
-        placeholder="검색해주세요"
-        defaultValue={input}
-        onChange={searchInputChange}
-      />
-      <button onClick={searchUpload}>검색</button> */}
+    <div className="Search-wrapper">
       {search &&
         search.map((v) => {
           return (
@@ -92,7 +88,7 @@ export default function SearchPage() {
             </>
           );
         })}
-      <div>
+      <div className="pagination">
         <ul
           onClick={(e) => {
             if (e.target instanceof HTMLLIElement) {
@@ -100,22 +96,16 @@ export default function SearchPage() {
               // console.log("e:", e.target.value);
             }
           }}
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            paddingTop: 20,
-            paddingBottom: 20,
-          }}
         >
           {Array(parseInt(((count - 0.1) / 10 + 1).toString()))
             .fill(0)
             .map((i, index) => (
-              <li style={{ listStyle: "none" }} key={index}>
+              <li key={index}>
                 <button
-                  style={{ width: 30, height: 30 }}
                   onClick={() => {
                     setOffset(index);
                   }}
+                  id="click"
                 >
                   {index + 1}
                 </button>

@@ -70,6 +70,14 @@ function Header() {
     authenticate();
   }, []);
 
+  const OnKeyPress = (e: any) => {
+    if (keyword === "") {
+      alert("검색어를 입력해주세요");
+    } else if (e.key === "Enter") {
+      onSubmit(); // Enter 입력이 되면 클릭 이벤트 실행
+    }
+  };
+
   return (
     <>
       <header className="headerContainer">
@@ -84,14 +92,26 @@ function Header() {
               onChange={(e) => {
                 setKeyWord(e.target.value);
               }}
+              onKeyPress={OnKeyPress}
             />
-            <button
+            {/* <button
               onClick={() => {
                 onSubmit();
               }}
             >
               검색
-            </button>
+            </button> */}
+            <img
+              src="/public/images/search-icon.png"
+              alt="searchicon"
+              onClick={() => {
+                if (keyword === "") {
+                  alert("검색어를 입력해주세요");
+                } else {
+                  onSubmit();
+                }
+              }}
+            />
           </div>
 
           <div className="Header-box">
