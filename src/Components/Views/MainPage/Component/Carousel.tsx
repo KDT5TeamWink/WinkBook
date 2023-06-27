@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
-import './Carousel.scss';
+import { useCallback, useEffect, useRef, useState } from "react";
+import "./Carousel.scss";
 
 const arr = [2, 3, 1, 2, 3, 1, 2];
 let idx = 2;
@@ -9,7 +9,7 @@ export default function Carousel() {
 
   const timeout = useCallback((idx: number) => {
     const id = setTimeout(() => {
-      carousel.current?.classList.remove('transition');
+      carousel.current?.classList.remove("transition");
       setTransform(50 * idx);
     }, 500);
     return () => {
@@ -19,16 +19,16 @@ export default function Carousel() {
   function navigation(e: React.MouseEvent<HTMLDivElement>) {
     if (e.target instanceof Element) {
       const target = e.target.id;
-      if (target === 'next') {
-        carousel.current?.classList.add('transition');
+      if (target === "next") {
+        carousel.current?.classList.add("transition");
         idx++;
         setTransform(50 * idx);
         if (idx === arr.length - 2) {
           idx = 2;
           timeout(idx);
         }
-      } else if (target === 'prev') {
-        carousel.current?.classList.add('transition');
+      } else if (target === "prev") {
+        carousel.current?.classList.add("transition");
         idx--;
         setTransform(50 * idx);
         if (idx === 1) {
@@ -40,7 +40,7 @@ export default function Carousel() {
   }
   useEffect(() => {
     const id = setInterval(() => {
-      carousel.current?.classList.add('transition');
+      carousel.current?.classList.add("transition");
       idx++;
       setTransform(50 * idx);
       if (idx === arr.length - 2) {
