@@ -1,58 +1,42 @@
-.Book-container{
+.Book-container {
   margin-top: 40px;
 }
 
-
-
-.BookInfo-Inner{
+.BookInfo-Inner {
   position: relative;
-  width: auto;
-  bottom: 290px;
+  margin-bottom: 20px;
   height: 120px;
   padding: 10px;
   border-radius: 10px;
   color: black;
-  background-color:#f0d5b7;
+  background-color: #f0d5b7;
   box-shadow: 5px 5px 5px #b98563;
 
-  .RoundCircle{
+  .RoundCircle {
     width: 13px;
     height: 13px;
     margin: 0 auto;
-    left: 0;
-    right: 0;
-    position: absolute;
     border-radius: 50%;
     background-color: rgba(255, 254, 253, 0.719);
-    box-shadow:  2px 2px 5px #5a5958;
+    box-shadow: 2px 2px 5px #5a5958;
   }
 
   .Namebox {
-    width:160px;
-    position: relative;
-    top: 25px;
-  
+    margin: 10px 0;
+
     span {
-      width: 150px;
-      left: 0;
-      right: 0;
-      margin: 0 auto;
       font-size: 15px;
       font-weight: bold;
     }
   }
 
-  .Main-Pricebox{
+  .Main-Pricebox {
     display: flex;
-    width: auto;
     position: relative;
-    top: 28px;
   }
 
-  .retail-price{
-    width: 70px;
+  .retail-price {
+    padding: 0 5px;
     font-size: 13px;
   }
 }
-
-

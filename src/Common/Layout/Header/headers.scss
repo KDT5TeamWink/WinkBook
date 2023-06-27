@@ -88,84 +88,51 @@
       }
     }
 
-    .cart {
-      // border: solid 1px red;
-      position: relative;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      overflow: hidden;
-      border: none;
-      background-position: center;
-      background-size: contain;
-      background-repeat: no-repeat;
-      overflow: hidden;
-      object-fit: cover;
+    .Header-box {
+      display: flex;
+      // vertical-align: top;
+      align-items: center;
+      gap: 30px;
+      height: 30px;
+      margin-top: 20px;
+      // max-width: 1230px;
+      width: 400px;
+      background-color: yellow;
 
-      .cartPhoto {
-        // border: solid 1px blue;
+      .Header-box__text {
+        color: gray;
+        background-color: orange;
+        font-weight: bold;
+        width: 100px;
+        height: 30px;
+        cursor: pointer;
 
-        // position: absolute;
-        // width: 100%;
-        // height: 100%;
-        // top: 0;
-        // left: 0;
-        // object-fit: cover;
+        .Header-box__logout {
+          width: inherit;
+        }
+      }
 
-        cursor: auto;
-        box-sizing: border-box;
+      .cart {
         position: relative;
-        // top:-5px;
-        // left:-5px;
-        width: 50px;
-        height: 50px;
-        // border-width:2px;
-        border-radius: 50%;
-        background-position: center;
-        background-size: contain;
-        background-repeat: no-repeat;
-        overflow: hidden;
-        object-fit: cover;
+        width: 60px;
+        height: 60px;
+        //background-color: pink;
+        left: 130px;
+        bottom: 30px;
+
+        .img {
+          cursor: auto;
+          background-color: olive;
+          box-sizing: border-box;
+          position: absolute;
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          background-position: center;
+          background-size: contain;
+          background-repeat: no-repeat;
+        }
       }
     }
   }
 }
-
-// addict — 오늘 오후 3:06
-// {
-// margin: 0;
-// padding: 0;
-// box-sizing: border-box;
-// }
-// body {
-//   background-color: #e8d5c4;
-//   min-height: 100vh;
-// }
-// .container {
-//   width: 1250px;
-//   margin: auto;
-// }
-// header {
-//   display: flex;
-//   background-color: transparent;
-//   justify-content: space-between;
-//   align-items: center;
-//   padding: 0 50px;
-//   border-bottom: 1px solid;
-//   .logo {
-//     width: 150px;
-//     height: 50px;
-//     margin: 25px 0;
-//     background-color: aqua;
-//   }
-//   .user-box {
-//     display: flex;
-//     align-items: center;
-//     gap: 10px;
-//     .cart {
-//       width: 50px;
-//       height: 50px;
-//       background-color: red;
-//     }
-//   }
-// }

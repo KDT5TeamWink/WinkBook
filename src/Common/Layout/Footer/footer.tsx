@@ -70,7 +70,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="Logo-box">
-        <img src="/public/images/Wink_logo.png" alt="logo_image"/>
+        <img src="/images/Wink_logo.png" alt="logo_image"/>
       </div>
         <p className="title">toyproject ©️ 5기 7조 twinkle</p>  
     </footer>

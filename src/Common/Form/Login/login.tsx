@@ -1,13 +1,10 @@
 import "./login.scss";
 import { useNavigate, Link } from "react-router-dom";
-//import { useDispatch } from "react-redux";
 import { FormEvent, useState, ChangeEvent } from "react";
-//import { loginUser } from '_reducers/user_reducer';
 import { LoginForm } from "@/Apis/register";
 
 function Login() {
   const navigate = useNavigate();
-  //const dispatch = useDispatch();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
@@ -18,11 +15,6 @@ function Login() {
   const onChangeName = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
-
-  interface DataToSubmit {
-    email: string; // 사용자 아이디 (필수!)
-    password: string; // 사용자 비밀번호 (필수!)
-  }
 
   async function Signin(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -37,13 +29,7 @@ function Login() {
       return false;
     }
 
-    const dataToSubmit: DataToSubmit = {
-      email: email,
-      password: password,
-    };
-
     try {
-      //const data = await dispatch(loginUser(dataToSubmit));
       const data = await LoginForm(email, password);
       console.log(data);
 
@@ -51,7 +37,6 @@ function Login() {
         alert("로그인 되었습니다!");
         window.localStorage.setItem("token", data.accessToken);
         navigate("/");
-        // location.reload();
       } else {
         alert("로그인에 실패하였습니다. 다시 시도해주세요.");
       }

@@ -161,7 +161,7 @@ function DetailPage() {
                 className="CartAdd"
                 onClick={() => BuyBook(detail, "buy")}
               >
-                {" "}
+      
                 책 구매하기
               </button>
               <button
