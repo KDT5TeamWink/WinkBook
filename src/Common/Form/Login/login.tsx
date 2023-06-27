@@ -85,6 +85,7 @@ function Login() {
             </div>
           </div>
         </form>
+
         <div className="bottomText">
           <p>아이디가 없으신가요?</p>
           <Link
@@ -98,6 +99,7 @@ function Login() {
             <p>회원가입 하러 가기!</p>
           </Link>
         </div>
+        
       </div>
     </>
   );

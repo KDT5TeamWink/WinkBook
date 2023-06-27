@@ -109,57 +109,58 @@ function CartPage() {
   return (
     <>
       <div className="CartPage-AllLayout">
-        <span className="ProductText">구매</span>
-        <div className="CartContainer">
-          <CartItems
-            check={CartItemsValue}
-            pitem={selectedItem}
-            setItems={setSelectedItem}
-            delete={RemoveBuyItem}
-            datalist={buyItem}
-            setdata={setbuyItem}
-            checkOne={checkOne}
-            checkTwo={checkTwo}
-          />
-        </div>
-        <span className="RentText">대여 </span>
-        <div className="RentContainer">
-          <RentalItems
-            check={CartItemsValue}
-            pitem={selectedItemRent}
-            setItems={setSelectedItemRent}
-            delete={RemoveBuyItem}
-            datalist={buyItem}
-            setdata={setbuyItem}
-            checkOne={checkOne}
-            checkTwo={checkTwo}
-          
-          />
-        </div>
+        {/* <div className="Layout"> */}
+          <span className="ProductText">구매</span>
+          <div className="CartContainer">
+            <CartItems
+              check={CartItemsValue}
+              pitem={selectedItem}
+              setItems={setSelectedItem}
+              delete={RemoveBuyItem}
+              datalist={buyItem}
+              setdata={setbuyItem}
+              checkOne={checkOne}
+              checkTwo={checkTwo}
+            />
+          </div>
+          <span className="RentText">대여 </span>
+          <div className="RentContainer">
+            <RentalItems
+              check={CartItemsValue}
+              pitem={selectedItemRent}
+              setItems={setSelectedItemRent}
+              delete={RemoveBuyItem}
+              datalist={buyItem}
+              setdata={setbuyItem}
+              checkOne={checkOne}
+              checkTwo={checkTwo}
+            />
+          </div>
 
-        <span className="BuyText">결제</span>
-        <div className="BuyContainer">
-          <div className="NowBuy">
-            <div className="Buy-Container">
-              <div className="Pay-Container">
-                <span>총 상품 가격 </span>
-                {ShowTotal && <h2>Total Amount: ${Total}</h2>}
+          <span className="BuyText">결제</span>
+          <div className="BuyContainer">
+            <div className="NowBuy">
+              <div className="Buy-Container">
+                <div className="Pay-Container">
+                  <span>총 상품 가격 </span>
+                  {ShowTotal && <h2>Total Amount: ${Total}</h2>}
+                </div>
               </div>
-            </div>
 
-            <div className="AllCount-Container">
-              <div className="AllCount-Container__box">
-                <span>총 결제 예상 금액</span>
-                <span>28,000 원</span>
+              <div className="AllCount-Container">
+                <div className="AllCount-Container__box">
+                  <span>총 결제 예상 금액</span>
+                  <span>28,000 원</span>
+                </div>
               </div>
-            </div>
 
-            <div className="Buy-ButtonBox">
-              {/* <button onClick={BuyProducts}>선택한 상품 주문하기</button> */}
-              <Payment amount={Total} productlists={selectedItem} />
+              <div className="Buy-ButtonBox">
+                {/* <button onClick={BuyProducts}>선택한 상품 주문하기</button> */}
+                <Payment amount={Total} productlists={selectedItem} />
+              </div>
             </div>
           </div>
-        </div>
+        {/* </div> */}
       </div>
     </>
   );

@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import "./headers.scss";
 import { LogoutForm } from "@/Apis/register";
 
@@ -9,8 +10,9 @@ interface User {
 }
 
 function Header() {
-  const [user, setUser] =useState<User>({} as User)
-  //const [token, setToken] = useState<string | null>(localStorage.getItem("token"));
+
+  const defaultProfileImgUrl = "/public/images/default-profile.jpg";
+  const [user, setUser] = useState<User>({ displayName: "", profileImg: "" });
 
   const navigate = useNavigate();
 
@@ -28,25 +30,37 @@ function Header() {
 
   const token = localStorage.getItem('token');
 
-  // async function authenticate() {
-  //   axios('https://asia-northeast3-heropy-api.cloudfunctions.net/api/auth/me',{
-  //     method:"post",
-  //     headers:{
-  //       Authorization: `Bearer ${localStorage.getItem("token")}`,
-  //       "Content-Type": "application/json",
-  //       apikey: "KDT5_nREmPe9B",
-  //       username: "KDT5_TeamWink",
-  //     },
-  //   }).then((res) => {
-  //     console.log("res:",res);
-  //     setUser(res.data);
-  //   })
-  // }
-
-  // useEffect(() => {
-  //   authenticate()
-  // }, [])
-
+  useEffect(() => {
+    const authenticate = async () => {
+      try {
+        const response = await axios.post(
+          "https://asia-northeast3-heropy-api.cloudfunctions.net/api/auth/me",
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              "Content-Type": "application/json",
+              apikey: "KDT5_nREmPe9B",
+              username: "KDT5_TeamWink",
+            },
+          }
+        );
+        const userData = response.data;
+  
+        // 사용자 정보를 업데이트하기 전에 profileImg가 존재하지 않을 경우에만 기본 프로필 이미지 URL을 사용
+        setUser((prevUser) => ({
+          ...prevUser,
+          displayName: userData.displayName,
+          profileImg: userData.profileImg || defaultProfileImgUrl,
+        }));
+      } catch (error) {
+        console.error(error);
+        // 오류 처리
+      }
+    };
+  
+    authenticate();
+  }, []);
   
 
   return (
@@ -71,7 +85,9 @@ function Header() {
               <div className="Header-box__text" >
                 <div className="Header-box__logout" onClick={logoutHandler}>로그아웃</div>
                 <div className="cart">
-                  <img src={user.profileImg} />
+                  <img 
+                    className="cartPhoto"
+                    src={user.profileImg} />
                   </div>
               </div>
             ) : (

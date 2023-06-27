@@ -1,22 +1,25 @@
-
 .headerContainer{
+  position: fixed;
   width: 100%;
-  margin: auto;
+  max-width: 100%;
+  margin: 0 auto;
   height: 80px;
   background-color: rgb(255, 255, 255);
   border-bottom: 2px solid rgb(202, 159, 18);
-  // max-width: 1920px;
-  //position: relative;
+  background-size: 100% 100%;  // 배경 이미지의 크기를 100%로 설정
+  padding: 0 20px;
+  z-index: 9999;
 
     .itemsWrapper{
-      width: 80%;
+      // width: 80%;
       margin: 0 auto;
       left: 0;
       right: 0;
-      // background-color: greenyellow;
       display: flex; 
       position: absolute;
-      justify-content: space-between;
+      justify-content: space-evenly;
+      align-items: center;
+      width: 100%;
     }
 
   .logoBox {
@@ -25,7 +28,6 @@
     height: 50px;
     display: inline-block;
     position: relative;
-    // background-color: aqua;
 
     img{
       width: 80px;
@@ -38,6 +40,7 @@
     
     .searchBox{
       margin-top: 20px;
+      padding-left: 100px;
 
       input{
         padding-left: 30px;
@@ -50,29 +53,23 @@
         outline: none;
         left: 0;
         right: 0; 
-        // background-color:aqua;
       }
     }
 
       .Header-box {
         display: flex;
-        // vertical-align: top;
         align-items: center;
         gap: 30px;
-        height: 30px;
+        height: 45px;
         margin-top: 20px;
-        // max-width: 1230px;
         width: 400px;
-        background-color: yellow;
 
         .Header-box__text {      
           color: gray;
-          background-color: orange;
           font-weight: bold;  
           width: 100px;
           height: 30px;
           cursor: pointer;
-
 
           .Header-box__logout{
             width: inherit;
@@ -83,13 +80,12 @@
           position: relative;
           width: 60px;
           height: 60px;
-          //background-color: pink;
           left: 130px;
           bottom: 30px;
+          
 
-          .img {
+          .cartPhoto{
             cursor:auto;
-            background-color: olive;
             box-sizing: border-box;
             position: absolute;
             width: 50px;
@@ -101,5 +97,6 @@
           }
         }
       }
-    
 }
+
+
