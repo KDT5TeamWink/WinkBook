@@ -1,7 +1,7 @@
 .wrapper {
   padding-top: 150px;
-  width: 1500px;
-  margin: 0 auto 0 auto;
+  width: 1200px;
+  margin: auto;
   // background-color: yellow;
   position: relative;
 }
@@ -19,10 +19,9 @@ main {
   .Category-menu {
     position: sticky;
     top: 100px;
-    margin-left: -80px;
     height: 410px;
     // margin-left: 0;
-  
+
     img {
       border-radius: 10px 10px 0 0;
       position: sticky;
