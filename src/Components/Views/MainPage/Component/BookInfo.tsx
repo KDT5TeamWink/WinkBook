@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import './BookInfo.scss'
+import './BookInfo.scss';
 
 interface Props {
   productNo: number;
@@ -40,26 +40,24 @@ export default function BookInfo({
         </div>
       ) : null}
 
-      <div className='Book-container'>
-        <img src={productImg} alt={productName} />
-      
-        <div className='BookInfo-Inner'>
-          <div className='RoundCircle'></div>
-          <div className='Namebox'>
-            <span>{productName}</span>
+      <div className="Book-container">
+        <div className="BookInfo-Inner">
+          <div className="RoundCircle"></div>
+          <div className="Namebox">
+            <span>{productName.split('(')[0]}</span>
           </div>
           {retailPrice === price ? (
-            <div className='Main-Pricebox'>{price.slice(0, -3)}원</div>
+            <div className="Main-Pricebox">{price.slice(0, -3)}원</div>
           ) : (
-            <div className='Main-Pricebox'>
+            <div className="Main-Pricebox">
               <span className="retail-price">{retailPrice.slice(0, -3)}원</span>
               <span>{price.slice(0, -3)}원</span>
             </div>
           )}
-
         </div>
+
+        <img src={productImg} alt={productName} />
       </div>
     </Link>
-    
   );
 }
