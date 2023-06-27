@@ -15,7 +15,7 @@ function Header() {
   // console.log("1", accessToken);
   // const dispatch = useDispatch();
   const defaultProfileImgUrl = "/public/images/default-profile.jpg";
-  const [user, setUser] = useState<User>({} as User);
+  const [user, setUser] = useState<User>({ displayName: "", profileImg: "" });
   const [search, setSearch] = useState<Products>([] as Products);
   const [input, setInput] = useState("");
   const [keyword, setKeyWord] = useState("");
@@ -139,7 +139,7 @@ function Header() {
                     className="cartPhoto"
                     src={user.profileImg} />
                   </div>
-              </div>
+              </div> 
             ) : (
               <>
                 <Link className="Header-box__text" to="/join">
