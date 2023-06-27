@@ -14,9 +14,8 @@ a {
 main {
   position: relative;
   display: flex;
-  width: 1200px;
   margin: 100px auto;
-  
+
   .Category-menu {
     position: sticky;
     top: 100px;
@@ -28,21 +27,21 @@ main {
       border-radius: 10px 10px 0 0;
       position: sticky;
       width: 120px;
-      height: inherit;
     }
-  
-    .Category-menu__text{
+
+    .Category-menu__text {
       width: 127px;
       position: absolute;
       bottom: 50px;
       height: 360px;
       padding: 4px;
-  
+
       li {
         display: flex;
         align-items: center;
         justify-content: center;
         height: 50px;
+        width: 110px;
         margin-top: 10px;
         border-radius: 30px;
         font-weight: bold;
@@ -53,19 +52,5 @@ main {
         background-color: #fde1c7;
       }
     }
-  }
-
-  li {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 50px;
-    width: 110px;
-    border-radius: 30px;
-    transition: background-color 0.3s;
-  }
-  .active {
-    background-color: orange;
-    //border-radius: 30px;
   }
 }
