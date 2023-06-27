@@ -114,7 +114,7 @@ function Join() {
 
   
     try {
-      const res = await JoinForm(email, displayName, password,profileImg );
+      const res = await JoinForm(email, displayName, password );
       if (res.accessToken) {
         alert("가입되었습니다.");
         navigate("/login");

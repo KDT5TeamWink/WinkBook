@@ -1,8 +1,50 @@
 import './Category.scss'
 import { Link } from "react-router-dom";
-import {useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import axios from "axios";
+
+interface User {
+  displayName: string; // 사용자 표시 이름
+  profileImg: string; // 사용자 프로필 이미지 URL
+}
 
 const Category = () => {
+
+// 기본 프로필 이미지 URL
+const defaultProfileImgUrl = "/public/images/default-profile.jpg";
+const [user, setUser] = useState<User>({ displayName: "", profileImg: defaultProfileImgUrl });
+
+useEffect(() => {
+  const authenticate = async () => {
+    try {
+      const response = await axios.post(
+        "https://asia-northeast3-heropy-api.cloudfunctions.net/api/auth/me",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+            apikey: "KDT5_nREmPe9B",
+            username: "KDT5_TeamWink",
+          },
+        }
+      );
+      const userData = response.data;
+
+      // 사용자 정보를 업데이트하기 전에 profileImg가 존재하지 않을 경우에만 기본 프로필 이미지 URL을 사용
+      setUser((prevUser) => ({
+        ...prevUser,
+        displayName: userData.displayName,
+        profileImg: userData.profileImg || defaultProfileImgUrl,
+      }));
+    } catch (error) {
+      console.error(error);
+      // 오류 처리
+    }
+  };
+
+  authenticate();
+}, []);
 
   useEffect(() => {
     if (location.pathname === "/mypage") {
@@ -17,14 +59,14 @@ const Category = () => {
   return (
     <>
       <div className="LeftContainer-profile">
-        <div className="LeftContainer-profile__Photo"></div>
+        <img 
+          className="LeftContainer-profile__Photo"
+          src={user.profileImg} 
+          alt="프로필사진" 
+        />
         <div className="LeftContainer-profile__box">
           <div className="LeftContainer-profile__text">
-            <p>닉네임</p>
-          </div>
-
-          <div className="LeftContainer-profile__name">
-            <p>프로필 자기소개란입니다.</p>
+            <p>{user?.displayName}</p>
           </div>
         </div>
       </div>
