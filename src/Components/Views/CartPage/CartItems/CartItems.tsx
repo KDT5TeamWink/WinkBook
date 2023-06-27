@@ -24,27 +24,36 @@ interface CartItemsProps {
   pitem: string;
   setItems: React.Dispatch<React.SetStateAction<CartItem[]>>;
   delete: (index: number, key: any) => void;
-  datalist : any
-  setdata : React.Dispatch<React.SetStateAction<BuyItem[]>>;
-  checkOne : any;
-  checkTwo : any;
+  datalist: any;
+  setdata: React.Dispatch<React.SetStateAction<BuyItem[]>>;
+  checkOne: any;
+  checkTwo: any;
 }
 
-const CartItems = ({ check, pitem, setItems, delete: RemoveBuyItem, datalist, setdata, checkOne, checkTwo }: CartItemsProps) => {
+const CartItems = ({
+  check,
+  pitem,
+  setItems,
+  delete: RemoveBuyItem,
+  datalist,
+  setdata,
+  checkOne,
+  checkTwo,
+}: CartItemsProps) => {
   const [buyItem, setbuyItem] = useState<BuyItem[]>([]);
   const [checkedItems, setCheckedItems] = useState<number[]>(check);
 
   useEffect(() => {
-    setbuyItem(datalist)
+    setbuyItem(datalist);
   }, [datalist]);
 
   const handleChange1 = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCheckedItems(checkOne(event, buyItem,'buy'));
+    setCheckedItems(checkOne(event, buyItem, "buy"));
   };
 
   const handleChange2 =
     (el: any) => (event: React.ChangeEvent<HTMLInputElement>) => {
-      setCheckedItems(checkTwo(event, checkedItems,el))
+      setCheckedItems(checkTwo(event, checkedItems, el));
     };
 
   const children = (el: any, index: number) => (
@@ -120,8 +129,11 @@ const CartItems = ({ check, pitem, setItems, delete: RemoveBuyItem, datalist, se
               </div>
 
               <div className="CartButtonBox">
-              <button onClick={() => RemoveBuyItem(index, el.product_no, buyItem)}>삭제</button>
-                
+                <button
+                  onClick={() => RemoveBuyItem(index, el.product_no, buyItem)}
+                >
+                  삭제
+                </button>
               </div>
             </div>
           ))}

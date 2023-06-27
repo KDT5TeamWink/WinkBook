@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
-import { getRecommand, getList } from '@/Apis/productApi';
-import './Recommand.scss';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { getRecommand, getList } from "@/Apis/productApi";
+import "./Recommand.scss";
+import { Link } from "react-router-dom";
 
 type RecommandProducts = RecommandProduct[];
 
@@ -22,7 +22,7 @@ export default function Recommand() {
       const res = await getRecommand();
       console.log(res.products);
       setList(res.products);
-      const productList = res.products.map((obj) => obj.product_no).join(',');
+      const productList = res.products.map((obj) => obj.product_no).join(",");
       return productList;
     } catch (err) {
       console.log(err);
