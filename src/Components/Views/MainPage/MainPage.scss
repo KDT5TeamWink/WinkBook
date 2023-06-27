@@ -1,6 +1,8 @@
 .wrapper {
-  width: 1200px;
-  margin: 100px auto 0;
+  padding-top: 150px;
+  width: 1500px;
+  margin: 0 auto 0 auto;
+  // background-color: yellow;
   position: relative;
 }
 a {
@@ -16,10 +18,14 @@ main {
 
   .Category-menu {
     position: sticky;
-    top: 0px;
+    top: 100px;
+    margin-left: -80px;
     height: 410px;
-
+    // margin-left: 0;
+  
     img {
+      border-radius: 10px 10px 0 0;
+      position: sticky;
       width: 120px;
     }
 

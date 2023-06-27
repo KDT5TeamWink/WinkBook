@@ -2,18 +2,14 @@ import { FormEvent, useState, useEffect, ChangeEvent, useCallback, useRef } from
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "./UserInfo.scss";
-import Category from "./common/components/category";
+import Category from "./common/components/Category";
 
-interface User {
-  displayName: string // 사용자 표시 이름
-  profileImg: string // 사용자 프로필 이미지 URL
-}
 
 function UserInfo() {
   const navigate = useNavigate();
 
   // 이름 , 프로필사진 , 구 비밀번호 , 새 비밀번호
-  const [user, setUser] =useState<User>({} as User)
+
   const [displayName, setDisplayName] = useState(); // <User> {} as User
   const [profileImgBase64, setProfileImgBase64] = useState<string>("");
   const [oldPassword, setOldPassword] = useState("");
@@ -57,27 +53,6 @@ function UserInfo() {
     }
   }
 
-  async function authenticate() {
-    axios('https://asia-northeast3-heropy-api.cloudfunctions.net/api/auth/me',{
-      method:"post",
-      headers:{
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json",
-        apikey: "KDT5_nREmPe9B",
-        username: "KDT5_TeamWink",
-      },
-    }).then((res) => {
-      console.log("res:",res);
-      setUser(res.data);
-      
-    })
-  }
-
-  useEffect(() => {
-    authenticate()
-  }, [])
-
-
   return (
     <>
       <div className="UserInfo-AllLayout">
@@ -85,13 +60,89 @@ function UserInfo() {
           <div className="LeftContainer">
             <Category/>
           </div>
-        
-          <div className="RightContainer">
-            
 
+
+          <div className="RightContainer">
+          <div className="infoContainer">
+              <div className="info">
+                <div className="infoTag">
+                  <div className="infoText">회원정보 수정</div>
+                </div>
+                <div className="infoBox">
+                  <form onSubmit={submit}>
+                    <div className="infoList">
+                        <div className="infoTitle">기존 비밀번호</div>
+                        <div className="infoItem">
+                          <input
+                            className="infoItemForm"
+                            placeholder="비밀번호를 입력해주세요"
+                            type="password"
+                            name="oldPassword"
+                            value={oldPassword}
+                            onChange={(e) => setOldPassword(e.target.value)}
+                            required
+                          />
+                        </div>
+                      </div>
+                      <div className="infoList">
+                        <div className="infoTitle">새 비밀번호</div>
+                          <div className="infoItem">
+                            <input
+                              className="infoItemForm"
+                              placeholder="비밀번호를 입력해주세요"
+                              type="password"
+                              name="newPassword"
+                              value={newPassword}
+                              onChange={(e) => setNewPassword(e.target.value)}
+                              required
+                            />
+                          </div>
+                      </div>
+                      <div className="infoList">
+                        <div className="infoTitle">닉네임 변경</div>
+                          <div className="infoItem">
+                            <input
+                              className="infoItemForm"
+                              placeholder="닉네임을 입력해주세요"
+                              type="text"
+                              name="disPlayname"
+                              value={displayName}
+                              onChange={(e) => setDisplayName(e.target.value)}
+                              required
+                            />
+                          </div>
+                      </div>
+                      <div className="infoList">
+                        <div className="infoTitle">프로필 이미지</div>
+                          <div className="infoItem">
+                            <label htmlFor="file">
+                              <div className="btn-upload">파일 업로드하기</div>
+                            </label>
+                            <input
+                              className="infoItemForm"
+                              type="file"
+                              id="file"
+                              name="file"
+                              accept="image/*"
+                              onChange={uploadImage}
+                            />
+                          </div>
+                      </div>
+                    <div className="infoList">
+                      <div className="infoItem">
+                        <button 
+                          className="infoFix"
+                          type="submit"
+                        > 회원 정보 수정
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
           </div>
-        
-        
+
         </div>
 
 

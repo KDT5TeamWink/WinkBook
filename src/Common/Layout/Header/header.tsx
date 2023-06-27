@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import "./headers.scss";
 import { LogoutForm } from "@/Apis/register";
 import SearchPage from "@/Components/Views/SearchPage/SearchPage";
@@ -8,13 +9,13 @@ interface User {
   displayName: string; // 사용자 표시 이름
   profileImg: string; // 사용자 프로필 이미지 URL
 }
-
 function Header() {
   // const userState = useSelector((state) => state.user);
   // const accessToken = userState.accessToken;
   // console.log("1", accessToken);
   // const dispatch = useDispatch();
-  const [user, setUser] = useState<User>({} as User);
+  const defaultProfileImgUrl = "/public/images/default-profile.jpg";
+  const [user, setUser] = useState<User>({ displayName: "", profileImg: "" });
   const [search, setSearch] = useState<Products>([] as Products);
   const [input, setInput] = useState("");
   const [keyword, setKeyWord] = useState("");
@@ -45,6 +46,38 @@ function Header() {
 
   const token = localStorage.getItem("token");
 
+  useEffect(() => {
+    const authenticate = async () => {
+      try {
+        const response = await axios.post(
+          "https://asia-northeast3-heropy-api.cloudfunctions.net/api/auth/me",
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              "Content-Type": "application/json",
+              apikey: "KDT5_nREmPe9B",
+              username: "KDT5_TeamWink",
+            },
+          }
+        );
+        const userData = response.data;
+  
+        // 사용자 정보를 업데이트하기 전에 profileImg가 존재하지 않을 경우에만 기본 프로필 이미지 URL을 사용
+        setUser((prevUser) => ({
+          ...prevUser,
+          displayName: userData.displayName,
+          profileImg: userData.profileImg || defaultProfileImgUrl,
+        }));
+      } catch (error) {
+        console.error(error);
+        // 오류 처리
+      }
+    };
+  
+    authenticate();
+  }, []);
+  
   const OnKeyPress = (e: any) => {
     if (keyword === "") {
       alert("검색어를 입력해주세요");
@@ -102,9 +135,11 @@ function Header() {
                   로그아웃
                 </div>
                 <div className="cart">
-                  <img src={user.profileImg} />
-                </div>
-              </div>
+                  <img 
+                    className="cartPhoto"
+                    src={user.profileImg} />
+                  </div>
+              </div> 
             ) : (
               <>
                 <Link className="Header-box__text" to="/join">
