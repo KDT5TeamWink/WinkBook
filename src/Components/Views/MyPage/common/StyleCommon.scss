@@ -1,18 +1,18 @@
 @mixin AllLayoutStyle {
-  width: 1200px;
-  padding-bottom: 1500px;
+  width: 1600px;
+  height: 1300px;
   position: relative;
   margin: 0 auto;
 }
 
 @mixin LayoutCenterStyle {
-  width: 1200px;
+  width: 1300px;
   position: absolute;
   display: flex;
   margin: 0 auto;
   left: 0;
   right: 0;
-  top:100px;
+  padding-top: 120px;
 }
 
 @mixin LeftContainerStyle {

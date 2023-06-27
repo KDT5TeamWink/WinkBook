@@ -1,10 +1,12 @@
 .books {
   display: flex;
   overflow: hidden;
+  margin: 0 15px;
   &:not(:last-child) {
     margin-bottom: 50px;
   }
 }
+
 .left {
   background-color: #fed19a;
   border-top-left-radius: 10px;
@@ -14,12 +16,14 @@
     padding: 30px 10px;
     color: #555252;
     font-size: 15px;
+    text-align: center;
 
     h1 {
       width: min-content;
     }
   }
 }
+
 .right {
   position: relative;
   background-color: #fff3e2;
@@ -64,6 +68,7 @@
     margin: 10px 0;
   }
 }
+
 .hover-description {
   position: absolute;
   padding: 5%;
@@ -79,6 +84,7 @@
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
     1px 1px 0 #000;
 }
+
 .discount {
   position: absolute;
   width: fit-content;
@@ -90,6 +96,7 @@
   top: 40%;
   z-index: 1;
 }
+
 .retail-price {
   text-decoration: line-through;
   color: rgb(122, 122, 122);

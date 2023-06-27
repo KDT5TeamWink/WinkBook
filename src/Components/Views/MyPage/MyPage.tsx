@@ -7,7 +7,6 @@ interface PaymentItem {
   merchant_uid: string;
   custom_data:string;
   paid_at: string;
-
 }
 
 interface PaymentsResponse {
@@ -66,14 +65,12 @@ const GetToken = async  () => {
 const fetchData = async (): Promise<void> => {
   try {
     const paynumber: string | null = window.localStorage.getItem('mypayment');
-
     if (paynumber) {
       const merchantUids = JSON.parse(paynumber);
       const accessToken = await GetToken();
       const paymentsResponse: AxiosResponse<PaymentsResponse> = await axios.get(
         `/iamport/payments/status/paid?limit=20&sorting=paid&_token=${accessToken}`
       );
-
       if (paymentsResponse.data && paymentsResponse.data.response && paymentsResponse.data.response.list) {
         const filteredList: PaymentItem[] = paymentsResponse.data.response.list.filter((item) =>
           merchantUids.includes(item.merchant_uid)
@@ -120,7 +117,6 @@ useEffect(() => {
 
 const DeleteList = (itemnum: string) => {
   const MyPay = localStorage.getItem("mypayment");
-  
   if (MyPay && MyPay.includes(itemnum)) {
     const updatedList = MyPay.replace(itemnum, "").trim();
     localStorage.setItem("mypayment", updatedList);
@@ -128,8 +124,8 @@ const DeleteList = (itemnum: string) => {
   fetchData();
 }
 
-const onClickDelete = async (key:string) => {
 
+const onClickDelete = async (key:string) => {
   if(confirm("주문을 취소 하시겠습니까?")){
   const accessToken = await GetToken();
   const data = {
@@ -169,13 +165,9 @@ const getDate = function(param:any){
           <div className="LeftContainer">
             <Category/>
           </div>
-
           <div className="RightContainer">
             <div className="orderText">구매 내역</div>
-
-
             <div className="orderContainer">
-
             <div className="TopCategory">
                 {Object.keys(TopCategory).map(key => {
                   return <span className="TopCategory-inner" key={key}>
@@ -187,7 +179,6 @@ const getDate = function(param:any){
                 {mydataList
                 .filter((el: PageData)  => el.gubun === 'buy') 
                 .map((item: PageData, index: number) => (
-                 
                   <div className="orderList" key={index}>
                     <span>{item.merchant_uid.replace("mid_","")}</span>
                       <span>{getDate(item.paid_at)}</span>
@@ -200,12 +191,10 @@ const getDate = function(param:any){
                         <button onClick={() => onClickDelete(item.merchant_uid)}>x</button>
                       </div>
                   </div>
-                
                 ))}
               </div>
             </div>
-
-            <div className="RentContainer-text">대여 내역</div>
+            <div className="RentText">대여 내역</div>
               <div className="RentContainer">
                 <div className="RentTop-Category">
                   {Object.keys(TopCategory).map(key => {
@@ -218,7 +207,6 @@ const getDate = function(param:any){
                 {mydataList
                 .filter((el: PageData) => el.gubun === 'rent') 
                 .map((item: PageData, index: number)  => (
-                 
                   <div className="RentList" key={index}>
                     <span>{item.merchant_uid.replace("mid_","")}</span>
                       <span>{getDate(item.paid_at)}</span>
@@ -231,12 +219,10 @@ const getDate = function(param:any){
                         <button onClick={() => onClickDelete}>x</button>
                       </div>
                   </div>
-                
                 ))}
                 </div>
               </div>
-          
-          </div>
+            </div>
         </div>
       </div>
     </>
