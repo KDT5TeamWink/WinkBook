@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import "./SearchPage.scss";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 const { VITE_CLIENT_ID } = import.meta.env;
+import { getDetail } from "@/Apis/productApi";
 
 const ajax = axios.create({
   baseURL: "/cafe24",
@@ -14,11 +15,24 @@ const ajax = axios.create({
 });
 
 export default function SearchPage() {
-  // const [input, setInput] = useState("");
+  interface DetailInfo {
+    detail_image: string;
+    product_name: string;
+    retail_price: number;
+    simple_description: string;
+    summary_description: string;
+    product_no: string;
+    price: number;
+    price_excluding_tax: string;
+    selling: string;
+    description: string;
+  }
+
   const [search, setSearch] = useState<Products>([] as Products);
   const [offset, setOffset] = useState(0);
   const [count, setCount] = useState(0);
   const params = useParams();
+  const navigate = useNavigate();
 
   async function SearchAPI(product_name: string) {
     try {
@@ -33,14 +47,51 @@ export default function SearchPage() {
       console.log(err);
     }
   }
-  // useEffect(() => {
-  //   window.scrollTo(0, 0);
-  //   searchUpload();
-  // }, [offset]);
 
-  // const searchInputChange = (e: any) => {
-  //   setInput(e.target.value);
-  // };
+  const [detail, setDetail] = useState<DetailInfo>({} as DetailInfo);
+
+  const { productNo } = useParams();
+  async function getDetails() {
+    try {
+      const data = await getDetail(productNo as string);
+      setDetail(data.product);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  const BuyBook = (detail: any, type: string) => {
+    let Cart = localStorage.getItem("cart");
+
+    if (Cart === null) {
+      Cart = [];
+    } else {
+      Cart = JSON.parse(Cart);
+    }
+
+    if (Cart.some((item) => item.product_no === detail.product_no)) {
+      alert("이미 장바구니에 담으셨습니다.");
+      return false;
+    }
+
+    if (type === "rent") {
+      detail.rentdate = 7;
+    }
+    detail.gubun = type;
+    Cart.push(detail);
+    Cart = new Set(Cart);
+    Cart = [...Cart];
+    localStorage.setItem("cart", JSON.stringify(Cart));
+    alert("장바구니에 담겼습니다.");
+    navigate("/cart");
+  };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    (async () => {
+      await getDetails();
+    })();
+  }, []);
 
   useEffect(() => {
     (async () => {
@@ -65,12 +116,17 @@ export default function SearchPage() {
           return (
             <>
               <div className="SearchPage">
-                <div className="SearchPage__Images">
-                  <img src={v.list_image} alt="책표지" />
-                </div>
+                <Link to={`/detail/${v.product_no}`}>
+                  <div className="SearchPage__Images">
+                    <img src={v.list_image} alt="책표지" />
+                  </div>
+                </Link>
 
                 <div className="SearchPage__Items">
-                  <h1>{v.product_name}</h1>
+                  <Link to={`/detail/${v.product_no}`}>
+                    <h1>{v.product_name}</h1>
+                  </Link>
+
                   <div className="SearchPage__Item">
                     <p>{v.summary_description}</p>
                     <p>{v.product_tag}</p>
@@ -81,8 +137,12 @@ export default function SearchPage() {
                   </div>
                 </div>
                 <div className="SearchPage__ButtonBox">
-                  <button>구매하기</button>
-                  <button>대여하기</button>
+                  <button onClick={() => BuyBook(detail, "buy")}>
+                    구매하기
+                  </button>
+                  <button onClick={() => BuyBook(detail, "rent")}>
+                    대여하기
+                  </button>
                 </div>
               </div>
             </>

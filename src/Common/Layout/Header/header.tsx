@@ -3,7 +3,6 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import "./headers.scss";
 import { LogoutForm } from "@/Apis/register";
-import SearchPage from "@/Components/Views/SearchPage/SearchPage";
 
 interface User {
   displayName: string; // 사용자 표시 이름
@@ -16,8 +15,6 @@ function Header() {
   // const dispatch = useDispatch();
   const defaultProfileImgUrl = "/public/images/default-profile.jpg";
   const [user, setUser] = useState<User>({ displayName: "", profileImg: "" });
-  const [search, setSearch] = useState<Products>([] as Products);
-  const [input, setInput] = useState("");
   const [keyword, setKeyWord] = useState("");
 
   const navigate = useNavigate();
@@ -62,7 +59,7 @@ function Header() {
           }
         );
         const userData = response.data;
-  
+
         // 사용자 정보를 업데이트하기 전에 profileImg가 존재하지 않을 경우에만 기본 프로필 이미지 URL을 사용
         setUser((prevUser) => ({
           ...prevUser,
@@ -74,15 +71,17 @@ function Header() {
         // 오류 처리
       }
     };
-  
+
     authenticate();
   }, []);
-  
-  const OnKeyPress = (e: any) => {
-    if (keyword === "") {
-      alert("검색어를 입력해주세요");
-    } else if (e.key === "Enter") {
-      onSubmit(); // Enter 입력이 되면 클릭 이벤트 실행
+
+  const HandleKeyPress = (e: any) => {
+    if (e.key === "Enter") {
+      if (keyword === "") {
+        alert("검색어를 입력해주세요");
+      } else {
+        onSubmit(); // Enter 입력이 되면 클릭 이벤트 실행
+      }
     }
   };
 
@@ -96,25 +95,18 @@ function Header() {
           <div className="searchBox">
             <input
               type="text"
-              placeholder="검색"
+              placeholder="검색해주세요!"
               onChange={(e) => {
                 setKeyWord(e.target.value);
               }}
-              onKeyPress={OnKeyPress}
+              onKeyPress={HandleKeyPress}
             />
-            {/* <button
-              onClick={() => {
-                onSubmit();
-              }}
-            >
-              검색
-            </button> */}
             <img
               src="/public/images/search-icon.png"
               alt="searchicon"
               onClick={() => {
                 if (keyword === "") {
-                  alert("검색어를 입력해주세요");
+                  alert("검색어를 입력해주세요!");
                 } else {
                   onSubmit();
                 }
@@ -135,11 +127,9 @@ function Header() {
                   로그아웃
                 </div>
                 <div className="cart">
-                  <img 
-                    className="cartPhoto"
-                    src={user.profileImg} />
-                  </div>
-              </div> 
+                  <img className="cartPhoto" src={user.profileImg} />
+                </div>
+              </div>
             ) : (
               <>
                 <Link className="Header-box__text" to="/join">
