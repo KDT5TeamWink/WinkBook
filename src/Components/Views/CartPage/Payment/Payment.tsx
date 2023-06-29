@@ -1,11 +1,22 @@
 import { useEffect } from "react";
 
-export interface PaymentInfo {
+interface PaymentInfo {
   amount: number;
   productlists: any;
+  setdatalist: any;
 }
 
-const Payment = ({ amount, productlists }: PaymentInfo) => {
+interface BuyItem {
+  id: number;
+  product_name: string;
+  price: string;
+  detail_image: string;
+  product_no: string;
+  selectedItem?: any;
+  setdatalist: any;
+}
+
+const Payment = ({ amount, productlists, setdatalist }: PaymentInfo) => {
   const orderNumber = `mid_${new Date().getTime()}`;
   console.log(orderNumber);
 
@@ -24,10 +35,11 @@ const Payment = ({ amount, productlists }: PaymentInfo) => {
   const onClickPayment = () => {
     console.log(productlists);
 
-    const itemName = productlists.map((obj) => obj.product_name).join(",");
+    const itemName = productlists.map((obj: { product_name: any; }) => obj.product_name).join(",");
+    
 
     console.log(itemName);
-    const { IMP }: any = window;
+    const IMP = (window as any).IMP;
     IMP.init("imp36252452");
 
     const data = {
@@ -37,37 +49,34 @@ const Payment = ({ amount, productlists }: PaymentInfo) => {
       amount: amount, // 결제금액
       name: `${itemName}`, // 주문명
       buyer_name: "", // 구매자 이름
-      // buyer_tel: "01032752740", // 구매자 전화번호
-      // 전화번호: 일단 빼고 나중에 추가 시도..
-      buyer_email: "", // 구매자 이메일 - 작성시 구매창에서 이메일 부분에 들어가있음
+      buyer_email: "", 
    
       custom_data:productlists
     };
-
     IMP.request_pay(data, callback);
   };
+
 
   function callback(response: any) {
     const { success, error_msg } = response;
 
     if (success) {
       alert("결제 성공");
-      //mypayment []
-      //mypayment: [orderNumber1]
-      let mypayarray = window.localStorage.getItem("mypayment");
-      let combinedArray = JSON.parse(mypayarray);
+      const mypayarray: string | null = window.localStorage.getItem("mypayment");
+      const combinedArray: string[] | null = mypayarray ? JSON.parse(mypayarray) : null;
       if (!combinedArray) {
-        //mypayment: [orderNumber1]
         window.localStorage.setItem("mypayment", JSON.stringify([orderNumber]));
       } else {
-        ////mypayment: [orderNumber1,orderNumber2] 배열을 다시 추가.
         combinedArray.push(orderNumber);
         window.localStorage.setItem("mypayment", JSON.stringify(combinedArray));
       }
       
+      const productItemlist = productlists.map((obj: { product_no: any; }) => obj.product_no).join(",");
+      const cartlist: BuyItem[] = JSON.parse(window.localStorage.getItem("cart") || "[]");
       
-
-      //결제 성공을 하고 성공된 데이터가 로컬스토리지에서 지워져야함. produc_id
+      const updatedArray = cartlist.filter((item) => !productItemlist.includes(item.product_no));
+      window.localStorage.setItem("cart", JSON.stringify(updatedArray));
+      setdatalist(updatedArray);
     } else {
       alert(`결제 실패: ${error_msg}`);
     }

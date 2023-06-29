@@ -1,13 +1,13 @@
 footer {
     // position: fixed;
     bottom: 0;
+    //width: 1500px;
     width: 100%;
-    max-width: 100%;
+    //max-width: 2000px;
     background-color: rgb(255, 255, 255);
     height: 100px;
-    // position: relative;
+    position: relative;
     border-top: solid 2px rgb(202, 159, 18);
-    max-width: 100%;
     z-index: 9999;
     
     .Footer-inner {

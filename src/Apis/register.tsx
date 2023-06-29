@@ -11,9 +11,9 @@ const axiosInstance = axios.create({
   headers,
 });
 
-export const JoinForm = async (email: string, displayName: string, password: string) => {
+export const JoinForm = async (email: string, displayName: string, password: string, profileImgBase64:string) => {
   const URL = '/signup';
-  const res = await axiosInstance.post(URL, { email, displayName, password });
+  const res = await axiosInstance.post(URL, { email, displayName, password, profileImgBase64 });
   return res.data;
 };
 

@@ -1,36 +1,51 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate  } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { ChangeEvent } from "react";
 import "./headers.scss";
 import { LogoutForm } from "@/Apis/register";
-import SearchPage from "@/Components/Views/SearchPage/SearchPage";
+import { getList } from "@/Apis/productApi";
+
 
 interface User {
   displayName: string; // 사용자 표시 이름
   profileImg: string; // 사용자 프로필 이미지 URL
 }
 
+interface Product {
+  product_no: number;
+  product_name: string;
+  small_image: string;
+  price: string;
+}
+
+
 function Header() {
-  // const userState = useSelector((state) => state.user);
-  // const accessToken = userState.accessToken;
-  // console.log("1", accessToken);
-  // const dispatch = useDispatch();
-  
   const defaultProfileImgUrl = "/public/images/default-profile.jpg";
+  const token = localStorage.getItem("token");
   
   const [user, setUser] = useState<User>({ displayName: "", profileImg: "" });
-  const [search, setSearch] = useState<Products>([] as Products);
-  const [input, setInput] = useState("");
   const [keyword, setKeyWord] = useState("");
-  
+  const [filteredItems, setFilteredItems] = useState([]);
+  const [product, setProductInfo] = useState([]);
+  const [showInputButton, setShowInputButton] = useState(false);
+
+
   const navigate = useNavigate();
   
-  const token = localStorage.getItem("token");
-  // const searchUpload = async () => {
-  //   const result = await SearchAPI(input);
-  //   setSearch(result);
-  //   console.log(result);
-  // };
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setKeyWord(e.target.value);
+    setShowInputButton(e.target.value.trim() !== "");
+  };
+
+  const handleInputButtonClick = () => {
+    if (keyword === "") {
+      alert("검색어를 입력해주세요");
+    } else {
+      onSubmit();
+    }
+  };
+
 
   const logoutHandler = () => {
     LogoutForm()
@@ -44,17 +59,9 @@ function Header() {
         console.log("Logout failed:", error);
       });
   };
+
   const onSubmit = async () => {
-    // window.location.href = "/search/" + keyword;
     navigate("/search/" + keyword);
-  };
-  
-  const OnKeyPress = (e: any) => {
-    if (keyword === "") {
-      alert("검색어를 입력해주세요");
-    } else if (e.key === "Enter") {
-      onSubmit(); // Enter 입력이 되면 클릭 이벤트 실행
-    }
   };
   
   useEffect(() => {
@@ -81,13 +88,46 @@ function Header() {
         }));
       } catch (error) {
         console.error(error);
-        // 오류 처리
       }
     };
     if (token) {
       authenticate();
     }
   }, [token]);
+  
+  const OnKeyPress = (e: any) => {
+    if (keyword === "") {
+      alert("검색어를 입력해주세요");
+    } else if (e.key === "Enter") {
+      onSubmit();
+    }
+  };
+
+  const filterItems = (searchTerm: string) => {
+    const filtered = product.filter((item: Product) =>
+      item.product_name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredItems(filtered);
+  };
+  
+  useEffect(() => {
+    filterItems(keyword);
+  }, [keyword, product]); 
+
+  async function getItem() {
+    const cate = {
+      limit : 100
+    }
+    const data = await getList(cate);
+    console.log(data);
+    setProductInfo(data);
+  }
+
+  useEffect(() => {
+    (async () => {
+      await getItem();
+    })();
+  }, []);
 
   return (
     <>
@@ -100,23 +140,49 @@ function Header() {
             <input
               type="text"
               placeholder="검색"
-              onChange={(e) => {
-                setKeyWord(e.target.value);
-              }}
+              onChange={handleInputChange}
               onKeyPress={OnKeyPress}
             />
             <img
               src="/public/images/search-icon.png"
               alt="searchicon"
-              onClick={() => {
-                if (keyword === "") {
-                  alert("검색어를 입력해주세요");
-                } else {
-                  onSubmit();
-                }
-              }}
+              onClick={handleInputButtonClick}
             />
+
+            {showInputButton && keyword &&(
+          <div className="Input-Buttom">
+            <div className="Input-Buttom__inner">
+              {keyword &&
+                filteredItems.map((v: Product) => {
+                  if (v.product_name.trim() !== "") {
+                    return (
+                    <Link
+                      to={`/detail/${v.product_no}`}
+                      key={v.product_no}
+                      className="Input-Buttom__innerBox"
+                      >
+                      <div className="Input-Buttom__ImageBox">
+                        <img src={v.small_image} alt="searchbookimage" />
+                      </div>
+
+                      <div className="Input-Buttom__title">
+                        <span>{v.product_name}</span>
+                        <span>{v.price.slice(0, -3)}원</span>
+                      </div>  
+                    </Link>   
+                    );
+                  } else {
+                    return null;
+                  }
+                })}
+            </div>
           </div>
+        )}
+      </div>
+
+          
+
+
           <div className="Header-box">
             <Link className="Header-box__text" to="/cart">
               장바구니
@@ -148,7 +214,11 @@ function Header() {
             )}
           </div>
         </div>
+
+       
       </header>
+
+    
     </>
   );
 }
