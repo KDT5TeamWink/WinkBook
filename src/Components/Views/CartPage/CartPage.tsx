@@ -7,47 +7,58 @@ import Payment from "./Payment/Payment";
 interface BuyItem {
   id: number;
   product_name: string;
-  price: number;
+  price:string;
   detail_image: string;
   product_no: number;
 }
 
 function CartPage() {
   const [CartItemsValue, setCartItemsValue] = useState<number[]>([]);
-  const [selectedItem, setSelectedItem] = useState<string[]>([]);
-  const [selectedItemRent, setSelectedItemRent] = useState<string[]>([]);
+  const [selectedItem, setSelectedItem] = useState<BuyItem[]>([]);
   const [Total, setTotal] = useState(0);
   const [ShowTotal, setShowTotal] = useState(false);
   const [buyItem, setbuyItem] = useState<BuyItem[]>([]);
 
   useEffect(() => {
-    const BuyItems = JSON.parse(localStorage.getItem("cart")) || [];
-    setbuyItem(BuyItems);
+    const cartData = localStorage.getItem("cart");
+    const buyItems = cartData ? JSON.parse(cartData) : [];
+    setbuyItem(buyItems);
   }, []);
   
   useEffect(() => {
     calculateTotal();
   }, [selectedItem]);
 
+  // const checkOne = (event: React.ChangeEvent<HTMLInputElement>, buyItem: any[], gubun: string) => {
+  //   const checkedValue = event.target.checked;
+  //   const filteredItems = buyItem.filter((item) => item.gubun === gubun);
+  //   const updatedSelectedItems = checkedValue ? [...filteredItems] : [];
+  //   const unchekedSelectedItems = [...filteredItems];
+  //   const combinedItems = new Set([...selectedItem, ...updatedSelectedItems]);
+  //   const checkitem = checkedValue ? Array.from(combinedItems):  selectedItem.filter(item => !unchekedSelectedItems.some(updatedItem => updatedItem.product_no === item.product_no));
+  //   setSelectedItem(checkitem);
+  //   const updatedCheckedItems = updatedSelectedItems.map((item, index) => index);
+  //   return updatedCheckedItems;
+  // };
+
   const checkOne = (event: React.ChangeEvent<HTMLInputElement>, buyItem: any[], gubun: string) => {
     const checkedValue = event.target.checked;
-      // Filter buyItem based on the condition (item.gubun === gubun)
     const filteredItems = buyItem.filter((item) => item.gubun === gubun);
-      // Update selected items based on checkedValue
-    const updatedSelectedItems = checkedValue ? [...filteredItems] : [];
-      // Update selectedItem state
-    if(gubun === "rent"){
-      setSelectedItemRent(updatedSelectedItems);
-    }else{
-      setSelectedItem(updatedSelectedItems);
+
+    if(checkedValue) {
+      const combinedItems = new Set([...selectedItem, ...filteredItems]);
+      setSelectedItem(Array.from(combinedItems));
+    } else {
+      const remainingItems = selectedItem.filter(item => !filteredItems.some(filteredItem => filteredItem.product_no === item.product_no));
+      setSelectedItem(remainingItems);
     }
-      // Return an array of indices for the updated selected items
-    const updatedCheckedItems = updatedSelectedItems.map((item, index) => index);
+    // Reset filteredItems indices if unchecked
+    const updatedCheckedItems = checkedValue ? filteredItems.map((_, index) => index) : [];
+    
     return updatedCheckedItems;
   };
-  
 
-  const checkTwo = (event: React.ChangeEvent<HTMLInputElement>, checkedItems:any, el:any) => {
+  const checkTwo = (event: React.ChangeEvent<HTMLInputElement>, checkedItems:number[], el:any) => {
     const itemId = parseInt(event.target.name);
       let updatedCheckedItems: number[] = [];
       let updatedItems: any[] = [];
@@ -56,51 +67,49 @@ function CartPage() {
         updatedItems = [...selectedItem, el];
       } else {
         updatedCheckedItems = checkedItems.filter((id) => id !== itemId);
-        updatedItems = selectedItem.filter((key) => key.product_no !== el.product_no);
+        updatedItems = selectedItem.filter((item) => item.product_no !== el.product_no);
       }
       setSelectedItem(updatedItems);
       return updatedCheckedItems;
   };
 
   const calculateTotal = () => {
+    setTotal(0);
+    console.log(selectedItem);
     let total = 0;
     if (Array.isArray(selectedItem)) {
       selectedItem.forEach((item) => {
-        console.log(item);
         const itemPrice = parseFloat(item.price);
-        console.log(itemPrice);
         if (!isNaN(itemPrice)) {
-          console.log(itemPrice);
           total += itemPrice;
         }
       });
+    }else{
+      total = 0;
     }
     setTotal(total);
     setShowTotal(true);
   };
 
-  
-  const RemoveBuyItem = (index: number, key: any, buyItem:any) => {
+  const RemoveBuyItem = (key: any) => {
     console.log(key);
     const confirmation = window.confirm("삭제하시겠습니까?");
     if (confirmation) {
-      const updatedCartData = JSON.parse(localStorage.getItem("cart"));
-      localStorage.setItem(
-        "cart",
-        JSON.stringify(
-          updatedCartData.filter((item) => item.product_no !== key)
-        )
-      );
+      // const updatedCartData = JSON.parse(localStorage.getItem("cart"));
+      // const datalist = JSON.stringify(
+      //   updatedCartData.filter((item) => item.product_no !== key)
+      // )
+      const cartDataString = localStorage.getItem("cart");
 
-      console.log(updatedCartData);
-      const updatedBuyItem = [...updatedCartData];
-      //선택한 index 1개를 buyItem 배열에서 제거.
-      updatedBuyItem.splice(index, 1);
-      // 제거한후의 값 setState 갑에 담아줌.
-      setbuyItem(updatedBuyItem);
-      // cart 키 값으로 로컬에서 데이터 찾아옴
-      console.log(buyItem);
-      alert("삭제되었습니다.");
+      if (cartDataString !== null) {
+        const updatedCartData: BuyItem[] = JSON.parse(cartDataString);
+        const datalist = JSON.stringify( updatedCartData.filter((item) => item.product_no !== key))
+        localStorage.setItem("cart",datalist);
+        setbuyItem(JSON.parse(datalist));
+        alert("삭제되었습니다.");
+      } else {
+        console.log("cart data not found");
+      }
     } else {
       alert("취소되었습니다.");
     }
@@ -114,11 +123,10 @@ function CartPage() {
           <div className="CartContainer">
             <CartItems
               check={CartItemsValue}
-              pitem={selectedItem}
-              setItems={setSelectedItem}
+              //setItems={setSelectedItem}
               delete={RemoveBuyItem}
               datalist={buyItem}
-              setdata={setbuyItem}
+              //setdata={setbuyItem}
               checkOne={checkOne}
               checkTwo={checkTwo}
             />
@@ -127,11 +135,10 @@ function CartPage() {
           <div className="RentContainer">
             <RentalItems
               check={CartItemsValue}
-              pitem={selectedItemRent}
-              setItems={setSelectedItemRent}
+              //setItems={setSelectedItem}
               delete={RemoveBuyItem}
               datalist={buyItem}
-              setdata={setbuyItem}
+              //setdata={setbuyItem}
               checkOne={checkOne}
               checkTwo={checkTwo}
             />
@@ -143,20 +150,20 @@ function CartPage() {
               <div className="Buy-Container">
                 <div className="Pay-Container">
                   <span>총 상품 가격 </span>
-                  {ShowTotal && <h2>Total Amount: ${Total}</h2>}
+                  {ShowTotal && <h3>${Total}원</h3>}
                 </div>
               </div>
 
               <div className="AllCount-Container">
                 <div className="AllCount-Container__box">
                   <span>총 결제 예상 금액</span>
-                  <span>28,000 원</span>
+                  <span>${Total}</span>
                 </div>
               </div>
 
               <div className="Buy-ButtonBox">
                 {/* <button onClick={BuyProducts}>선택한 상품 주문하기</button> */}
-                <Payment amount={Total} productlists={selectedItem} />
+                <Payment amount={Total} productlists={selectedItem} setdatalist={setbuyItem}/>
               </div>
             </div>
           </div>

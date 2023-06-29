@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import TopHeader from "./components/TopHeader";
 import { getDetail } from "@/Apis/productApi";
+import { ChangeEvent } from "react";
 import "./DetailPage.scss";
 
 function DetailPage() {
@@ -17,16 +18,20 @@ function DetailPage() {
     price_excluding_tax: string;
     selling: string;
     description: string;
+    rentdate: number;
+    gubun: string;
   }
 
   const navigate = useNavigate();
   const [detail, setDetail] = useState<DetailInfo>({} as DetailInfo);
 
   const { productNo } = useParams();
+
   async function getDetails() {
     try {
       const data = await getDetail(productNo as string);
       setDetail(data.product);
+      console.log(data.product)
     } catch (err) {
       console.log(err);
     }
@@ -62,15 +67,10 @@ function DetailPage() {
     })();
   }, []);
 
-  const BuyBook = (detail: any, type: string) => {
-    let Cart = localStorage.getItem("cart");
+  const BuyBook = (detail: DetailInfo, type: string) => {
+    let Cart: DetailInfo[]  = JSON.parse(localStorage.getItem("cart") || "[]");
 
-    if (Cart === null) {
-      Cart = [];
-    } else {
-      Cart = JSON.parse(Cart);
-    }
-
+  
     if (Cart.some((item) => item.product_no === detail.product_no)) {
       alert("이미 장바구니에 담으셨습니다.");
       return false;
@@ -81,7 +81,7 @@ function DetailPage() {
     }
     detail.gubun = type;
     Cart.push(detail);
-    Cart = new Set(Cart);
+    Cart = Array.from(new Set(Cart));
     Cart = [...Cart];
     localStorage.setItem("cart", JSON.stringify(Cart));
     alert("장바구니에 담겼습니다.");
@@ -89,8 +89,8 @@ function DetailPage() {
   };
 
   // html 안에 a 링크 이벤트를 막기 위한 함수
-  const disableLinkClick = (event) => {
-    event.preventDefault();
+  const disableLinkClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
   };
 
   const modifiedDescription = detail.description
@@ -121,7 +121,6 @@ function DetailPage() {
         <div className="LeftContainer">
           <div className="TitleBox">
             <span>{detail.product_name}</span>
-            {/* <span>-단돈 1,000원으로 시작할수 있는</span> */}
             <div className="InnerTitleBox">
               <p>윙크북 {detail.product_name} 전자책 출간일 2023-0505</p>
             </div>
@@ -161,7 +160,6 @@ function DetailPage() {
                 className="CartAdd"
                 onClick={() => BuyBook(detail, "buy")}
               >
-      
                 책 구매하기
               </button>
               <button
@@ -194,7 +192,8 @@ function DetailPage() {
           className="InnerContent"
           dangerouslySetInnerHTML={{ __html: modifiedDescription }}
           onClick={disableLinkClick}
-        ></div>
+        >    
+        </div>
       </div>
     </>
   );

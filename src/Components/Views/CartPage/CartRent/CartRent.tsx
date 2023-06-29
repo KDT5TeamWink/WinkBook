@@ -14,7 +14,6 @@ interface RentItem {
   gubun: string;
   name: string;
   rentdate: string;
-
 }
 
 interface CartItem {
@@ -23,20 +22,28 @@ interface CartItem {
   
   interface CartItemsProps {
     check: number[];
-    pitem: string;
-    setItems: React.Dispatch<React.SetStateAction<CartItem[]>>;
-    delete: (index: number, key: any) => void;
+    //pitem: string;
+    //setItems: React.Dispatch<React.SetStateAction<CartItem[]>>;
+    delete: (key: number) => void;
     datalist : any
-    setdata : React.Dispatch<React.SetStateAction<RentItem[]>>;
+    //setdata : React.Dispatch<React.SetStateAction<RentItem[]>>;
     checkOne : any;
     checkTwo : any;
   }
   
-  const RentalItems = ({ check,delete: RemoveBuyItem, datalist, checkOne, checkTwo  }: CartItemsProps) => {
+  const RentalItems = ({ 
+    check,
+    delete: RemoveBuyItem, 
+    datalist, 
+    checkOne, 
+    checkTwo,  
+    //setItems
+    }: CartItemsProps) => {
     
      const [buyItem, setbuyItem] = useState<RentItem[]>([]);
      const [checkedItems, setCheckedItems] = useState<number[]>(check);
-
+     const [allCheck, setallCheck] = useState(false);
+     
      useEffect(() => {
       setbuyItem(datalist)
     }, [datalist]);
@@ -54,7 +61,16 @@ interface CartItem {
   
 
     const handleChange1 = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setCheckedItems(checkOne(event, buyItem,'rent'));
+      if(event.target.checked){
+        setCheckedItems(checkOne(event, buyItem, "rent"));
+        setallCheck(true);
+     }else{
+      setCheckedItems(checkOne(event, buyItem, "rent"));
+      //  console.log('g');
+      //  setCheckedItems([]);
+      //  setItems([]);
+        setallCheck(false);
+      }
     };
 
     const handleChange2 =
@@ -77,7 +93,7 @@ interface CartItem {
             <Checkbox
               checked={checkedItems.includes(index)}
               onChange={handleChange2(el)}
-              name={index}
+              name={index.toString()}
             />
             </div>
           }
@@ -93,8 +109,8 @@ interface CartItem {
         control={
           <div className='Rent-LableBox'>
             <Checkbox
-            size='large'
-            checked={checkedItems.length === buyItem.length}
+            size='medium'
+            checked={allCheck}
             indeterminate={checkedItems.length > 0 && checkedItems.length < buyItem.length}
             onChange={handleChange1}
             />
@@ -141,7 +157,7 @@ interface CartItem {
             <span>{el.rentdate}일</span>
           </div>
           <div className="RentButtonBox">
-            <button onClick={() => RemoveBuyItem(index, el.product_no)}>
+            <button onClick={() => RemoveBuyItem(el.product_no)}>
               삭제
             </button>
           </div>    

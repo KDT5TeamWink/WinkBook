@@ -1,4 +1,4 @@
-import { FormEvent, useState, useCallback } from "react";
+import { FormEvent, useState, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { PwCheck, emailCheck } from "../Validation ";
 import { JoinForm } from "@/Apis/register";
@@ -12,6 +12,8 @@ function Join() {
   const [displayName, setdDisplayName] = useState("");
   const [password, setUserPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [profileImgBase64, setProfileImgBase64] = useState<string>("");
+  const imgRef = useRef();
 
   //비밀번호 유효성 검사
   const [isName, setIsName] = useState(false);
@@ -96,6 +98,22 @@ function Join() {
     [password]
   );
 
+  const UploadImage = (event: React.ChangeEvent<HTMLInputElement>)  => {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (!file) {
+      return;
+    }
+    const reader = new FileReader();
+  
+    reader.onloadend = () => {
+      const base64Data = reader.result as string;
+      setProfileImgBase64(base64Data);
+    };
+  
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  }
   
 
   async function signUp(event: FormEvent<HTMLFormElement>) {
@@ -116,7 +134,8 @@ function Join() {
 
   
     try {
-      const res = await JoinForm(email, displayName, password );
+      const res = await JoinForm(email, displayName, password,profileImgBase64 );
+
       if (res.accessToken) {
         alert("가입되었습니다.");
         navigate("/login");
@@ -200,6 +219,20 @@ function Join() {
                 </span>
               )}
             </div>
+
+              <div className="uploadFilebox">
+                <div className="uploadFilebox-inner">
+                  <span>프로필 이미지 고르기🍒</span>
+                  <input
+                    className="infoItemForm"
+                    type="file"
+                    id="file"
+                    name="file"
+                    accept="image/*"
+                    onChange={UploadImage}
+                  />
+                </div>
+              </div>
 
             <div className="buttonContainer">
               <button

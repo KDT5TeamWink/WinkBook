@@ -11,11 +11,11 @@
 
 @mixin FormContainerStyle {
   width: 500px;
-  height: 700px;
+  height: 730px;
   position: relative;
   // border: solid 1px #c6c6c6;
   border-radius: 10px;
-  top: 50px;
+  top: 30px;
   margin: auto;
   background-color: white;
   box-shadow: 10px 10px 26px gray, -12px -12px 36px white;
@@ -45,7 +45,6 @@
           p {
             margin: auto;
             font-size: 30px;
-            //background-color: aliceblue;
           }
       }
 
@@ -55,13 +54,11 @@
         position: relative;
         top: 130px;
         margin: 0 auto;
-        //background-color: chartreuse;
 
           .formBox-inner {
             width: 300px;
             height: 95px;
             margin: 0 auto;
-            //background-color: red;
 
             input {
               width:100%;
@@ -76,7 +73,6 @@
 
             span {
               width: 260px;
-              // background-color: oldlace;
               position: relative;
               margin: 0 auto;
               top:10px;
@@ -90,7 +86,7 @@
             width: 210px;
             height: 50px;
             position: absolute;
-            bottom: 5px;
+            bottom: -100px;
             left: 0;
             right: 0;
             margin: 0 auto;
@@ -101,10 +97,29 @@
             height: 50px;
             color: black;
             background-color: #F7E9D7;
-            // border: solid 1px #dfdfdf;
             border-radius: 10px;
             cursor: pointer;
           }
+      }
+
+      .uploadFilebox{
+        width: 200px;
+        padding-bottom: 20px;
+        position: relative;
+        margin: 0 auto;
+
+        .uploadFilebox-inner{
+          width: 200px;
+          padding-bottom: 10px;
+
+          span {
+            margin-left: 20px;
+          }
+
+          input {
+            margin-top: 20px;
+          }
+        }
       }
     }
 }
