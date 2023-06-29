@@ -9,7 +9,7 @@ import PrivatePage from "./privateRoute";
 import DetailPage from "@/Components/Views/DetailPage/DetailPage";
 import UserInfo from "@/Components/Views/MyPage/UserInfo";
 import SearchPage from "@/Components/Views/SearchPage/SearchPage";
-
+import './route.scss';
 import { Routes, BrowserRouter, Route, Outlet } from "react-router-dom";
 
 const Layout = () => {
@@ -18,7 +18,7 @@ const Layout = () => {
       <Header />
       <Outlet />
       <Footer />
-    </>
+      </>
   );
 };
 

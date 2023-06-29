@@ -114,4 +114,67 @@
         }
       }
   }
+
+  .Input-Buttom{
+    width: 400px;
+    padding-bottom: 80px;
+    background-color: #ffff;
+    position: absolute;
+    margin-top: 45px;
+    max-height: 200px; 
+    overflow-y: auto;
+    display: flex;
+    border: 1px solid black;
+
+    .Input-Buttom__inner {
+      width: 380px;
+      margin: 0 auto;
+      padding-bottom: 100px;
+      margin-top: 10px;
+      //background-color: orange;
+
+      .Input-Buttom__innerBox{
+        width: 340px;
+        height: 160px;
+        //background-color: red;
+        margin: 0 auto;
+        cursor: pointer;
+        margin-top: 12px;
+        border-bottom: 1px solid black;
+
+        .Input-Buttom__ImageBox{
+          width: 100px;
+          padding-bottom: 150px;
+          margin-left: 20px;
+          position: relative;
+          background-color: saddlebrown;
+
+          img{
+            width: 100px;
+            height: auto;
+          }
+        }
+
+        .Input-Buttom__title{
+          width: 210px;
+          padding-bottom: 15px;
+          //background-color: yellowgreen;
+          position: relative;
+          left: 140px;
+          bottom: 100px;
+          display: flex;
+        }
+        span:nth-child(1){
+          width: 150px;
+        }
+
+        span:nth-child(2){
+          position: relative;
+          width: 100px;
+          top: 13px;
+          margin-left: 15px;
+        }
+      }
+    }
+  }
 }

@@ -7,6 +7,7 @@ function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  
 
   const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -36,6 +37,7 @@ function Login() {
       if (data.accessToken) {
         alert("로그인 되었습니다!");
         window.localStorage.setItem("token", data.accessToken);
+       //window.location.reload();
         navigate("/");
       } else {
         alert("로그인에 실패하였습니다. 다시 시도해주세요.");

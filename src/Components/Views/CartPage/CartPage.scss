@@ -97,7 +97,7 @@
     .NowBuy {
       width: 500px;
       position: absolute;
-      height: 100px;
+      height: 120px;
       left: 100px;
       border-bottom: 2px solid black;
 
@@ -105,18 +105,19 @@
         width: 250px;
         position: absolute;
         padding-bottom: 10px;
-        // background-color: gold;
+        background-color: gold;
         margin: 0 auto;
-        left: 0;
+        left: 150px;
         right: 0;
-        top: 30px;
+        top: 50px;
 
         .Pay-Container {
           width: inherit;
-          height: 30px;
-          //background-color: rosybrown;
+          //height: 30px;
+          background-color: rosybrown;
           display: flex;
           gap: 40px;
+          font-size: 20px;
         }
       }
     }
