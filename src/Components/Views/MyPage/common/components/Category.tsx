@@ -13,6 +13,7 @@ const Category = () => {
 // 기본 프로필 이미지 URL
 const defaultProfileImgUrl = "/public/images/default-profile.jpg";
 const [user, setUser] = useState<User>({ displayName: "", profileImg: defaultProfileImgUrl });
+const token = localStorage.getItem("token");
 
 useEffect(() => {
   const authenticate = async () => {
@@ -30,7 +31,6 @@ useEffect(() => {
         }
       );
       const userData = response.data;
-
       // 사용자 정보를 업데이트하기 전에 profileImg가 존재하지 않을 경우에만 기본 프로필 이미지 URL을 사용
       setUser((prevUser) => ({
         ...prevUser,
@@ -42,9 +42,10 @@ useEffect(() => {
       // 오류 처리
     }
   };
-
-  authenticate();
-}, []);
+  if (token) {
+    authenticate();
+  }
+}, [token]);
 
   useEffect(() => {
     if (location.pathname === "/mypage") {
@@ -77,7 +78,6 @@ useEffect(() => {
         </div>
       </Link>
       <Link to="/mypage/userinfo">
-
       <div className={`LeftContainer-category__infoTap${location.pathname === "/mypage/userinfo" ? " active" : ""}`}>
               회원정보 수정
       </div>

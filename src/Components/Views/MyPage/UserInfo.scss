@@ -17,25 +17,19 @@
       .infoContainer{
         position: relative;
         top: 3rem;
-        // margin: 0 auto;
         margin-left: 3rem;
         height: 90%;
-        // border: solid 1px rgb(221,221,221);
-        // background-color: rgb(124, 255, 255);
 
         .info{
           position: relative;
-          // background-color: rgb(224, 57, 57);
           top: 2rem;
 
-          
           .infoTag{
             display: flex;
 
             .infoText{
               position: relative;
               left:2rem;
-              // border: solid 1px black;
               font-size: 24px;
               font-weight: 900;
               color:black;
@@ -47,15 +41,11 @@
           .infoBox{
             position: relative;
             margin: 2rem 4rem 0 4rem;
-            // background-color: cadetblue;
-            // border: dotted 1px black;
             width: auto;
             height: 30rem;
-            // display: flex;
 
             .infoList{
               display:flex;
-              // background-color: rgb(245, 242, 97);
               padding: 1.5rem 1.2rem;
               
               .infoTitle{
@@ -75,7 +65,6 @@
                   border-radius: .5rem;
                 }
                 
-
                 .btn-upload {
                   padding: 15px;
                   margin-left: 15px;
@@ -96,7 +85,6 @@
                 #file {
                   display: none;
                 }
-                
               }
               
               .infoFix{

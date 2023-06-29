@@ -109,7 +109,7 @@ useEffect(() => {
         merchant_uid: item.merchant_uid,
         // Add more properties as needed
       }));
-       setMydataList((prevDataList) => [...prevDataList, ...parsedData]);
+      setMydataList((prevDataList) => [...prevDataList, ...parsedData]);
     }
   });
 }, [itemList]);

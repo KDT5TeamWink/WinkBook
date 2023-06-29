@@ -1,20 +1,17 @@
 import { FormEvent, useState, useEffect, ChangeEvent, useCallback, useRef } from "react";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
 import "./UserInfo.scss";
 import Category from "./common/components/Category";
-
+// import { Link, useNavigate } from "react-router-dom";
 
 function UserInfo() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   // 이름 , 프로필사진 , 구 비밀번호 , 새 비밀번호
-
-  const [displayName, setDisplayName] = useState(); // <User> {} as User
+  const [displayName, setDisplayName] = useState(""); // <User> {} as User
   const [profileImgBase64, setProfileImgBase64] = useState<string>("");
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
-
 
   async function submit(e: any) {
     e.preventDefault();
@@ -42,14 +39,16 @@ function UserInfo() {
     }
   }
 
-  function uploadImage(event: Event){
-    const files = (event.target as HTMLInputElement).files as FileList
+  function uploadImage(event: ChangeEvent<HTMLInputElement>) {
+    const files = event.target.files as FileList;
     for (const file of files) {
-      const reader = new FileReader()
-      reader.readAsDataURL(file)  // 파일을 base64형식으로 읽음
+      const reader = new FileReader();
+      reader.readAsDataURL(file); // 파일을 base64형식으로 읽음
       reader.addEventListener('load', e => {
-        setProfileImgBase64((e.target as FileReader).result as string)
-      })
+        if (e.target && e.target.result) {
+          setProfileImgBase64(e.target.result as string);
+        }
+      });
     }
   }
 
@@ -60,8 +59,6 @@ function UserInfo() {
           <div className="LeftContainer">
             <Category/>
           </div>
-
-
           <div className="RightContainer">
           <div className="infoContainer">
               <div className="info">
@@ -142,10 +139,7 @@ function UserInfo() {
               </div>
             </div>
           </div>
-
         </div>
-
-
       </div>
     </>
   );
