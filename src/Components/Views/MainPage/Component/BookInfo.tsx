@@ -36,7 +36,7 @@ export default function BookInfo({
       {hover && <div className="hover-description">{summary}</div>}
       {retailPrice !== price ? (
         <div className="discount">
-          {+retailPrice / (+retailPrice - +price)}%
+          {Math.floor(((+retailPrice - +price) / +retailPrice) * 100)}%
         </div>
       ) : null}
 
