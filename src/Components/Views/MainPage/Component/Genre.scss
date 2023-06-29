@@ -27,10 +27,8 @@
 .right {
   position: relative;
   background-color: #fff3e2;
-  //width: 1030px;
   display: flex;
   flex-wrap: wrap;
-  height: 918px;
   border-radius: 0 5px 5px 0;
   border-top: 1px solid rgb(219, 218, 218);
   border-bottom: 1px solid rgb(219, 218, 218);
@@ -38,16 +36,16 @@
 
   .Top-bookContainer {
     position: absolute;
-    height: 50px;
+    height: 3.1rem;
     width: 100%;
     z-index: 200;
-    top: 45%;
+    top: 43%;
   }
 
   .Bottom-bookContainer {
     position: absolute;
     width: 100%;
-    height: 50px;
+    height: 3.1rem;
     bottom: 0;
   }
 
@@ -59,7 +57,7 @@
 
     img {
       border-radius: 10px;
-      height: 230px;
+      width: 100%;
       position: relative;
     }
   }
@@ -73,7 +71,7 @@
   position: absolute;
   padding: 5%;
   width: calc(100% - 20px);
-  height: 230px;
+  height: 50%;
   border-radius: 10px;
   overflow: hidden;
   backdrop-filter: blur(5px);
@@ -93,12 +91,20 @@
   background-color: red;
   color: #fff;
   right: 10%;
-  top: 40%;
+  //top: 40%;
+  padding: 0 2px;
+  overflow: hidden;
   z-index: 1;
 }
 
 .retail-price {
   text-decoration: line-through;
   color: rgb(122, 122, 122);
-  font-size: 0.6rem;
+  font-size: 0.8rem;
+}
+
+@media screen and (max-width: 900px) {
+  html {
+    font-size: 12px;
+  }
 }
