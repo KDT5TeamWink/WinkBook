@@ -71,13 +71,14 @@
 
   button {
     border-radius: 5px;
-    margin: 8px;
-    width: 120px;
-    height: 40px;
+    margin: 5px;
+    width: 80px;
+    height: 45px;
     color: #fff;
     border: none;
-    font-size: 17px;
+    font-size: 15px;
     cursor: pointer;
+    font-family: 'SUITE-Regular';
   }
   // 구매버튼
   button:first-child {
@@ -110,3 +111,5 @@
     }
   }
 }
+
+

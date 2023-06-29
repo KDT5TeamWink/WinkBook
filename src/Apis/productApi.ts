@@ -14,6 +14,7 @@ const ajax = axios.create({
 interface GetList {
   category?: number;
   product_no?: string;
+  limit?: number;
 }
 export async function getList(info: GetList) {
   try {
@@ -23,6 +24,7 @@ export async function getList(info: GetList) {
         selling: 'T',
         category: info.category,
         product_no: info.product_no,
+        limit: info.limit
       },
     });
     //console.log(data.products);

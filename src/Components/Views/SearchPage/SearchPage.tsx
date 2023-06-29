@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./SearchPage.scss";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams,useNavigate } from "react-router-dom";
 const { VITE_CLIENT_ID } = import.meta.env;
 
 const ajax = axios.create({
@@ -13,8 +13,25 @@ const ajax = axios.create({
   },
 });
 
+// interface DetailInfo {
+//   detail_image: string;
+//   product_name: string;
+//   retail_price: number;
+//   simple_description: string;
+//   summary_description: string;
+//   product_no: string;
+//   price: number;
+//   price_excluding_tax: string;
+//   selling: string;
+//   description: string;
+//   rentdate: number;
+//   gubun: string;
+// }
+
+
 export default function SearchPage() {
-  // const [input, setInput] = useState("");
+
+  const navigate = useNavigate();
   const [search, setSearch] = useState<Products>([] as Products);
   const [offset, setOffset] = useState(0);
   const [count, setCount] = useState(0);
@@ -25,22 +42,20 @@ export default function SearchPage() {
       const res = await ajax.get("/products", {
         params: {
           product_name: product_name,
+
           offset: offset * 10,
         },
       });
+    
+      
+      console.log(res.data.products)
       return res.data.products;
+     
     } catch (err) {
       console.log(err);
     }
   }
-  // useEffect(() => {
-  //   window.scrollTo(0, 0);
-  //   searchUpload();
-  // }, [offset]);
-
-  // const searchInputChange = (e: any) => {
-  //   setInput(e.target.value);
-  // };
+  
 
   useEffect(() => {
     (async () => {
@@ -53,10 +68,33 @@ export default function SearchPage() {
         .then((res) => setCount(res.data.count));
       const result = await SearchAPI(params.keyword);
       setSearch(result);
+
       console.log(result);
       window.scrollTo(0, 0);
     })();
   }, [params, offset]);
+
+  const BuyBook = (search: string, type: string) => {
+    console.log(search)
+    let Cart  = JSON.parse(localStorage.getItem("cart") || "[]");
+
+    if (Cart.some((item) => item.product_no === search.product_no)) {
+      alert("이미 장바구니에 담으셨습니다.");
+      return false;
+    }
+
+    if (type === "rent") {
+      search.rentdate = 7;
+    }
+
+    search.gubun = type;
+    Cart.push(search);
+    Cart = Array.from(new Set(Cart));
+    Cart = [...Cart];
+    localStorage.setItem("cart", JSON.stringify(Cart));
+    alert("장바구니에 담겼습니다.");
+    navigate("/cart");
+  };
 
   return (
     <div className="Search-wrapper">
@@ -81,8 +119,11 @@ export default function SearchPage() {
                   </div>
                 </div>
                 <div className="SearchPage__ButtonBox">
-                  <button>구매하기</button>
-                  <button>대여하기</button>
+                  <button 
+                  onClick={() => BuyBook(v, "buy")}>구매하기</button>
+                  <button
+                  onClick={() => BuyBook(v, "rent")}
+                  >대여하기</button>
                 </div>
               </div>
             </>
@@ -93,7 +134,6 @@ export default function SearchPage() {
           onClick={(e) => {
             if (e.target instanceof HTMLLIElement) {
               setOffset(e.target.value);
-              // console.log("e:", e.target.value);
             }
           }}
         >
