@@ -71,9 +71,10 @@ function Header() {
         // 오류 처리
       }
     };
-
-    authenticate();
-  }, []);
+    if (token) {
+      authenticate();
+    }
+  }, [token]);
 
   const HandleKeyPress = (e: any) => {
     if (e.key === "Enter") {
