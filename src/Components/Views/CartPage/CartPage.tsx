@@ -13,7 +13,7 @@ interface BuyItem {
 }
 
 function CartPage() {
-  const [CartItemsValue, setCartItemsValue] = useState<number[]>([]);
+  const [CartItemsValue, ] = useState<number[]>([]);
   const [selectedItem, setSelectedItem] = useState<BuyItem[]>([]);
   const [Total, setTotal] = useState(0);
   const [ShowTotal, setShowTotal] = useState(false);
@@ -28,18 +28,6 @@ function CartPage() {
   useEffect(() => {
     calculateTotal();
   }, [selectedItem]);
-
-  // const checkOne = (event: React.ChangeEvent<HTMLInputElement>, buyItem: any[], gubun: string) => {
-  //   const checkedValue = event.target.checked;
-  //   const filteredItems = buyItem.filter((item) => item.gubun === gubun);
-  //   const updatedSelectedItems = checkedValue ? [...filteredItems] : [];
-  //   const unchekedSelectedItems = [...filteredItems];
-  //   const combinedItems = new Set([...selectedItem, ...updatedSelectedItems]);
-  //   const checkitem = checkedValue ? Array.from(combinedItems):  selectedItem.filter(item => !unchekedSelectedItems.some(updatedItem => updatedItem.product_no === item.product_no));
-  //   setSelectedItem(checkitem);
-  //   const updatedCheckedItems = updatedSelectedItems.map((item, index) => index);
-  //   return updatedCheckedItems;
-  // };
 
   const checkOne = (event: React.ChangeEvent<HTMLInputElement>, buyItem: any[], gubun: string) => {
     const checkedValue = event.target.checked;
@@ -95,10 +83,6 @@ function CartPage() {
     console.log(key);
     const confirmation = window.confirm("삭제하시겠습니까?");
     if (confirmation) {
-      // const updatedCartData = JSON.parse(localStorage.getItem("cart"));
-      // const datalist = JSON.stringify(
-      //   updatedCartData.filter((item) => item.product_no !== key)
-      // )
       const cartDataString = localStorage.getItem("cart");
 
       if (cartDataString !== null) {
@@ -118,15 +102,12 @@ function CartPage() {
   return (
     <>
       <div className="CartPage-AllLayout">
-        {/* <div className="Layout"> */}
           <span className="ProductText">구매</span>
           <div className="CartContainer">
             <CartItems
               check={CartItemsValue}
-              //setItems={setSelectedItem}
               delete={RemoveBuyItem}
               datalist={buyItem}
-              //setdata={setbuyItem}
               checkOne={checkOne}
               checkTwo={checkTwo}
             />
@@ -135,10 +116,8 @@ function CartPage() {
           <div className="RentContainer">
             <RentalItems
               check={CartItemsValue}
-              //setItems={setSelectedItem}
               delete={RemoveBuyItem}
               datalist={buyItem}
-              //setdata={setbuyItem}
               checkOne={checkOne}
               checkTwo={checkTwo}
             />
@@ -162,12 +141,10 @@ function CartPage() {
               </div>
 
               <div className="Buy-ButtonBox">
-                {/* <button onClick={BuyProducts}>선택한 상품 주문하기</button> */}
                 <Payment amount={Total} productlists={selectedItem} setdatalist={setbuyItem}/>
               </div>
             </div>
           </div>
-        {/* </div> */}
       </div>
     </>
   );

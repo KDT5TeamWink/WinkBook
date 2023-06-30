@@ -2,7 +2,6 @@
   padding-top: 150px;
   max-width: 1200px;
   margin: auto;
-  // background-color: yellow;
   position: relative;
 }
 a {
@@ -19,21 +18,17 @@ main {
   .Category-menu {
     position: sticky;
     top: 100px;
-    //height: 410px;
     height: 25rem;
-    // margin-left: 0;
 
     img {
       border-radius: 10px 10px 0 0;
       position: sticky;
-      //width: 120px;
       width: 7.5rem;
     }
 
     .Category-menu__text {
       width: 127px;
       position: absolute;
-      //bottom: 50px;
       top: 0;
       height: 360px;
       padding: 4px;

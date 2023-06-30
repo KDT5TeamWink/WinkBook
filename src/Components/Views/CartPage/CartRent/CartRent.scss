@@ -1,6 +1,5 @@
 @mixin CartNameStyle {
   height: auto;
-  //background-color: rgb(14, 133, 237);
   font-size: 20px;
   position: absolute;
   top: 10px;
@@ -9,7 +8,6 @@
 .RentPageTable{
   width: inherit;
   height: 45px;
-  // background-color: #bff12b;
   background-color: #f6e4cc;
   position: absolute;
   border-radius: 10px 10px 0px 0px;
@@ -17,7 +15,6 @@
   .Rent-LableBox{
     width: 40px;
     height: 40px;
-    //background-color: #e18b8b;
     margin-left: 50px;
     margin-top: 5px;
     position: absolute;
@@ -51,7 +48,6 @@
     top: 50px;
     position: relative;
     border-radius: 0px 0px 10px 10px;
-    //background-color: #d16f14;
     background-color: white;
     max-height: 450px; /* 스크롤 영역의 최대 높이 설정 */
     overflow-y: auto; /* 세로 스크롤 생성 */ 
@@ -59,7 +55,6 @@
     .Rental-ItemContainer {
       width: 1182px;
       padding-bottom: 5px;
-      //height: 90px;
       position: relative;
       margin-top: 20px;
       border-bottom: 2px solid rgb(208, 203, 185);
@@ -120,7 +115,6 @@
         position: absolute;
         top: 40px;
         right: 110px;
-        //background-color: burlywood;
         
         button{
           display: block;

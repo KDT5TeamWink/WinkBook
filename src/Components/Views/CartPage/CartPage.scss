@@ -10,30 +10,16 @@
   font-family: 'SUITE-Regular';
   width: 1200px;
   height: 1500px;
-  // padding-bottom: 1400px;
   position: relative;
   margin: 0 auto;
   top: 80px;
   font-weight: 600;
-  // background-color: aquamarine;
-
-  // .Layout{
-  // font-family: 'SUITE-Regular';
-  // width: 1200px;
-  // height: auto;
-  // padding-bottom: 200px;
-  // position: relative;
-  // margin: 0 auto;
-  // top: 80px;
-  // font-weight: 600;
-  // background-color: aquamarine;
 
   .ProductText {
     @include CartNameStyle;
     top: 10px;
     left: 45px;
     position: absolute;
-    // background-color: red;
   }
 
   .CartContainer {
@@ -58,7 +44,6 @@
   }
 
   .RentText {
-    // background-color: olive;
     position: absolute;
     font-size: 20px;
     top: 600px;
@@ -77,7 +62,6 @@
   }
 
   .BuyText {
-    // background-color: olive;
     position: absolute;
     height: 50px;
     font-size: 20px;
@@ -88,7 +72,6 @@
   .BuyContainer {
     position: absolute;
     width: inherit;
-    // padding-bottom: 200px;
     height: 200px;
     bottom: 100px;
     border-radius: 10px;
@@ -113,7 +96,6 @@
 
         .Pay-Container {
           width: inherit;
-          //height: 30px;
           background-color: rosybrown;
           display: flex;
           gap: 40px;
@@ -126,14 +108,12 @@
       width: 500px;
       position: absolute;
       height: 50px;
-      //background-color: rebeccapurple;
       top: 120px;
       left: 100px;
 
       .AllCount-Container__box {
         width: 300px;
         height: 30px;
-        //background-color: darkblue;
         display: flex;
         gap: 50px;
         margin: 0 auto;
@@ -143,7 +123,6 @@
     .Buy-ButtonBox {
       width: 300px;
       height: 55px;
-      // background-color: firebrick;
       position: relative;
       left: 650px;
       top: 70px;
@@ -163,5 +142,4 @@
       }
     }
   }
-// }
 }
