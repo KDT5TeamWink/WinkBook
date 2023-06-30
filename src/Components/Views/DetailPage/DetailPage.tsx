@@ -85,8 +85,9 @@ function DetailPage() {
       Cart = Array.from(new Set(Cart));
       Cart = [...Cart];
       localStorage.setItem("cart", JSON.stringify(Cart));
-      Swal.fire("장바구니에 담겼습니다!", "", "success");
-      navigate("/cart");
+      Swal.fire("장바구니에 담겼습니다!", "", "success").then(() => {
+        navigate("/cart");
+      });
     } else {
       Swal.fire("로그인 후 이용해주세요!", "", "warning").then(() => {
         navigate("/login");

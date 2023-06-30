@@ -2,7 +2,6 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import axios from "axios";
 import "./index.scss";
-import axios from "axios";
 
 const token = localStorage.getItem("token");
 

@@ -157,7 +157,7 @@ export default function SearchPage() {
             >
               {Array(parseInt(((count - 0.1) / 10 + 1).toString()))
                 .fill(0)
-                .map((i, index) => (
+                .map((index) => (
                   <li key={index}>
                     <button
                       onClick={() => {

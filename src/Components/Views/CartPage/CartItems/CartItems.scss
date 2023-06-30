@@ -5,7 +5,6 @@
   top: 10px;
 }
 
-
 .CartPageTable__Buy {
   width: inherit;
   height: 45px;
@@ -23,104 +22,111 @@
   }
 }
 
-  .ProductNameBox {
-    @include CartNameStyle;
-    width: 60px;
-    left: 400px;
-  }
+.ProductNameBox {
+  @include CartNameStyle;
+  width: 60px;
+  left: 400px;
+}
 
-  .PriceNameBox{
-    @include CartNameStyle;
-    right: 400px;
-  }
+.PriceNameBox {
+  @include CartNameStyle;
+  right: 400px;
+}
 
-  .NumberBox{
-    @include CartNameStyle;
-    right: 280px;
-  }
+.NumberBox {
+  @include CartNameStyle;
+  right: 280px;
+}
 
-  .DeleteNameBox{
-    @include CartNameStyle;
-    right: 120px;
-  }
+.DeleteNameBox {
+  @include CartNameStyle;
+  right: 120px;
+}
 
-  .ItemsContainer {
-    width: 1300px;
-    top: 50px;
+.ItemsContainer {
+  width: 1300px;
+  top: 50px;
+  position: relative;
+  max-height: 450px; /* 스크롤 영역의 최대 높이 설정 */
+  overflow-y: auto; /* 세로 스크롤 생성 */
+
+  .ItemContainer {
+    width: 1182px;
+    padding-bottom: 5px;
     position: relative;
-    max-height: 450px; /* 스크롤 영역의 최대 높이 설정 */
-    overflow-y: auto; /* 세로 스크롤 생성 */  
+    margin-top: 20px;
+    border-bottom: 2px solid rgb(208, 203, 185);
 
-    .ItemContainer {
-      width: 1182px;
-      padding-bottom: 5px;
-      position: relative;
-      margin-top: 20px;
-      border-bottom: 2px solid rgb(208, 203, 185);
-  
-      .CheckContainer{
-        width: 60px;
-        height: 40px;
-        position: absolute;
-        top: 40px;
-        left: 30px;  
-      }
-      
-      .ImageBox{
-        width: 100px;
-        position: relative;
-        bottom: 10px;
-        margin-left: 160px;
-        background-color: rebeccapurple;
-
-        img{
-          width: inherit;
-          background-color: orange;
-          height: auto;
-        }
-      }
-
-      .TextInner {
-        width: 450px;
-        padding-bottom: 30px;
-        position: absolute;
-        top: 50px;
-        left: 200px;
-        text-align: center;
-
-        span:nth-child(1) {
-          font-size: 20px;
-        }
-
-        span:nth-child(2) {
-          width: 200px;
-          height: 30px;
-          position: absolute;
-          margin-top: 35px;
-          font-size: 15px;
-        }
-      }
-
-      .PriceInner{
-        width: auto;
-        padding-bottom: 10px;
-        top: 50px;
-        position: absolute;
-        right: 370px;
-        font-size: 15px; 
+    .CheckContainer {
+      width: 60px;
+      height: 40px;
+      position: absolute;
+      top: 40px;
+      left: 30px;
     }
 
-    .CartButtonBox{
+    .ImageBox {
+      width: 100px;
+      position: relative;
+      bottom: 10px;
+      margin-left: 160px;
+      background-color: rebeccapurple;
+
+      img {
+        width: inherit;
+        background-color: orange;
+        height: auto;
+      }
+    }
+
+    .TextInner {
+      width: 450px;
+      padding-bottom: 30px;
+      position: absolute;
+      top: 50px;
+      left: 200px;
+      text-align: center;
+
+      span:nth-child(1) {
+        font-size: 20px;
+      }
+
+      span:nth-child(2) {
+        width: 200px;
+        height: 30px;
+        position: absolute;
+        margin-top: 35px;
+        font-size: 15px;
+      }
+    }
+
+    .PriceInner {
+      width: auto;
+      padding-bottom: 10px;
+      top: 50px;
+      position: absolute;
+      right: 370px;
+      font-size: 15px;
+    }
+
+    .CartButtonBox {
       width: 60px;
       position: absolute;
       top: 35px;
       right: 100px;
-      
-      button{
+
+      button {
         display: block;
-        width: 50px;
+        width: 60px;
         height: 30px;
         margin-top: 10px;
+        background-color: rgb(227, 165, 117);
+        color: #ffffff;
+        border: none;
+        border-radius: 5px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        font-size: 14px;
       }
     }
   }
