@@ -1,4 +1,6 @@
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 interface PaymentInfo {
   amount: number;
@@ -19,6 +21,7 @@ interface BuyItem {
 const Payment = ({ amount, productlists, setdatalist }: PaymentInfo) => {
   const orderNumber = `mid_${new Date().getTime()}`;
   console.log(orderNumber);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const jquery = document.createElement("script");
@@ -35,8 +38,9 @@ const Payment = ({ amount, productlists, setdatalist }: PaymentInfo) => {
   const onClickPayment = () => {
     console.log(productlists);
 
-    const itemName = productlists.map((obj: { product_name: any; }) => obj.product_name).join(",");
-    
+    const itemName = productlists
+      .map((obj: { product_name: any }) => obj.product_name)
+      .join(",");
 
     console.log(itemName);
     const IMP = (window as any).IMP;
@@ -45,40 +49,49 @@ const Payment = ({ amount, productlists, setdatalist }: PaymentInfo) => {
     const data = {
       pg: "html5_inicis", // PG사 html5_inicis: KG이니시스, kakaopay: 카카오페이, naverpay: 네이버페이, payco: 페이코
       pay_method: "card", // 결제수단
-      merchant_uid: orderNumber, 
+      merchant_uid: orderNumber,
       amount: amount, // 결제금액
       name: `${itemName}`, // 주문명
       buyer_name: "", // 구매자 이름
-      buyer_email: "", 
-   
-      custom_data:productlists
+      buyer_email: "",
+      custom_data: productlists,
     };
     IMP.request_pay(data, callback);
   };
-
 
   function callback(response: any) {
     const { success, error_msg } = response;
 
     if (success) {
-      alert("결제 성공");
-      const mypayarray: string | null = window.localStorage.getItem("mypayment");
-      const combinedArray: string[] | null = mypayarray ? JSON.parse(mypayarray) : null;
+      Swal.fire("결제 성공!", "", "success").then(() => {
+        navigate("/mypage");
+      });
+      const mypayarray: string | null =
+        window.localStorage.getItem("mypayment");
+      const combinedArray: string[] | null = mypayarray
+        ? JSON.parse(mypayarray)
+        : null;
       if (!combinedArray) {
         window.localStorage.setItem("mypayment", JSON.stringify([orderNumber]));
       } else {
         combinedArray.push(orderNumber);
         window.localStorage.setItem("mypayment", JSON.stringify(combinedArray));
       }
-      
-      const productItemlist = productlists.map((obj: { product_no: any; }) => obj.product_no).join(",");
-      const cartlist: BuyItem[] = JSON.parse(window.localStorage.getItem("cart") || "[]");
-      
-      const updatedArray = cartlist.filter((item) => !productItemlist.includes(item.product_no));
+
+      const productItemlist = productlists
+        .map((obj: { product_no: any }) => obj.product_no)
+        .join(",");
+      const cartlist: BuyItem[] = JSON.parse(
+        window.localStorage.getItem("cart") || "[]"
+      );
+
+      const updatedArray = cartlist.filter(
+        (item) => !productItemlist.includes(item.product_no)
+      );
       window.localStorage.setItem("cart", JSON.stringify(updatedArray));
       setdatalist(updatedArray);
     } else {
-      alert(`결제 실패: ${error_msg}`);
+      Swal.fire(`결제 실패: ${error_msg}`, "", "error");
     }
   }
   return (

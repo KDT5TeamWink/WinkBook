@@ -5,6 +5,7 @@ import { ChangeEvent } from "react";
 import "./headers.scss";
 import { LogoutForm } from "@/Apis/register";
 import { getList } from "@/Apis/productApi";
+import Swal from "sweetalert2";
 
 interface User {
   displayName: string; // 사용자 표시 이름
@@ -33,19 +34,11 @@ function Header() {
     setShowInputButton(e.target.value.trim() !== "");
   };
 
-  const handleInputButtonClick = () => {
-    if (keyword === "") {
-      alert("검색어를 입력해주세요");
-    } else {
-      onSubmit();
-    }
-  };
-
   const logoutHandler = () => {
     LogoutForm()
       .then(() => {
         localStorage.removeItem("token");
-        alert("로그아웃 되셨습니다");
+        Swal.fire("로그아웃 되었습니다!", "다음에 또 만나요!", "success");
         navigate("/");
       })
       .catch((error: string) => {
@@ -55,6 +48,7 @@ function Header() {
 
   const onSubmit = async () => {
     navigate("/search/" + keyword);
+    setShowInputButton(false);
   };
 
   const token = localStorage.getItem("token");
@@ -92,9 +86,18 @@ function Header() {
   }, [token]);
 
   const OnKeyPress = (e: any) => {
+    if (e.key === "Enter") {
+      if (keyword === "") {
+        Swal.fire("검색어를 입력해주세요!", "", "warning");
+      } else {
+        onSubmit(); // Enter 입력이 되면 클릭 이벤트 실행
+      }
+    }
+  };
+  const handleInputButtonClick = () => {
     if (keyword === "") {
-      alert("검색어를 입력해주세요");
-    } else if (e.key === "Enter") {
+      Swal.fire("검색어를 입력해주세요!", "", "warning");
+    } else {
       onSubmit();
     }
   };
@@ -115,7 +118,7 @@ function Header() {
       limit: 100,
     };
     const data = await getList(cate);
-    console.log(data);
+    // console.log(data);
     setProductInfo(data);
   }
 
@@ -138,6 +141,9 @@ function Header() {
               placeholder="검색"
               onChange={handleInputChange}
               onKeyPress={OnKeyPress}
+              onBlur={() => {
+                setShowInputButton(false);
+              }}
             />
             <img
               src="/public/images/search-icon.png"

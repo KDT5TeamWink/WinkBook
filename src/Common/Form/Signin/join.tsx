@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { PwCheck, emailCheck } from "../Validation ";
 import { JoinForm } from "@/Apis/register";
 import "./join.scss";
+import Swal from "sweetalert2";
 
 function Join() {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ function Join() {
 
   //오류 메세지 저장
   const [nameMessage, setNameMessage] = useState("");
-  const [emailMessage, setEmailMessage] = useState(""); 
+  const [emailMessage, setEmailMessage] = useState("");
   const [passwordMessage, setPasswordMessage] = useState("");
   const [passwordConfirmMessage, setPasswordConfirmMessage] = useState("");
 
@@ -98,28 +99,27 @@ function Join() {
     [password]
   );
 
-  const UploadImage = (event: React.ChangeEvent<HTMLInputElement>)  => {
+  const UploadImage = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = (event.target as HTMLInputElement).files?.[0];
     if (!file) {
       return;
     }
     const reader = new FileReader();
-  
+
     reader.onloadend = () => {
       const base64Data = reader.result as string;
       setProfileImgBase64(base64Data);
     };
-  
+
     if (file) {
       reader.readAsDataURL(file);
     }
-  }
-  
+  };
 
   async function signUp(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (email === undefined || email === "" || email === null) {
-      alert("이메일 입력해주세요.");
+      Swal.fire("이메일을 입력해주세요!", "", "warning");
       return false;
     }
 
@@ -128,22 +128,29 @@ function Join() {
       isPassword === false ||
       isPasswordConfirm === false
     ) {
-      alert("값이 잘못 되었습니다. 다시 입력해주세요");
+      Swal.fire("값이 잘못 되었습니다.", "다시 입력해주세요", "warning");
       return false;
     }
 
-  
     try {
-      const res = await JoinForm(email, displayName, password,profileImgBase64 );
+      const res = await JoinForm(
+        email,
+        displayName,
+        password,
+        profileImgBase64
+      );
 
       if (res.accessToken) {
-        alert("가입되었습니다.");
-        navigate("/login");
+        Swal.fire("가입되었습니다!", "찾아주셔서 감사합니다:)", "success").then(
+          () => {
+            navigate("/login");
+          }
+        );
       } else {
-        alert("가입에 실패했습니다. 다시 시도해주세요.");
+        Swal.fire("가입에 실패했습니다.", "다시 시도해주세요", "error");
       }
     } catch (error) {
-      alert("시스템 오류입니다. 문의해주세요.");
+      Swal.fire("시스템 오류입니다:(", "문의해주세요.", "warning");
     }
   }
 
@@ -220,26 +227,28 @@ function Join() {
               )}
             </div>
 
-              <div className="uploadFilebox">
-                <div className="uploadFilebox-inner">
-                  <span>프로필 이미지 고르기🍒</span>
-                  <input
-                    className="infoItemForm"
-                    type="file"
-                    id="file"
-                    name="file"
-                    accept="image/*"
-                    onChange={UploadImage}
-                  />
-                </div>
+            <div className="uploadFilebox">
+              <div className="uploadFilebox-inner">
+                <span>프로필 이미지 고르기🍒</span>
+                <input
+                  className="infoItemForm"
+                  type="file"
+                  id="file"
+                  name="file"
+                  accept="image/*"
+                  onChange={UploadImage}
+                />
               </div>
+            </div>
 
             <div className="buttonContainer">
               <button
                 className="buttonBox"
                 type="submit"
                 disabled={
-                  !(isName && isEmail && isPassword && isPasswordConfirm)}>
+                  !(isName && isEmail && isPassword && isPasswordConfirm)
+                }
+              >
                 등록
               </button>
             </div>

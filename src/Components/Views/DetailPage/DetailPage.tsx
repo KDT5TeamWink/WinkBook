@@ -5,6 +5,7 @@ import TopHeader from "./components/TopHeader";
 import { getDetail } from "@/Apis/productApi";
 import { ChangeEvent } from "react";
 import "./DetailPage.scss";
+import Swal from "sweetalert2";
 
 function DetailPage() {
   interface DetailInfo {
@@ -31,7 +32,7 @@ function DetailPage() {
     try {
       const data = await getDetail(productNo as string);
       setDetail(data.product);
-      console.log(data.product)
+      console.log(data.product);
     } catch (err) {
       console.log(err);
     }
@@ -67,25 +68,31 @@ function DetailPage() {
     })();
   }, []);
 
+  let token = localStorage.getItem("token");
+
   const BuyBook = (detail: DetailInfo, type: string) => {
-    let Cart: DetailInfo[]  = JSON.parse(localStorage.getItem("cart") || "[]");
+    let Cart: DetailInfo[] = JSON.parse(localStorage.getItem("cart") || "[]");
+    if (token) {
+      if (Cart.some((item) => item.product_no === detail.product_no)) {
+        Swal.fire("이미 장바구니에 담으셨습니다!", "", "warning");
+        return false;
+      }
 
-  
-    if (Cart.some((item) => item.product_no === detail.product_no)) {
-      alert("이미 장바구니에 담으셨습니다.");
-      return false;
+      if (type === "rent") {
+        detail.rentdate = 7;
+      }
+      detail.gubun = type;
+      Cart.push(detail);
+      Cart = Array.from(new Set(Cart));
+      Cart = [...Cart];
+      localStorage.setItem("cart", JSON.stringify(Cart));
+      Swal.fire("장바구니에 담겼습니다!", "", "success");
+      navigate("/cart");
+    } else {
+      Swal.fire("로그인 후 이용해주세요!", "", "warning").then(() => {
+        navigate("/login");
+      });
     }
-
-    if (type === "rent") {
-      detail.rentdate = 7;
-    }
-    detail.gubun = type;
-    Cart.push(detail);
-    Cart = Array.from(new Set(Cart));
-    Cart = [...Cart];
-    localStorage.setItem("cart", JSON.stringify(Cart));
-    alert("장바구니에 담겼습니다.");
-    navigate("/cart");
   };
 
   // html 안에 a 링크 이벤트를 막기 위한 함수
@@ -192,8 +199,7 @@ function DetailPage() {
           className="InnerContent"
           dangerouslySetInnerHTML={{ __html: modifiedDescription }}
           onClick={disableLinkClick}
-        >    
-        </div>
+        ></div>
       </div>
     </>
   );

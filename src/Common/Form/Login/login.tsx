@@ -2,12 +2,12 @@ import "./login.scss";
 import { useNavigate, Link } from "react-router-dom";
 import { FormEvent, useState, ChangeEvent } from "react";
 import { LoginForm } from "@/Apis/register";
+import Swal from "sweetalert2";
 
 function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  
 
   const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -21,12 +21,12 @@ function Login() {
     event.preventDefault();
 
     if (email === undefined || email === "" || email === null) {
-      alert("이메일을 입력해주세요.");
+      Swal.fire("이메일을 입력해주세요!", "", "warning");
       return false;
     }
 
     if (password === undefined || password === "" || password === null) {
-      alert("비밀번호를 입력해주세요.");
+      Swal.fire("비밀번호를 입력해주세요!", "", "warning");
       return false;
     }
 
@@ -35,16 +35,14 @@ function Login() {
       console.log(data);
 
       if (data.accessToken) {
-        alert("로그인 되었습니다!");
         window.localStorage.setItem("token", data.accessToken);
-       //window.location.reload();
-        navigate("/");
-      } else {
-        alert("로그인에 실패하였습니다. 다시 시도해주세요.");
+        Swal.fire("로그인 되었습니다!", "반갑습니다:)", "success").then(() => {
+          navigate("/");
+        });
       }
     } catch (error) {
       console.error(error);
-      alert("오류가 발생했습니다. 다시 시도해주세요.");
+      Swal.fire("로그인에 실패하였습니다:(", "다시 시도해주세요!", "error");
     }
   }
 
@@ -100,7 +98,6 @@ function Login() {
             <p>회원가입 하러 가기!</p>
           </Link>
         </div>
-        
       </div>
     </>
   );
