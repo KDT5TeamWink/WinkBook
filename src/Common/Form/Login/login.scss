@@ -9,11 +9,11 @@
 
     .JoinTextContainer{
       @include Textbox;
-      //background-color: pink;
 
       p {
         margin: auto;
         font-size: 30px;
+        font-weight: bold;
       }
     }
 
@@ -23,13 +23,11 @@
       position: relative;
       top: 150px;
       margin: 0 auto;
-      //background-color: chartreuse;
 
       .formBox-inner{
         width: 300px;
         height: 95px;
         margin: 0 auto;
-        //background-color: red;
 
         input {
           width:100%;
@@ -39,7 +37,6 @@
           padding: 10px 10px 10px 10px;
           border: 2px solid #F7E9D7;
           outline: none;
-          //font-family: 'Dovemayo_gothic';
           font-family: 'SUITE-Regular';
         }
       }
@@ -59,22 +56,30 @@
         height: 50px;
         color: black;
         background-color: #F7E9D7;
-        // border: solid 2px #F7E9D7;
         cursor: pointer;
         border-radius: 10px;
       }
+
+      .bottomText{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 200px;
+        height: 50px;
+        color: black;
+        background-color: #F7E9D7;
+        border-radius: 10px;
+        border: 2px solid black;
+        cursor: pointer;
+        position: absolute;
+        bottom: -50px; /* .buttonContainer 아래에 위치시킴 */
+        left: 0;
+        right: 10px;
+        margin: 0 auto;
+      }
+
     }
   }
 
-  .bottomText{
-    display: flex;
-    width: 350px;
-    height: 20px;
-    padding-bottom: 50px;
-    font-size: 18px;
-    position: absolute;
-    bottom: 350px;
-    left: 445px;
-    
-  }
+
 }

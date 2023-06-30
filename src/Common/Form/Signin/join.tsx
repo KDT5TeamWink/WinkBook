@@ -32,10 +32,10 @@ function Join() {
       const emails = e.target.value;
       setUserEmail(emails);
       if (emailCheck(emails)) {
-        setEmailMessage("올바른 이메일 형식이에요 : )");
+        setEmailMessage("올바른 이메일 형식입니다.");
         setIsEmail(true);
       } else {
-        setEmailMessage("이메일 형식이 틀렸습니다");
+        setEmailMessage("이메일 형식이 틀렸습니다.");
         setIsEmail(false);
       }
     },
@@ -48,7 +48,7 @@ function Join() {
       setNameMessage("2글자 이상 21글자 미만으로 입력해주세요.");
       setIsName(false);
     } else {
-      setNameMessage("올바른 이름 형식입니다 :)");
+      setNameMessage("올바른 이름 형식입니다.");
       setIsName(true);
     }
   }, []);
@@ -62,7 +62,7 @@ function Join() {
         setPasswordMessage("8자리 이상 입력해주세요.");
         setIsPassword(false);
       } else {
-        setPasswordMessage("안전한 비밀번호에요 : )");
+        setPasswordMessage("안전한 비밀번호에요.");
         setIsPassword(true);
       }
     },
@@ -76,7 +76,7 @@ function Join() {
     setIsPasswordConfirm: any
   ) => {
     if (password === confirmPassword) {
-      setPasswordConfirmMessage("비밀번호를 똑같이 입력했어요 : )");
+      setPasswordConfirmMessage("비밀번호를 똑같이 입력했어요");
       setIsPasswordConfirm(true);
     } else {
       setPasswordConfirmMessage("비밀번호가 틀립니다. 다시 입력해주세요.");
@@ -98,11 +98,20 @@ function Join() {
     [password]
   );
 
-  const UploadImage = (event: React.ChangeEvent<HTMLInputElement>)  => {
+  const UploadImage = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = (event.target as HTMLInputElement).files?.[0];
     if (!file) {
       return;
     }
+  
+    const fileSizeInMB = file.size / (1024 * 1024); // 파일 용량(MB) 계산
+    const maxFileSizeInMB = 1; // 최대 업로드 용량(MB)
+  
+    if (fileSizeInMB > maxFileSizeInMB) {
+      alert("업로드 가능한 파일용량을 초과했습니다.");
+      return;
+    }
+  
     const reader = new FileReader();
   
     reader.onloadend = () => {
@@ -110,11 +119,8 @@ function Join() {
       setProfileImgBase64(base64Data);
     };
   
-    if (file) {
-      reader.readAsDataURL(file);
-    }
-  }
-  
+    reader.readAsDataURL(file);
+  };
 
   async function signUp(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -200,7 +206,6 @@ function Join() {
                 </span>
               )}
             </div>
-
             <div className="formBox-inner">
               <input
                 placeholder="비밀번호를 한번 더 입력해주세요"
@@ -219,10 +224,9 @@ function Join() {
                 </span>
               )}
             </div>
-
               <div className="uploadFilebox">
                 <div className="uploadFilebox-inner">
-                  <span>프로필 이미지 고르기🍒</span>
+                  <label htmlFor="file">프로필 이미지 업로드
                   <input
                     className="infoItemForm"
                     type="file"
@@ -231,9 +235,10 @@ function Join() {
                     accept="image/*"
                     onChange={UploadImage}
                   />
+                  </label>
+                  <p>업로드 가능한 파일 최대 용량은 1mb입니다.</p>
                 </div>
               </div>
-
             <div className="buttonContainer">
               <button
                 className="buttonBox"

@@ -180,9 +180,6 @@ function Header() {
         )}
       </div>
 
-          
-
-
           <div className="Header-box">
             <Link className="Header-box__text" to="/cart">
               장바구니
@@ -215,7 +212,6 @@ function Header() {
           </div>
         </div>
 
-       
       </header>
 
     

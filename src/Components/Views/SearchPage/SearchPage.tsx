@@ -13,22 +13,6 @@ const ajax = axios.create({
   },
 });
 
-// interface DetailInfo {
-//   detail_image: string;
-//   product_name: string;
-//   retail_price: number;
-//   simple_description: string;
-//   summary_description: string;
-//   product_no: string;
-//   price: number;
-//   price_excluding_tax: string;
-//   selling: string;
-//   description: string;
-//   rentdate: number;
-//   gubun: string;
-// }
-
-
 export default function SearchPage() {
 
   const navigate = useNavigate();

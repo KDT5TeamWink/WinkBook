@@ -45,7 +45,6 @@ function RoutesPage() {
               path="/mypage/userinfo"
               element={<PrivatePage component={<UserInfo />} status={""} />}
             />
-            {/* <Route path="/mypage" element={<MyPage/>}/> */}
           </Route>
         </Routes>
       </BrowserRouter>

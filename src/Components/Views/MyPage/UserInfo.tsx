@@ -1,21 +1,28 @@
-import { FormEvent, useState, useEffect, ChangeEvent, useCallback, useRef } from "react";
+import { FormEvent, useState, useEffect, ChangeEvent } from "react";
 import axios from "axios";
 import "./UserInfo.scss";
 import Category from "./common/components/Category";
-// import { Link, useNavigate } from "react-router-dom";
 
 function UserInfo() {
-  // const navigate = useNavigate();
 
   // 이름 , 프로필사진 , 구 비밀번호 , 새 비밀번호
-  const [displayName, setDisplayName] = useState(""); // <User> {} as User
+  const [displayName, setDisplayName] = useState(""); 
   const [profileImgBase64, setProfileImgBase64] = useState<string>("");
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [fileSize, setFileSize] = useState<number | null>(null);
 
   async function submit(e: any) {
     e.preventDefault();
     try {
+      const formData = new FormData();
+      formData.append("displayName", displayName);
+      formData.append("oldPassword", oldPassword);
+      formData.append("newPassword", newPassword);
+      if (selectedFile) {
+        formData.append("file", selectedFile);
+      }
       const res = await axios.put("https://asia-northeast3-heropy-api.cloudfunctions.net/api/auth/user", {
           displayName: displayName, // 새로운 표시 이름
           profileImgBase64: profileImgBase64, // 사용자 프로필 이미지(base64) - jpg, jpeg, webp, png, gif, svg
@@ -39,16 +46,16 @@ function UserInfo() {
     }
   }
 
-  function uploadImage(event: ChangeEvent<HTMLInputElement>) {
-    const files = event.target.files as FileList;
-    for (const file of files) {
-      const reader = new FileReader();
-      reader.readAsDataURL(file); // 파일을 base64형식으로 읽음
-      reader.addEventListener('load', e => {
-        if (e.target && e.target.result) {
-          setProfileImgBase64(e.target.result as string);
-        }
-      });
+  function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      const file = files[0];
+      if (file.size > 1 * 1024 * 1024) {
+        alert("업로드 가능한 파일용량을 초과했습니다.");
+      } else {
+        setSelectedFile(file);
+        setFileSize(file.size);
+      }
     }
   }
 
@@ -110,21 +117,28 @@ function UserInfo() {
                           </div>
                       </div>
                       <div className="infoList">
-                        <div className="infoTitle">프로필 이미지</div>
-                          <div className="infoItem">
-                            <label htmlFor="file">
-                              <div className="btn-upload">파일 업로드하기</div>
-                            </label>
-                            <input
-                              className="infoItemForm"
-                              type="file"
-                              id="file"
-                              name="file"
-                              accept="image/*"
-                              onChange={uploadImage}
-                            />
-                          </div>
+                      <div className="infoTitle">프로필 이미지</div>
+                      <div className="infoItem">
+                        <label htmlFor="file" className="fileLabel">
+                          파일 업로드하기
+                          <input
+                            className="infoItemForm"
+                            type="file"
+                            id="file"
+                            name="file"
+                            accept="image/*"
+                            onChange={handleFileChange}
+                          />
+                        </label>
                       </div>
+                        <div className="fileText">
+                          <p>업로드 가능한 사진 파일의 최대 용량은 1MB입니다.</p>
+                          {selectedFile && <div className="fileName">{selectedFile.name}</div>}
+                          {fileSize && (
+                            <div className="fileSize">{Math.round(fileSize / 1024)} KB</div>
+                          )}
+                        </div>
+                    </div>
                     <div className="infoList">
                       <div className="infoItem">
                         <button 

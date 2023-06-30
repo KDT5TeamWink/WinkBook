@@ -169,7 +169,6 @@ const getDate = function(param:any){
           <div className="LeftContainer">
             <Category/>
           </div>
-
           <div className="RightContainer">
             <div className="orderText">구매 내역</div>
             <div className="orderContainer">
@@ -184,7 +183,6 @@ const getDate = function(param:any){
                 {mydataList
                 .filter((el: PageData)  => el.gubun === 'buy') 
                 .map((item: PageData, index: number) => (
-                 
                   <div className="orderList" key={index}>
                     <span>{item.merchant_uid.replace("mid_","")}</span>
                       <span>{getDate(item.paid_at)}</span>
@@ -201,7 +199,6 @@ const getDate = function(param:any){
                 ))}
               </div>
             </div>
-
             <div className="RentContainer-text">대여 내역</div>
               <div className="RentContainer">
                 <div className="RentTop-Category">
@@ -215,7 +212,6 @@ const getDate = function(param:any){
                 {mydataList
                 .filter((el: PageData) => el.gubun === 'rent') 
                 .map((item: PageData, index: number)  => (
-                 
                   <div className="RentList" key={index}>
                     <span>{item.merchant_uid.replace("mid_","")}</span>
                       <span>{getDate(item.paid_at)}</span>
@@ -228,11 +224,9 @@ const getDate = function(param:any){
                         <button onClick={() => onClickDelete(item.merchant_uid)}>x</button>
                       </div>
                   </div>
-                
                 ))}
                 </div>
               </div>
-          
           </div>
         </div>
       </div>

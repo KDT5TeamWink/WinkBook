@@ -47,7 +47,7 @@
             .infoList{
               display:flex;
               padding: 1.5rem 1.2rem;
-              
+              height: 96px;
               .infoTitle{
                 width: 8rem;
                 padding-top: 10px;
@@ -56,6 +56,9 @@
               }
 
               .infoItem{
+                display: flex;
+                flex-direction: row;
+
                 .infoItemForm{
                   padding: 15px;
                   margin-left: 15px;
@@ -65,10 +68,10 @@
                   border-radius: .5rem;
                 }
                 
-                .btn-upload {
-                  padding: 15px;
+                .fileLabel {
+                  transition: background-color 0.3s, color 0.3s;
                   margin-left: 15px;
-                  width:200px;
+                  width:150px;
                   color:rgb(123, 123, 123);
                   background-color: white;
                   border: solid 1px rgb(221, 221, 221);
@@ -76,22 +79,38 @@
                   cursor: pointer;
                   display: flex;
                   justify-content: center;
+                  align-content: center;
+                  flex-wrap: wrap;
                   &:hover {
-                    background: rgb(77,77,77);
+                    background-color: rgb(53, 197, 240);
                     color: #fff;
                   }
                 }
-                
+
                 #file {
                   display: none;
                 }
               }
               
+              .fileText{
+                padding: 0 0 0 15px;
+              }
+              p{
+                font-weight: bold;
+              }
+              .fileName {
+                padding: 5px 0 0 0;
+              }
+              .fileSize {
+                padding: 5px 0 0 0;
+                font-size:14px;
+                color:#8a8a8a;
+              }
+
               .infoFix{
                 background-color:rgb(53, 197, 240);
                 border-radius: .5rem;
                 margin-left: 10rem;
-                padding: 15px;
                 width: 15rem;
                 color:white;
                 font-weight: 700;

@@ -20,3 +20,4 @@ function PrivatePage({component:Component, status:Status}) {
   return result;
 }
 export default PrivatePage
+

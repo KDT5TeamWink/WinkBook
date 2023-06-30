@@ -55,7 +55,6 @@ function Login() {
           <div className="JoinTextContainer">
             <p>로그인</p>
           </div>
-
           <div className="formBox">
             <div className="formBox-inner">
               <input
@@ -67,28 +66,35 @@ function Login() {
                 onChange={onChangeEmail}
               />
             </div>
-
             <div className="formBox-inner">
               <input
                 placeholder="비밀번호를 입력하세요"
                 autoComplete="off"
-                type="text"
+                type="password"
                 name="password"
                 value={password}
                 onChange={onChangeName}
               />
             </div>
-
             <div className="buttonContainer">
               <button className="buttonBox" type="submit">
                 로그인
               </button>
             </div>
-          </div>
-        </form>
+            <div className="bottomText">
+              <Link
+                style={{
+                  textDecoration: "none",
+                  color: "black"
+                }}
+                to="/join"
+              >
+                <p>회원가입 하러 가기!</p>
+              </Link>
+            </div>
 
-        <div className="bottomText">
-          <p>아이디가 없으신가요?</p>
+          </div>
+          {/* <div className="bottomText">
           <Link
             style={{
               textDecoration: "none",
@@ -99,8 +105,21 @@ function Login() {
           >
             <p>회원가입 하러 가기!</p>
           </Link>
-        </div>
-        
+        </div> */}
+
+        </form>
+        {/* <div className="bottomText">
+          <Link
+            style={{
+              textDecoration: "none",
+              color: "black",
+              marginLeft: "20px",
+            }}
+            to="/join"
+          >
+            <p>회원가입 하러 가기!</p>
+          </Link>
+        </div> */}
       </div>
     </>
   );
