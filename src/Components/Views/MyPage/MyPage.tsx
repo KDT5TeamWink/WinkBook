@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios, { AxiosResponse } from "axios";
 import Category from "./common/components/Category";
+import { GetImpToken } from "@/Apis/productApi";
 import "./MyPage.scss";
 import Swal from "sweetalert2";
 
@@ -44,18 +45,8 @@ function MyPage() {
 
   const GetToken = async () => {
     try {
-      const response = await axios.post(
-        "/iamport/users/getToken",
-        {
-          imp_key: "5758023681388354",
-          imp_secret:
-            "tCdwGmiflqhMA3It54n6aLBIeA7LCg0O3WYu5qI1SKpwQ85FKXtJsiHu8yUWTynhDx7fxCFY1wsA3KVc",
-        },
-        {
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-      const accessToken = response.data.response.access_token;
+      const tokenData = await GetImpToken();
+      const accessToken = tokenData.data.response.access_token;
       return accessToken;
     } catch (error) {
       console.log(error);
@@ -116,7 +107,6 @@ function MyPage() {
           ...data,
           paid_at: item.paid_at,
           merchant_uid: item.merchant_uid,
-          // Add more properties as needed
         }));
         setMydataList((prevDataList) => [...prevDataList, ...parsedData]);
       }
@@ -132,11 +122,6 @@ function MyPage() {
     }
     fetchData();
   };
-  // Swal.fire(
-  //   'Deleted!',
-  //   'Your file has been deleted.',
-  //   'success'
-  // )
 
   const onClickDelete = (key: string) => {
     Swal.fire({
@@ -230,7 +215,7 @@ function MyPage() {
               </div>
             </div>
 
-            <div className="RentContainer-text">대여 내역</div>
+            <div className="RentContainer-text">대여내역</div>
             <div className="RentContainer">
               <div className="RentTop-Category">
                 {Object.keys(TopCategory).map((key) => {

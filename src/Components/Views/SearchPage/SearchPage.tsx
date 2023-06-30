@@ -14,70 +14,93 @@ const ajax = axios.create({
   },
 });
 
+interface Product {
+  detail_image: string;
+  product_name: string;
+  retail_price: number;
+  simple_description: string;
+  summary_description: string;
+  product_no: string;
+  price: number;
+  price_excluding_tax: string;
+  selling: string;
+  description: string;
+  rentdate: number;
+  gubun: string;
+}
+
+interface SearchItem {
+  rentdate?: number;
+  gubun: string;
+  product_no: string;
+}
+
 export default function SearchPage() {
   const navigate = useNavigate();
-  const [search, setSearch] = useState<Products>([] as Products);
+  const [search, setSearch] = useState<Product[] | undefined>();
   const [offset, setOffset] = useState(0);
   const [count, setCount] = useState(0);
-  const params = useParams();
+  const params = useParams<{ keyword?: string }>();
 
   async function SearchAPI(product_name: string) {
     try {
       const res = await ajax.get("/products", {
         params: {
-          product_name: product_name,
+          product_name,
           offset: offset * 10,
         },
       });
-      // console.log(res.data.products);
-      return res.data.products;
+      return res.data.products as Product[];
     } catch (err) {
       console.log(err);
+      return [] as Product[];
     }
   }
 
   useEffect(() => {
     (async () => {
-      await ajax
-        .get("/products/count", {
-          params: {
-            product_name: params.keyword,
-          },
-        })
-        .then((res) => setCount(res.data.count));
-      const result = await SearchAPI(params.keyword);
-      setSearch(result);
-      // console.log(result);
-      window.scrollTo(0, 0);
+      if (params.keyword) {
+        await ajax
+          .get("/products/count", {
+            params: {
+              product_name: params.keyword,
+            },
+          })
+          .then((res) => setCount(res.data.count));
+        const result = await SearchAPI(params.keyword);
+        setSearch(result);
+
+        console.log(result);
+        window.scrollTo(0, 0);
+      }
     })();
   }, [params, offset]);
-  console.log("search:", search.length);
 
-  const BuyBook = (search: string, type: string) => {
+  const BuyBook = (search: SearchItem, type: string) => {
     console.log(search);
-    let Cart = JSON.parse(localStorage.getItem("cart") || "[]");
+    const cart: SearchItem[] = JSON.parse(localStorage.getItem("cart") || "[]");
 
-    if (Cart.some((item) => item.product_no === search.product_no)) {
+    if (cart.some((item) => item.product_no === search.product_no)) {
       Swal.fire("이미 장바구니에 담으셨습니다.", "", "warning");
       return false;
     }
 
-    if (type === "rent") {
-      search.rentdate = 7;
-    }
+    const searchItem: SearchItem =
+      type === "rent"
+        ? { ...search, rentdate: 7, gubun: type }
+        : { ...search, gubun: type };
+    cart.push(searchItem);
 
-    search.gubun = type;
-    Cart.push(search);
-    Cart = Array.from(new Set(Cart));
-    Cart = [...Cart];
-    localStorage.setItem("cart", JSON.stringify(Cart));
-    Swal.fire("장바구니에 담겼습니다!", "", "success");
+    const updatedCart = Array.from(new Set(cart));
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+
+    alert("장바구니에 담겼습니다.");
     navigate("/cart");
   };
 
   return (
     <>
-      {search.length === 0 ? (
+      {search?.length === 0 ? (
         <div className="no_content">
           <p>검색결과가 존재하지 않습니다! 😊</p>
         </div>
@@ -88,35 +111,35 @@ export default function SearchPage() {
           </div>
           <hr />
           {search &&
-            search.map((v) => {
+            search.map((item: any) => {
               return (
                 <>
                   <div className="SearchPage">
-                    <Link to={`/detail/${v.product_no}`}>
+                    <Link to={`/detail/${item.product_no}`}>
                       <div className="SearchPage__Images">
-                        <img src={v.list_image} alt="책표지" />
+                        <img src={item.list_image} alt="책표지" />
                       </div>
                     </Link>
 
                     <div className="SearchPage__Items">
-                      <Link to={`/detail/${v.product_no}`}>
-                        <h1>{v.product_name}</h1>
+                      <Link to={`/detail/${item.product_no}`}>
+                        <h1>{item.product_name}</h1>
                       </Link>
 
                       <div className="SearchPage__Item">
-                        <p>{v.summary_description}</p>
-                        <p>{v.product_tag}</p>
+                        <p>{item.summary_description}</p>
+                        <p>{item.product_tag}</p>
                       </div>
                       <div className="SearchPage__Price">
-                        <p> {v.price.slice(0, -3)}원</p>
-                        <p> {v.retail_price.slice(0, -3)}원</p>
+                        <p> {item.price.slice(0, -3)}원</p>
+                        <p> {item.retail_price.slice(0, -3)}원</p>
                       </div>
                     </div>
                     <div className="SearchPage__ButtonBox">
-                      <button onClick={() => BuyBook(v, "buy")}>
+                      <button onClick={() => BuyBook(item, "buy")}>
                         구매하기
                       </button>
-                      <button onClick={() => BuyBook(v, "rent")}>
+                      <button onClick={() => BuyBook(item, "rent")}>
                         대여하기
                       </button>
                     </div>

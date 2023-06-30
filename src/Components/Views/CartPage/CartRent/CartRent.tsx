@@ -15,18 +15,11 @@ interface RentItem {
   name: string;
   rentdate: string;
 }
-
-interface CartItem {
-  product_no: number;
-}
   
   interface CartItemsProps {
     check: number[];
-    //pitem: string;
-    //setItems: React.Dispatch<React.SetStateAction<CartItem[]>>;
     delete: (key: number) => void;
     datalist : any
-    //setdata : React.Dispatch<React.SetStateAction<RentItem[]>>;
     checkOne : any;
     checkTwo : any;
   }
@@ -37,7 +30,6 @@ interface CartItem {
     datalist, 
     checkOne, 
     checkTwo,  
-    //setItems
     }: CartItemsProps) => {
     
      const [buyItem, setbuyItem] = useState<RentItem[]>([]);
@@ -48,27 +40,12 @@ interface CartItem {
       setbuyItem(datalist)
     }, [datalist]);
 
-
-    // useEffect(() => {
-    //   BuyCart();
-    // }, []);
-
-    // const BuyCart = () => {
-    //   const BuyItems = JSON.parse(localStorage.getItem("cart")) || [];
-    //   setbuyItem(BuyItems);
-    //   console.log(BuyItems)
-    // }
-  
-
     const handleChange1 = (event: React.ChangeEvent<HTMLInputElement>) => {
       if(event.target.checked){
         setCheckedItems(checkOne(event, buyItem, "rent"));
         setallCheck(true);
      }else{
       setCheckedItems(checkOne(event, buyItem, "rent"));
-      //  console.log('g');
-      //  setCheckedItems([]);
-      //  setItems([]);
         setallCheck(false);
       }
     };

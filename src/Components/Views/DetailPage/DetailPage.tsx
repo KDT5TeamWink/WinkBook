@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import TopHeader from "./components/TopHeader";
 import { getDetail } from "@/Apis/productApi";
-import { ChangeEvent } from "react";
 import "./DetailPage.scss";
 import Swal from "sweetalert2";
 
@@ -150,7 +149,6 @@ function DetailPage() {
             <div className="OriginPrice">
               <span className="PriceText">판매가</span>
               <span className="PriceNumber">
-                {" "}
                 {Number(detail.price).toFixed(0)}원{" "}
               </span>
             </div>

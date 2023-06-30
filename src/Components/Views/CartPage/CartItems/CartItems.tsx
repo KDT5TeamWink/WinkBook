@@ -15,18 +15,10 @@ interface BuyItem {
   buyItem:number;
 }
 
-interface CartItem {
-  product_no: number;
-  setItems:any;
-}
-
 interface CartItemsProps {
   check: number[];
-  //pitem: string;
-  //setItems:React.Dispatch<React.SetStateAction<CartItem[]>>;
   delete: (key: any) => void;
   datalist: any;
-  //setdata: React.Dispatch<React.SetStateAction<BuyItem[]>>;
   checkOne: any;
   checkTwo: any;
 }
@@ -35,7 +27,6 @@ const CartItems = ({
   check,
   delete: RemoveBuyItem,
   datalist,
-  //setItems,
   checkOne,
   checkTwo,
 }: CartItemsProps) => {

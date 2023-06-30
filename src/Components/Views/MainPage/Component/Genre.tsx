@@ -12,7 +12,6 @@ export default function Genre({ category }: { category: Props }) {
   const [list, setList] = useState<Products>([] as Products);
   async function sortByCategory() {
     const data = await getList({ category: category.number });
-    //console.log(category.number);
     setList(data);
   }
   useEffect(() => {

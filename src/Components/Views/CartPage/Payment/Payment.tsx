@@ -18,6 +18,8 @@ interface BuyItem {
   setdatalist: any;
 }
 
+const { VITE_IMP_OWNER } = import.meta.env;
+
 const Payment = ({ amount, productlists, setdatalist }: PaymentInfo) => {
   const orderNumber = `mid_${new Date().getTime()}`;
   console.log(orderNumber);
@@ -44,7 +46,7 @@ const Payment = ({ amount, productlists, setdatalist }: PaymentInfo) => {
 
     console.log(itemName);
     const IMP = (window as any).IMP;
-    IMP.init("imp36252452");
+    IMP.init(VITE_IMP_OWNER);
 
     const data = {
       pg: "html5_inicis", // PG사 html5_inicis: KG이니시스, kakaopay: 카카오페이, naverpay: 네이버페이, payco: 페이코

@@ -1,6 +1,7 @@
 import "./login.scss";
 import { useNavigate, Link } from "react-router-dom";
 import { FormEvent, useState, ChangeEvent } from "react";
+import { useEffect } from "react";
 import { LoginForm } from "@/Apis/register";
 import Swal from "sweetalert2";
 
@@ -16,6 +17,13 @@ function Login() {
   const onChangeName = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/");
+    }
+  }, []);
 
   async function Signin(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();

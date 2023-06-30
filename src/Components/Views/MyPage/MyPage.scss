@@ -21,13 +21,11 @@
           font-size: 25px;
           font-weight: bold;
           margin-left: 5rem;
-          // background-color: #F2E7D5;
         }
 
         .orderContainer{
           position: relative;
           padding-bottom: 400px;
-          //background-color: rgb(148, 255, 124);
           top: 50px;
           
 
@@ -37,14 +35,12 @@
             position:relative;
             display: flex;
             height: 40px;
-            // left: 10px;
             background-color: #e8e0d6;
             gap: 120px;
             margin: 0 auto;
           
             .TopCategory-inner{
               width: 70px;
-              //background-color: aqua;
               height: 20px;
               position: relative;
               margin-left: 25px;
@@ -61,10 +57,9 @@
               left: 0;
               right: 0;
               height: 400px;
-              //margin-top: 10px;
               max-height: 450px; /* 스크롤 영역의 최대 높이 설정 */
               overflow-y: auto;
-              background-color: rgb(202, 172, 172);
+              background-color: #faf4ee;
               border-radius: 0px 0px 10px 10px;
 
             
@@ -74,13 +69,11 @@
                 margin: 0 auto;
                 margin-top: 20px;
                 padding-bottom: 10px;
-                //background-color: red;                padding: 10px;
                 border-bottom: 2px solid rgb(208, 203, 185);
               
                 .Buy-ButtonBox{
                   width: 30px;
                   height: 20px;
-                  //background-color: aqua;
                   position: relative;
                   top:50px;
                   right: -500px;
@@ -94,7 +87,6 @@
                 .orderList-priceBox{
                   width: auto;
                   position: relative;
-                  //background-color: rgb(239, 179, 191);
                   left: 350px;
                   top:50px;
                   height: 20px;
@@ -106,7 +98,6 @@
                 height: 140px;
                 position: relative;
                 left: 180px;
-                //background-color: aqua;
                 
                 img{
                   position: absolute;
@@ -116,19 +107,15 @@
 
                 .orderList-ImageBox__text{
                   width: auto;
-                  //background-color: crimson;
                   position: relative;
                 }  
               }
               
-             
-
               span:nth-child(1) {
                 position: relative;
                 left: 10px;
                 top: 50px;
-                height: 20px;
-                //background-color: rgb(135, 100, 34);
+                height: 20px
               }
 
               span:nth-child(2) {
@@ -136,7 +123,6 @@
                 top: 50px;
                 left: 110px;
                 height: 20px;
-                //background-color: rgb(31, 216, 114);
               }
 
               span:nth-child(3) {
@@ -149,7 +135,7 @@
             }
         }
 
-        .RentText{
+        .RentContainer-text{
           position: relative;
           left:10px;
           top: 100px;
@@ -157,13 +143,11 @@
           font-size: 25px;
           font-weight: bold;
           margin-left: 5rem;
-          // background-color: #F2E7D5;
         }
 
         .RentContainer{
           position: relative;
           padding-bottom: 400px;
-          //background-color: rgb(148, 255, 124);
           top: 120px;
 
           .RentTop-Category{
@@ -172,14 +156,12 @@
             position:relative;
             display: flex;
             height: 40px;
-            // left: 10px;
             background-color: #e8e0d6;
             gap: 120px;
             margin: 0 auto;
 
             .RentCategory-inner{
               width: 70px;
-              //background-color: aqua;
               height: 20px;
               position: relative;
               margin-left: 25px;
@@ -195,10 +177,9 @@
             left: 0;
             right: 0;
             height: 400px;
-            //margin-top: 10px;
-            max-height: 450px; /* 스크롤 영역의 최대 높이 설정 */
+            max-height: 450px;
             overflow-y: auto;
-            background-color: rgb(202, 172, 172);
+            background-color: #faf4ee;
             border-radius: 0px 0px 10px 10px;
 
             .RentList{
@@ -207,7 +188,6 @@
               margin: 0 auto;
               margin-top: 20px;
               padding-bottom: 20px;
-              //background-color: red;                padding: 10px;
               border-bottom: 2px solid rgb(208, 203, 185);
             
               .RentList-ImageBox{
@@ -215,7 +195,6 @@
                 height: 140px;
                 position: relative;
                 left: 180px;
-                //background-color: rgb(87, 188, 9);
                 
                 img{
                   position: absolute;
@@ -228,8 +207,6 @@
                   left:120px;
                   top: 60px;
                   width: 150px;
-                  //font-size: 20px;
-                  //background-color: #F2E7D5;
                 }
               }
 
@@ -238,7 +215,6 @@
                 left: 10px;
                 top: 60px;
                 height: 20px;
-                //background-color: rgb(135, 100, 34);
               }
 
               span:nth-child(2) {
@@ -246,7 +222,6 @@
                 top: 60px;
                 left: 110px;
                 height: 20px;
-                //background-color: rgb(31, 216, 114);
               }
 
               span:nth-child(3) {
@@ -254,13 +229,11 @@
                 top: 60px;
                 left: 110px;
                 height: 20px;
-                //background-color: rgb(16, 123, 211);
               } 
 
               .RentList-priceBox{
                   width: auto;
                   position: relative;
-                  //background-color: rgb(239, 179, 191);
                   left: 350px;
                   top:60px;
                   height: 20px;  
@@ -269,7 +242,6 @@
               .Rent-ButtonBox{
                 width: 30px;
                 position: relative;
-                //background-color: rgb(239, 179, 191);
                 left: 528px; 
                 top:60px;
                 height: 20px;

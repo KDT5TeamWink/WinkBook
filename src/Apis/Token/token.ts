@@ -1,5 +1,4 @@
 import axios from 'axios';
-//import qs from 'qs';
 
 const { VITE_ACCESS_TOKEN, VITE_REDIRECT_URI } = import.meta.env;
 
@@ -41,7 +40,6 @@ export async function getToken() {
       token.access_token,
       token.expires_at,
       token.refresh_token
-      //token.refresh_token_expires_at
     );
   } catch (err) {
     console.log(err);
@@ -60,7 +58,6 @@ export async function refreshToken() {
       token.access_token,
       token.expires_at,
       token.refresh_token
-      //token.refresh_token_expires_at
     );
     console.log('refresh', data);
   } catch (err) {
@@ -72,13 +69,9 @@ function setCookie(
   accessToken: string,
   accessExpires: string,
   refreshToken: string
-  //refreshExpires: string
 ) {
   document.cookie = `accessToken=${accessToken}; path=/; expires=${new Date(
     accessExpires
   ).toUTCString()}`;
   localStorage.setItem('refreshToken', refreshToken);
-  // document.cookie = `refreshToken=${refreshToken}; path=/; expires=${new Date(
-  //   refreshExpires
-  // ).toUTCString()}`;
 }

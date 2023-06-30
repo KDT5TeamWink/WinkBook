@@ -1,47 +1,24 @@
-import {
-  FormEvent,
-  useState,
-  useEffect,
-  ChangeEvent,
-  useCallback,
-  useRef,
-} from "react";
-import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 import "./UserInfo.scss";
+import { InfoToken } from "@/Apis/register";
 import Category from "./common/components/Category";
 import Swal from "sweetalert2";
 
 function UserInfo() {
-  const navigate = useNavigate();
-
-  // 이름 , 프로필사진 , 구 비밀번호 , 새 비밀번호
-
-  const [displayName, setDisplayName] = useState(); // <User> {} as User
-  const [profileImgBase64, setProfileImgBase64] = useState<string>("");
+  const [displayName, setDisplayName] = useState("");
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   async function submit(e: any) {
     e.preventDefault();
     try {
-      const res = await axios.put(
-        "https://asia-northeast3-heropy-api.cloudfunctions.net/api/auth/user",
-        {
-          displayName: displayName, // 새로운 표시 이름
-          profileImgBase64: profileImgBase64, // 사용자 프로필 이미지(base64) - jpg, jpeg, webp, png, gif, svg
-          oldPassword: oldPassword, // 기존 비밀번호
-          newPassword: newPassword, // 새로운 비밀번호
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            "Content-Type": "application/json",
-            apikey: "KDT5_nREmPe9B",
-            username: "KDT5_TeamWink",
-          },
-        }
-      );
+      if (!displayName || !selectedImage || !oldPassword || !newPassword) {
+        alert("모든 필드를 입력해주세요.");
+        return;
+      }
+
+      await InfoToken(displayName, selectedImage, oldPassword, newPassword);
       Swal.fire("수정 완료!", "", "success");
       window.location.reload();
     } catch (err) {
@@ -51,16 +28,25 @@ function UserInfo() {
     }
   }
 
-  function uploadImage(event: Event) {
-    const files = (event.target as HTMLInputElement).files as FileList;
-    for (const file of files) {
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      const file = files[0];
+      const fileSizeInBytes = file.size;
+      const maxSizeInBytes = 1 * 1024 * 1024;
+
+      if (fileSizeInBytes > maxSizeInBytes) {
+        alert("파일 용량은 1MB를 초과할 수 없습니다.");
+        return;
+      }
+
       const reader = new FileReader();
-      reader.readAsDataURL(file); // 파일을 base64형식으로 읽음
-      reader.addEventListener("load", (e) => {
-        setProfileImgBase64((e.target as FileReader).result as string);
-      });
+      reader.onload = (e) => {
+        setSelectedImage(e.target?.result as string);
+      };
+      reader.readAsDataURL(file);
     }
-  }
+  };
 
   return (
     <>
@@ -69,7 +55,6 @@ function UserInfo() {
           <div className="LeftContainer">
             <Category />
           </div>
-
           <div className="RightContainer">
             <div className="infoContainer">
               <div className="info">
@@ -119,29 +104,34 @@ function UserInfo() {
                           required
                         />
                       </div>
-                    </div>
-                    <div className="infoList">
-                      <div className="infoTitle">프로필 이미지</div>
-                      <div className="infoItem">
-                        <label htmlFor="file">
-                          <div className="btn-upload">파일 업로드하기</div>
-                        </label>
-                        <input
-                          className="infoItemForm"
-                          type="file"
-                          id="file"
-                          name="file"
-                          accept="image/*"
-                          onChange={uploadImage}
-                        />
+                      <div className="infoImage-container">
+                        <div className="infoImage-container__text">
+                          프로필 이미지
+                        </div>
+                        <div className="infoImageUpload">
+                          <label htmlFor="file" className="custom-file-input">
+                            <span>파일 업로드</span>
+                            <input
+                              type="file"
+                              id="file"
+                              name="file"
+                              accept="image/*"
+                              onChange={handleImageChange}
+                            />
+                          </label>
+                        </div>
+                        <span className="fileMB">
+                          파일 용량은 1MB를 초과할 수 없습니다.
+                        </span>
                       </div>
-                    </div>
-                    <div className="infoList">
-                      <div className="infoItem">
-                        <button className="infoFix" type="submit">
-                          {" "}
-                          회원 정보 수정
-                        </button>
+
+                      <div className="infoList">
+                        <div className="infoItem">
+                          <button className="infoFix" type="submit">
+                            {" "}
+                            회원 정보 수정
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </form>
