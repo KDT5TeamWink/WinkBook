@@ -3,6 +3,7 @@ import axios, { AxiosResponse } from 'axios';
 import Category from './common/components/Category';
 import { GetImpToken } from '@/Apis/productApi';
 import './MyPage.scss';
+import Swal from 'sweetalert2';
 
 interface PaymentItem {
   merchant_uid: string;
@@ -122,25 +123,39 @@ function MyPage() {
     fetchData();
   };
 
-  const onClickDelete = async (key: string) => {
-    if (confirm('주문을 취소 하시겠습니까?')) {
-      const accessToken = await GetToken();
-      const data = {
-        merchant_uid: key,
-      };
-      await axios
-        .post(`/iamport/payments/cancel?_token=${accessToken}`, data)
-        .then((res) => {
-          if (res.status == 200) {
-            alert('주문이 취소 되었습니다');
-            DeleteList(key);
-          } else {
-            console.log(res.status);
-          }
-        });
-    } else {
-      alert('취소되었습니다.');
-    }
+  const onClickDelete = (key: string) => {
+    Swal.fire({
+      title: '정말 환불하시겠습니까?',
+      text: '돌이킬 수 없습니다:(',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#df307f',
+      cancelButtonColor: '#e24457',
+      confirmButtonText: '네',
+      cancelButtonText: '아니오',
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const accessToken = await GetToken();
+        const data = {
+          merchant_uid: key,
+        };
+        await axios
+          .post(`/iamport/payments/cancel?_token=${accessToken}`, data)
+          .then((res) => {
+            if (res.status == 200) {
+              Swal.fire('주문이 취소되었습니다!', '', 'success');
+              DeleteList(key);
+            } else {
+              console.log(res.status);
+            }
+          });
+      }
+    });
+    // if (confirm("주문을 취소 하시겠습니까?")) {
+
+    // } else {
+    //   Swal.fire("요청이 취소되었습니다!", "", "success");
+    // }
   };
 
   const getDate = function (param: any) {

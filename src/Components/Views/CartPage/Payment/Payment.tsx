@@ -1,4 +1,6 @@
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 interface PaymentInfo {
   amount: number;
@@ -21,6 +23,7 @@ const { VITE_IMP_OWNER } = import.meta.env;
 const Payment = ({ amount, productlists, setdatalist }: PaymentInfo) => {
   const orderNumber = `mid_${new Date().getTime()}`;
   console.log(orderNumber);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const jquery = document.createElement('script');
@@ -53,7 +56,6 @@ const Payment = ({ amount, productlists, setdatalist }: PaymentInfo) => {
       name: `${itemName}`, // 주문명
       buyer_name: '', // 구매자 이름
       buyer_email: '',
-
       custom_data: productlists,
     };
     IMP.request_pay(data, callback);
@@ -63,7 +65,9 @@ const Payment = ({ amount, productlists, setdatalist }: PaymentInfo) => {
     const { success, error_msg } = response;
 
     if (success) {
-      alert('결제 성공');
+      Swal.fire('결제 성공!', '', 'success').then(() => {
+        navigate('/mypage');
+      });
       const mypayarray: string | null =
         window.localStorage.getItem('mypayment');
       const combinedArray: string[] | null = mypayarray
@@ -89,7 +93,7 @@ const Payment = ({ amount, productlists, setdatalist }: PaymentInfo) => {
       window.localStorage.setItem('cart', JSON.stringify(updatedArray));
       setdatalist(updatedArray);
     } else {
-      alert(`결제 실패: ${error_msg}`);
+      Swal.fire(`결제 실패: ${error_msg}`, '', 'error');
     }
   }
   return (

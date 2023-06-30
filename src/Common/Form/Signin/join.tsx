@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { PwCheck, emailCheck } from "../Validation ";
 import { JoinForm } from "@/Apis/register";
 import "./join.scss";
+import Swal from "sweetalert2";
 
 function Join() {
   const navigate = useNavigate();
@@ -14,7 +15,6 @@ function Join() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [profileImgBase64, setProfileImgBase64] = useState<string>("");
 
-
   //비밀번호 유효성 검사
   const [isName, setIsName] = useState(false);
   const [isEmail, setIsEmail] = useState(false);
@@ -23,7 +23,7 @@ function Join() {
 
   //오류 메세지 저장
   const [nameMessage, setNameMessage] = useState("");
-  const [emailMessage, setEmailMessage] = useState(""); 
+  const [emailMessage, setEmailMessage] = useState("");
   const [passwordMessage, setPasswordMessage] = useState("");
   const [passwordConfirmMessage, setPasswordConfirmMessage] = useState("");
 
@@ -98,50 +98,57 @@ function Join() {
     [password]
   );
 
-  const UploadImage = (event: React.ChangeEvent<HTMLInputElement>)  => {
+  const UploadImage = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = (event.target as HTMLInputElement).files?.[0];
     if (!file) {
       return;
     }
     const reader = new FileReader();
-  
+
     reader.onloadend = () => {
       const base64Data = reader.result as string;
       setProfileImgBase64(base64Data);
     };
-  
+
     if (file) {
       reader.readAsDataURL(file);
     }
-  }
-  
+  };
 
   async function signUp(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-  
+
     if (!email) {
-      alert("이메일을 입력해주세요.");
+      Swal.fire("이메일을 입력해주세요!", "", "warning");
       return false;
     }
-  
+
     if (!isEmail || !isPassword || !isPasswordConfirm) {
-      alert("값이 잘못되었습니다. 다시 입력해주세요.");
+      Swal.fire("값이 잘못 되었습니다.", "다시 입력해주세요", "warning");
       return false;
     }
-  
+
     try {
-      const res = await JoinForm(email, displayName, password, profileImgBase64);
-  
+      const res = await JoinForm(
+        email,
+        displayName,
+        password,
+        profileImgBase64
+      );
+
       if (res.accessToken) {
-        alert("가입되었습니다.");
-        navigate("/login");
+        Swal.fire("가입되었습니다!", "찾아주셔서 감사합니다:)", "success").then(
+          () => {
+            navigate("/login");
+          }
+        );
       } else {
-        alert("가입에 실패했습니다. 다시 시도해주세요.");
+        Swal.fire("가입에 실패했습니다.", "다시 시도해주세요", "error");
       }
     } catch (error) {
       if (error instanceof Error) {
         if (error.message === "401") {
-          alert("중복된 아이디입니다.");
+          Swal.fire("중복된 아이디입니다.", "", "warning");
         } else {
           console.error("오류가 발생했습니다:", error);
         }
@@ -224,25 +231,27 @@ function Join() {
               )}
             </div>
 
-              <div className="uploadFilebox">
-                <div className="uploadFilebox-inner">
-                  <span>프로필 이미지 고르기🍒</span>
-                  <input
-                    type="file"
-                    id="file"
-                    name="file"
-                    accept="image/*"
-                    onChange={UploadImage}
-                  />
-                </div>
+            <div className="uploadFilebox">
+              <div className="uploadFilebox-inner">
+                <span>프로필 이미지 고르기🍒</span>
+                <input
+                  type="file"
+                  id="file"
+                  name="file"
+                  accept="image/*"
+                  onChange={UploadImage}
+                />
               </div>
+            </div>
 
             <div className="buttonContainer">
               <button
                 className="buttonBox"
                 type="submit"
                 disabled={
-                  !(isName && isEmail && isPassword && isPasswordConfirm)}>
+                  !(isName && isEmail && isPassword && isPasswordConfirm)
+                }
+              >
                 등록
               </button>
             </div>
@@ -252,4 +261,5 @@ function Join() {
     </>
   );
 }
+
 export default Join;
