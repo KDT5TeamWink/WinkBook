@@ -1,4 +1,4 @@
-import { FormEvent, useState, useCallback, useRef } from "react";
+import { FormEvent, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { PwCheck, emailCheck } from "../Validation ";
 import { JoinForm } from "@/Apis/register";
@@ -13,7 +13,7 @@ function Join() {
   const [password, setUserPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [profileImgBase64, setProfileImgBase64] = useState<string>("");
-  const imgRef = useRef();
+
 
   //비밀번호 유효성 검사
   const [isName, setIsName] = useState(false);
@@ -118,24 +118,20 @@ function Join() {
 
   async function signUp(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (email === undefined || email === "" || email === null) {
-      alert("이메일 입력해주세요.");
+  
+    if (!email) {
+      alert("이메일을 입력해주세요.");
       return false;
     }
-
-    if (
-      isEmail === false ||
-      isPassword === false ||
-      isPasswordConfirm === false
-    ) {
-      alert("값이 잘못 되었습니다. 다시 입력해주세요");
+  
+    if (!isEmail || !isPassword || !isPasswordConfirm) {
+      alert("값이 잘못되었습니다. 다시 입력해주세요.");
       return false;
     }
-
   
     try {
-      const res = await JoinForm(email, displayName, password,profileImgBase64 );
-
+      const res = await JoinForm(email, displayName, password, profileImgBase64);
+  
       if (res.accessToken) {
         alert("가입되었습니다.");
         navigate("/login");
@@ -143,7 +139,15 @@ function Join() {
         alert("가입에 실패했습니다. 다시 시도해주세요.");
       }
     } catch (error) {
-      alert("시스템 오류입니다. 문의해주세요.");
+      if (error instanceof Error) {
+        if (error.message === "401") {
+          alert("중복된 아이디입니다.");
+        } else {
+          console.error("오류가 발생했습니다:", error);
+        }
+      } else {
+        console.error("오류가 발생했습니다:", error);
+      }
     }
   }
 
@@ -224,7 +228,6 @@ function Join() {
                 <div className="uploadFilebox-inner">
                   <span>프로필 이미지 고르기🍒</span>
                   <input
-                    className="infoItemForm"
                     type="file"
                     id="file"
                     name="file"

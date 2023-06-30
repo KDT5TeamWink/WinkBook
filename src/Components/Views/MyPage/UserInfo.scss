@@ -17,15 +17,12 @@
       .infoContainer{
         position: relative;
         top: 3rem;
-        // margin: 0 auto;
-        margin-left: 3rem;
+        padding-bottom: 50px;
+        margin-left: 4rem;
         height: 90%;
-        // border: solid 1px rgb(221,221,221);
-        // background-color: rgb(124, 255, 255);
 
         .info{
           position: relative;
-          // background-color: rgb(224, 57, 57);
           top: 2rem;
 
           
@@ -35,7 +32,6 @@
             .infoText{
               position: relative;
               left:2rem;
-              // border: solid 1px black;
               font-size: 24px;
               font-weight: 900;
               color:black;
@@ -47,15 +43,84 @@
           .infoBox{
             position: relative;
             margin: 2rem 4rem 0 4rem;
-            // background-color: cadetblue;
-            // border: dotted 1px black;
             width: auto;
             height: 30rem;
-            // display: flex;
+
+            .infoImage-container{
+              display: flex;
+              padding: 1.5rem 1.2rem;
+
+              .infoImage-container__text{
+                width: 8rem;
+                padding-top: 10px;
+                text-align: center;
+                font-weight: bold;
+              }
+
+              .infoImageUpload{
+                position: relative;
+                bottom: -2px;
+                height: 60px;
+                left: 105px;
+                font-size: 13px;
+
+                span{
+                  padding-top: 5px;
+                }
+
+                .custom-file-input {
+                  width: inherit;
+                  height: 40px;
+                  display: inline-block;
+                  border: 1px solid #ccc;
+                  padding: 9px 12px 0px 25px;
+                  cursor: pointer;
+                  background-color: #f1f1f1;
+                  color: #333;
+                  border-radius: 4px;   
+                }
+                  
+                .custom-file-input input[type="file"] {
+                  display: none;
+                }
+              }
+
+              .fileMB{
+                position: relative;
+                bottom: -59px;
+                height: 20px;
+                left: -33px;
+                font-size: 13px;
+              }
+
+              .preview-container{
+                width: 200px;
+                height: 200px;
+                position: relative;
+                background-color: #F5F5F5;
+                border-radius: 10px;
+                left: 52px;
+                bottom:26px;
+
+                span{
+                  position: relative;
+                  width: 50px;
+                  margin-left: 50px;
+                  top: 81px;
+                }
+
+                img{
+                  width: inherit;
+                  padding: 8px;
+                  margin: 0 auto;
+                  height: inherit;
+                  z-index: 100px;
+                }
+              }
+            }
 
             .infoList{
               display:flex;
-              // background-color: rgb(245, 242, 97);
               padding: 1.5rem 1.2rem;
               
               .infoTitle{
@@ -69,51 +134,37 @@
                 .infoItemForm{
                   padding: 15px;
                   margin-left: 15px;
-                  width:500px;
+                  width:300px;
                   background-color: white;
                   border: solid 1px rgb(221, 221, 221);
                   border-radius: .5rem;
                 }
                 
-
-                .btn-upload {
-                  padding: 15px;
-                  margin-left: 15px;
-                  width:200px;
-                  color:rgb(123, 123, 123);
-                  background-color: white;
-                  border: solid 1px rgb(221, 221, 221);
-                  border-radius: .5rem;
-                  cursor: pointer;
-                  display: flex;
-                  justify-content: center;
-                  &:hover {
-                    background: rgb(77,77,77);
-                    color: #fff;
-                  }
-                }
-                
-                #file {
-                  display: none;
-                }
-                
+                span{
+                  width: 100px;
+                  height: 30px;
+                  background-color: yellow; 
+                }               
               }
               
               .infoFix{
-                background-color:rgb(53, 197, 240);
-                border-radius: .5rem;
+                background-color:#C8B6A6;
+                border-radius: 10px;
                 margin-left: 10rem;
                 padding: 15px;
-                width: 15rem;
-                color:white;
+                width: 12rem;
+                border: none;
+                color:#ffff;
                 font-weight: 700;
-                font-size: 18px;
+                font-size: 15px;
+                position: absolute;
+                bottom: -103px;
+                left: 77px;
                 cursor: pointer;
                 &:hover {
-                  background-color:rgb(96, 203, 235);
-                  color: black;
+                  background-color:#c3b6ab;
                 }
-              }
+              }              
             }
           }
         }

@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import './index.scss';
 import axios from 'axios';
+import './index.scss';
 
 const token = localStorage.getItem('token');
 
@@ -9,6 +9,23 @@ const token = localStorage.getItem('token');
 const saveTokenToLocalStorage = (token: string) => {
   localStorage.setItem('token', token);
 };
+
+// 토큰 갱신 인터셉터
+axios.interceptors.response.use(
+  (response) => {
+    // 응답 처리
+    return response;
+  },
+  (error) => {
+    if (error.response.status === 401) {
+      console.log('401 에러 발생: 토큰 제거하지 않음');
+      alert('401 에러 발생');
+      // 401 에러 발생 시 토큰을 제거하는 로직 추가
+      removeTokenFromLocalStorage();
+    }
+    return Promise.reject(error);
+  }
+);
 
 // 토큰을 제거하는 함수
 const removeTokenFromLocalStorage = () => {

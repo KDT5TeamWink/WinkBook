@@ -1,6 +1,7 @@
 import "./login.scss";
 import { useNavigate, Link } from "react-router-dom";
 import { FormEvent, useState, ChangeEvent } from "react";
+import { useEffect } from "react";
 import { LoginForm } from "@/Apis/register";
 
 function Login() {
@@ -16,6 +17,14 @@ function Login() {
   const onChangeName = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/");
+    }
+  }, []);
+
 
   async function Signin(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -37,14 +46,13 @@ function Login() {
       if (data.accessToken) {
         alert("로그인 되었습니다!");
         window.localStorage.setItem("token", data.accessToken);
-       //window.location.reload();
         navigate("/");
       } else {
         alert("로그인에 실패하였습니다. 다시 시도해주세요.");
       }
     } catch (error) {
       console.error(error);
-      alert("오류가 발생했습니다. 다시 시도해주세요.");
+      alert("아이디 또는 비밀번호가 일치하지 않습니다. ");
     }
   }
 

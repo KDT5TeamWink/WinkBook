@@ -1,14 +1,13 @@
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { ChangeEvent } from 'react';
 import './headers.scss';
-import { LogoutForm } from '@/Apis/register';
+import { LogoutForm, TokenMe } from '@/Apis/register';
 import { getList } from '@/Apis/productApi';
 
 interface User {
-  displayName: string; // 사용자 표시 이름
-  profileImg: string; // 사용자 프로필 이미지 URL
+  displayName: string;
+  profileImg: string;
 }
 
 interface Product {
@@ -18,16 +17,13 @@ interface Product {
   price: string;
 }
 
-const { VITE_KDT5_API, VITE_KDT5_USER } = import.meta.env;
-
 function Header() {
-  const defaultProfileImgUrl = '/public/images/default-profile.jpg';
+  const defaultProfileImgUrl = '/images/default-profile.jpg';
   const [user, setUser] = useState<User>({ displayName: '', profileImg: '' });
   const [keyword, setKeyWord] = useState('');
   const [filteredItems, setFilteredItems] = useState([]);
   const [product, setProductInfo] = useState([]);
   const [showInputButton, setShowInputButton] = useState(false);
-
   const navigate = useNavigate();
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -64,19 +60,7 @@ function Header() {
   useEffect(() => {
     const authenticate = async () => {
       try {
-        const response = await axios.post(
-          'https://asia-northeast3-heropy-api.cloudfunctions.net/api/auth/me',
-          {},
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem('token')}`,
-              'Content-Type': 'application/json',
-              apikey: VITE_KDT5_API,
-              username: VITE_KDT5_USER,
-            },
-          }
-        );
-        const userData = response.data;
+        const userData = await TokenMe();
 
         // 사용자 정보를 업데이트하기 전에 profileImg가 존재하지 않을 경우에만 기본 프로필 이미지 URL을 사용
         setUser((prevUser) => ({
@@ -132,7 +116,7 @@ function Header() {
       <header className="headerContainer">
         <div className="itemsWrapper">
           <Link to="/" className="logoBox">
-            <img src="/public/images/Wink_logo.png" alt="logo" />
+            <img src="/images/Wink_logo.png" alt="logo" />
           </Link>
           <div className="searchBox">
             <input
@@ -142,7 +126,7 @@ function Header() {
               onKeyPress={OnKeyPress}
             />
             <img
-              src="/public/images/search-icon.png"
+              src="/images/search-icon.png"
               alt="searchicon"
               onClick={handleInputButtonClick}
             />

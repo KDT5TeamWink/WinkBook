@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import TopHeader from "./components/TopHeader";
 import { getDetail } from "@/Apis/productApi";
-import { ChangeEvent } from "react";
 import "./DetailPage.scss";
 
 function DetailPage() {
@@ -143,7 +142,6 @@ function DetailPage() {
             <div className="OriginPrice">
               <span className="PriceText">판매가</span>
               <span className="PriceNumber">
-                {" "}
                 {Number(detail.price).toFixed(0)}원{" "}
               </span>
             </div>
@@ -158,14 +156,12 @@ function DetailPage() {
             <div className="ButtonContainer">
               <button
                 className="CartAdd"
-                onClick={() => BuyBook(detail, "buy")}
-              >
+                onClick={() => BuyBook(detail, "buy")}>
                 책 구매하기
               </button>
               <button
                 className="BookBill"
-                onClick={() => BuyBook(detail, "rent")}
-              >
+                onClick={() => BuyBook(detail, "rent")}>
                 책 대여하기
               </button>
             </div>
@@ -191,8 +187,7 @@ function DetailPage() {
         <div
           className="InnerContent"
           dangerouslySetInnerHTML={{ __html: modifiedDescription }}
-          onClick={disableLinkClick}
-        >    
+          onClick={disableLinkClick}>    
         </div>
       </div>
     </>

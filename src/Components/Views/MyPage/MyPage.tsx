@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios, { AxiosResponse } from 'axios';
 import Category from './common/components/Category';
+import { GetImpToken } from '@/Apis/productApi';
 import './MyPage.scss';
 
 interface PaymentItem {
@@ -29,8 +30,6 @@ interface PageData {
   paid_at: string;
 }
 
-const { VITE_IMP_KEY, VITE_IMP_SECRET } = import.meta.env;
-
 function MyPage() {
   const TopCategory: CategoryMap = {
     orderId: '주문번호',
@@ -45,17 +44,8 @@ function MyPage() {
 
   const GetToken = async () => {
     try {
-      const response = await axios.post(
-        '/iamport/users/getToken',
-        {
-          imp_key: VITE_IMP_KEY,
-          imp_secret: VITE_IMP_SECRET,
-        },
-        {
-          headers: { 'Content-Type': 'application/json' },
-        }
-      );
-      const accessToken = response.data.response.access_token;
+      const tokenData = await GetImpToken();
+      const accessToken = tokenData.data.response.access_token;
       return accessToken;
     } catch (error) {
       console.log(error);
@@ -116,7 +106,6 @@ function MyPage() {
           ...data,
           paid_at: item.paid_at,
           merchant_uid: item.merchant_uid,
-          // Add more properties as needed
         }));
         setMydataList((prevDataList) => [...prevDataList, ...parsedData]);
       }
@@ -211,7 +200,7 @@ function MyPage() {
               </div>
             </div>
 
-            <div className="RentContainer-text">대여 내역</div>
+            <div className="RentContainer-text">대여내역</div>
             <div className="RentContainer">
               <div className="RentTop-Category">
                 {Object.keys(TopCategory).map((key) => {

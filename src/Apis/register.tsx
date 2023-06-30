@@ -45,3 +45,18 @@ export const LogoutForm = async () => {
   );
   return res.data;
 };
+
+export const TokenMe = async () => {
+  const AUTHME = '/me';
+  const token = localStorage.getItem('token') as string;
+  const res = await axiosInstance.post(AUTHME, {}, { headers: { ...headers, 'Authorization': `Bearer ${token}` } });
+  return res.data;
+};
+
+
+export const InfoToken = async (displayName:string, profileImgBase64:string, oldPassword:string, newPassword:string) => {
+  const InfoMe = '/user';
+  const token = localStorage.getItem('token') as string;
+  const res = await axiosInstance.put(InfoMe, {displayName, profileImgBase64, oldPassword, newPassword}, { headers: { ...headers, 'Authorization': `Bearer ${token}` } });
+  return res.data;
+};

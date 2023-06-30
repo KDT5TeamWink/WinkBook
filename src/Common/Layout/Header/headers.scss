@@ -11,7 +11,6 @@
   z-index: 900;
 
     .itemsWrapper{
-      // width: 80%;
       margin: 0 auto;
       left: 0;
       right: 0;
@@ -55,10 +54,6 @@
       outline: none;
       left: 0;
       right: 0;
-      &:focus {
-        // border: 2px solid rgb(202, 159, 18);
-        // box-shadow: 1px 1px 1px 0.3px rgb(202, 159, 18);
-      }
     }
     img {
       position: absolute;
@@ -87,7 +82,6 @@
 
       .Header-box__logout {
         width: inherit;
-        // padding: 15px 20px 0 0;
       }
     }
 
@@ -98,10 +92,8 @@
         height: 60px;
         bottom: 12px;
         left:40px;
-        // background-color: pink;
         
         .cartPhoto {
-          // background-color: olive;
           cursor: auto;
           box-sizing: border-box;
           position: absolute;
@@ -131,12 +123,10 @@
       margin: 0 auto;
       padding-bottom: 100px;
       margin-top: 10px;
-      //background-color: orange;
 
       .Input-Buttom__innerBox{
         width: 340px;
         height: 160px;
-        //background-color: red;
         margin: 0 auto;
         cursor: pointer;
         margin-top: 12px;
@@ -158,7 +148,6 @@
         .Input-Buttom__title{
           width: 210px;
           padding-bottom: 15px;
-          //background-color: yellowgreen;
           position: relative;
           left: 140px;
           bottom: 100px;
