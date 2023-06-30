@@ -51,3 +51,22 @@ export async function getDetail(product_no: string) {
     console.log(err);
   }
 }
+
+export const GetImpToken = async () => {
+  try {
+    const response = await axios.post(
+      '/iamport/users/getToken',
+      {
+        imp_key: '5758023681388354',
+        imp_secret: 'tCdwGmiflqhMA3It54n6aLBIeA7LCg0O3WYu5qI1SKpwQ85FKXtJsiHu8yUWTynhDx7fxCFY1wsA3KVc',
+      },
+      {
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};

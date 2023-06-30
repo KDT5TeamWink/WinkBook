@@ -5,11 +5,6 @@ export const emailCheck = (mail:string) =>{
     return emailExp.test(mail) ? true : false;
 }
 
-
-//패스워드 체크 여부
-// const PwExp = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[A-Z])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,}/;
-
-
 const PwExp = /^.{8,}$/;
   export const PwCheck = (password:string) => {
     return PwExp.test(password) ? true : false;
