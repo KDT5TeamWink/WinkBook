@@ -76,16 +76,15 @@
                   height: 20px;
                   position: relative;
                   top:50px;
-                  right: -500px;
+                  left: 480px;
 
                   button{
                     width:inherit;
-                    position: absolute;
                   }
                 }
 
                 .orderList-priceBox{
-                  width: auto;
+                  width: 100px;
                   position: relative;
                   left: 350px;
                   top:50px;
@@ -232,7 +231,7 @@
               } 
 
               .RentList-priceBox{
-                  width: auto;
+                  width:100px;
                   position: relative;
                   left: 350px;
                   top:60px;

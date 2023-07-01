@@ -80,19 +80,20 @@
     }
 
     .Rental-TextInner {
-      width: 400px;
+      width: 150px;
       height: 100px;
       position: absolute;
       top: 1px;
       left: 260px;
       font-size: 20px;
+      background-color: yellow;
     }
 
     .Rental-PriceInner {
       width: 100px;
-      height: 30px;
+      height: 40px;
       position: absolute;
-      top: 50px;
+      top: 60px;
       left: 420px;
       font-size: 18px;
     }

@@ -67,7 +67,7 @@ function DetailPage() {
     })();
   }, []);
 
-  let token = localStorage.getItem("token");
+  const token = localStorage.getItem("token");
 
   const BuyBook = (detail: DetailInfo, type: string) => {
     let Cart: DetailInfo[] = JSON.parse(localStorage.getItem("cart") || "[]");

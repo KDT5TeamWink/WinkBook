@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios, { AxiosResponse } from "axios";
 import Category from "./common/components/Category";
-import { GetImpToken } from "@/Apis/productApi";
+//import { GetImpToken } from "@/Apis/productApi";
 import "./MyPage.scss";
 import Swal from "sweetalert2";
 
@@ -43,16 +43,24 @@ function MyPage() {
   const [itemList, setItemList] = useState<PaymentItem[]>([]);
   const [mydataList, setMydataList] = useState<PageData[]>([]);
 
-  const GetToken = async () => {
-    try {
-      const tokenData = await GetImpToken();
-      const accessToken = tokenData.data.response.access_token;
-      return accessToken;
+  const GetToken = async  () => {
+    try{
+    const response = await axios.post('/iamport/users/getToken',
+      {
+        imp_key: '5758023681388354',
+        imp_secret: 'tCdwGmiflqhMA3It54n6aLBIeA7LCg0O3WYu5qI1SKpwQ85FKXtJsiHu8yUWTynhDx7fxCFY1wsA3KVc',
+      },
+      {
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+    const accessToken = response.data.response.access_token;
+    return accessToken;
     } catch (error) {
       console.log(error);
       throw error;
-    }
-  };
+    }    
+  }
 
   const fetchData = async (): Promise<void> => {
     try {
@@ -99,18 +107,37 @@ function MyPage() {
     if (itemList.length === 0) {
       return;
     }
-    const useData = itemList.filter((item) => item.custom_data);
+  //   const useData = itemList.filter((item) => item.custom_data);
+  //   useData.forEach((item) => {
+  //     if (item.custom_data) {
+  //       let parsedData: PageData[] = JSON.parse(item.custom_data);
+  //       parsedData = parsedData.map((data) => ({
+  //         ...data,
+  //         paid_at: item.paid_at,
+  //         merchant_uid: item.merchant_uid,
+  //       }));
+  //       setMydataList((prevDataList) => [...prevDataList, ...parsedData]);
+  //     }
+  //   });
+  // }, [itemList]);
+
+  const useData = itemList.filter((item) => item.custom_data);
     useData.forEach((item) => {
-      if (item.custom_data) {
-        let parsedData: PageData[] = JSON.parse(item.custom_data);
-        parsedData = parsedData.map((data) => ({
-          ...data,
-          paid_at: item.paid_at,
-          merchant_uid: item.merchant_uid,
-        }));
-        setMydataList((prevDataList) => [...prevDataList, ...parsedData]);
-      }
-    });
+  if (item.custom_data) {
+    try {
+      let parsedData: PageData[] = JSON.parse(item.custom_data);
+      parsedData = parsedData.map((data) => ({
+        ...data,
+        paid_at: item.paid_at,
+        merchant_uid: item.merchant_uid,
+      }));
+      setMydataList((prevDataList) => [...prevDataList, ...parsedData]);
+    } catch (error) {
+      console.error("Error parsing custom_data:", error);
+      // Handle the error, e.g., show a message or skip this item
+    }
+  }
+  });
   }, [itemList]);
 
   const DeleteList = (itemnum: string) => {
@@ -202,11 +229,10 @@ function MyPage() {
                           {item.product_name}
                         </span>
                       </div>
-                      <span className="orderList-priceBox">{item.price}</span>
+                      <span className="orderList-priceBox">{item.price.toLocaleString()}원</span>
                       <div className="Buy-ButtonBox">
                         <button
-                          onClick={() => onClickDelete(item.merchant_uid)}
-                        >
+                          onClick={() => onClickDelete(item.merchant_uid)}>
                           x
                         </button>
                       </div>

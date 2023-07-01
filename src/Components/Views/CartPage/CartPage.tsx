@@ -178,22 +178,6 @@ function CartPage() {
               />
             </div>
           </div>
-
-          <div className="AllCount-Container">
-            <div className="AllCount-Container__box">
-              <span>총 결제 예상 금액</span>
-              <span>${Total}</span>
-            </div>
-          </div>
-
-          <div className="Buy-ButtonBox">
-            {/* <button onClick={BuyProducts}>선택한 상품 주문하기</button> */}
-            <Payment
-              amount={Total}
-              productlists={selectedItem}
-              setdatalist={setbuyItem}
-            />
-          </div>
         </div>
       </div>
     </>

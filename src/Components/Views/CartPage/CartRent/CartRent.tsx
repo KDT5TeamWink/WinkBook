@@ -124,12 +124,12 @@ interface RentItem {
             <img src={el.detail_image} alt='cartbookimage'/> 
           </div>
           <div className='Rental-TextInner'>
-            <span>{el.name}</span> 
+            <span>{el.product_name}</span> 
           </div>
 
-          <div className='Rental-PriceInner'>
+          {/* <div className='Rental-PriceInner'>
             <span>{Number(el.price).toFixed(0)}원</span>
-          </div>
+          </div> */}
           <div className='Rental-RentDay'>
             <span>{el.rentdate}일</span>
           </div>

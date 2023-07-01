@@ -130,6 +130,9 @@ function Header() {
               onBlur={() => {
                 setShowInputButton(false);
               }}
+              onFocus={() => {
+                setShowInputButton(true);
+              }}
             />
             <img
               src="/images/search-icon.png"
