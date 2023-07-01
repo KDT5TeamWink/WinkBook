@@ -9,7 +9,7 @@ interface BuyItem {
   id: number;
   gubun: string;
   product_name: string;
-  price: number;
+  price: string;
   detail_image: string;
   product_no: number;
   buyItem:number;
@@ -90,6 +90,7 @@ const CartItems = ({
                   checkedItems.length < buyItem.length
                 }
                 onChange={handleChange1}
+                style={{marginTop:"8px"}}
               />
             </div>
           }
@@ -122,7 +123,7 @@ const CartItems = ({
               </div>
 
               <div className="PriceInner">
-                <span>{Number(el.price).toFixed(0)}원</span>
+                <span>{el.price.slice(0, -3)}원</span>
               </div>
 
               <div className="CartButtonBox">
