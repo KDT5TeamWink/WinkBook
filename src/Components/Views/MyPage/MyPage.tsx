@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios, { AxiosResponse } from 'axios';
 import Category from './common/components/Category';
-//import { GetImpToken } from "@/Apis/productApi";
+import { MypageToken } from '@/Apis/productApi';
 import './MyPage.scss';
 import Swal from 'sweetalert2';
 
@@ -40,21 +40,12 @@ function MyPage() {
 
   const GetToken = async  () => {
     try{
-    const response = await axios.post('/iamport/users/getToken',
-      {
-        imp_key: '5758023681388354',
-        imp_secret: 'tCdwGmiflqhMA3It54n6aLBIeA7LCg0O3WYu5qI1SKpwQ85FKXtJsiHu8yUWTynhDx7fxCFY1wsA3KVc',
-      },
-      {
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
-    const accessToken = response.data.response.access_token;
-    return accessToken;
+    const accessToken = await MypageToken();
+     return accessToken;
     } catch (error) {
       console.log(error);
       throw error;
-    }    
+    }       
   }
 
   const fetchData = async (): Promise<void> => {
