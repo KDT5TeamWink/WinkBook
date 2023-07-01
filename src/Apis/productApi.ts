@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const { VITE_CLIENT_ID } = import.meta.env;
+const { VITE_CLIENT_ID, VITE_IMP_KEY, VITE_IMP_SECRET } = import.meta.env;
 
 const ajax = axios.create({
   baseURL: '/cafe24',
@@ -27,7 +27,6 @@ export async function getList(info: GetList) {
         limit: info.limit
       },
     });
-    //console.log(data.products);
     return data.products;
   } catch (err) {
     console.log(err);
@@ -52,21 +51,17 @@ export async function getDetail(product_no: string) {
   }
 }
 
-export const GetImpToken = async () => {
-  try {
-    const response = await axios.post(
-      '/iamport/users/getToken',
-      {
-        imp_key: '5758023681388354',
-        imp_secret: 'tCdwGmiflqhMA3It54n6aLBIeA7LCg0O3WYu5qI1SKpwQ85FKXtJsiHu8yUWTynhDx7fxCFY1wsA3KVc',
-      },
-      {
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-};
+export const MypageToken = async  () => {
+
+  const response = await axios.post('/iamport/users/getToken',
+    {
+      imp_key: VITE_IMP_KEY,
+      imp_secret: VITE_IMP_SECRET,
+    },
+    {
+      headers: { 'Content-Type': 'application/json' },
+    }
+  );
+  const accessToken = response.data.response.access_token;
+  return accessToken;  
+}

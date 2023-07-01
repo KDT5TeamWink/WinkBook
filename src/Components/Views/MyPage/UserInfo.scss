@@ -17,7 +17,7 @@
       .infoContainer{
         position: relative;
         top: 3rem;
-        padding-bottom: 50px;
+        padding-bottom: 183px;
         margin-left: 4rem;
         height: 90%;
 
@@ -39,7 +39,7 @@
               margin-left: 2rem;
             }
           }
-          
+
           .infoBox{
             position: relative;
             margin: 2rem 4rem 0 4rem;
@@ -48,7 +48,10 @@
 
             .infoImage-container{
               display: flex;
-              padding: 1.5rem 1.2rem;
+              position: absolute;
+              bottom: 10px;
+              width: 40rem;
+              right: 150px;
 
               .infoImage-container__text{
                 width: 8rem;
@@ -64,16 +67,11 @@
                 left: 105px;
                 font-size: 13px;
 
-                span{
-                  padding-top: 5px;
-                }
-
                 .custom-file-input {
-                  width: inherit;
                   height: 40px;
                   display: inline-block;
                   border: 1px solid #ccc;
-                  padding: 9px 12px 0px 25px;
+                  padding: 9px 12px 0px 13px;
                   cursor: pointer;
                   background-color: #f1f1f1;
                   color: #333;
@@ -94,19 +92,18 @@
               }
 
               .preview-container{
-                width: 200px;
-                height: 200px;
+                width: 12rem;
+                height: 150px;
                 position: relative;
                 background-color: #F5F5F5;
                 border-radius: 10px;
-                left: 52px;
-                bottom:26px;
-
+                right: -20px;
+              
                 span{
                   position: relative;
                   width: 50px;
-                  margin-left: 50px;
-                  top: 81px;
+                  margin-left: 45px;
+                  top: 70px;
                 }
 
                 img{
@@ -158,7 +155,7 @@
                 font-weight: 700;
                 font-size: 15px;
                 position: absolute;
-                bottom: -103px;
+                bottom: -83px;
                 left: 77px;
                 cursor: pointer;
                 &:hover {

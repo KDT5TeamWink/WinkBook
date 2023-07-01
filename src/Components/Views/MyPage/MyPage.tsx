@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import axios, { AxiosResponse } from 'axios';
 import Category from './common/components/Category';
-//import { GetImpToken } from "@/Apis/productApi";
+import { MypageToken } from '@/Apis/productApi';
 import './MyPage.scss';
 import Swal from 'sweetalert2';
+
 interface PaymentItem {
   merchant_uid: string;
   custom_data: string;
@@ -22,7 +23,7 @@ interface PageData {
   merchant_uid: string;
   small_image: string;
   product_name: string;
-  price: number;
+  price: string;
   custom_data: string;
   paid_at: string;
 }
@@ -36,26 +37,17 @@ function MyPage() {
   } as const;
   const [itemList, setItemList] = useState<PaymentItem[]>([]);
   const [mydataList, setMydataList] = useState<PageData[]>([]);
-  const GetToken = async () => {
-    try {
-      const response = await axios.post(
-        '/iamport/users/getToken',
-        {
-          imp_key: '5758023681388354',
-          imp_secret:
-            'tCdwGmiflqhMA3It54n6aLBIeA7LCg0O3WYu5qI1SKpwQ85FKXtJsiHu8yUWTynhDx7fxCFY1wsA3KVc',
-        },
-        {
-          headers: { 'Content-Type': 'application/json' },
-        }
-      );
-      const accessToken = response.data.response.access_token;
-      return accessToken;
+
+  const GetToken = async  () => {
+    try{
+    const accessToken = await MypageToken();
+     return accessToken;
     } catch (error) {
       console.log(error);
       throw error;
-    }
-  };
+    }       
+  }
+
   const fetchData = async (): Promise<void> => {
     try {
       const paynumber: string | null = window.localStorage.getItem('mypayment');
@@ -64,7 +56,7 @@ function MyPage() {
         const accessToken = await GetToken();
         const paymentsResponse: AxiosResponse<PaymentsResponse> =
           await axios.get(
-            `/iamport/payments/status/paid?limit=20&sorting=paid&_token=${accessToken}`
+            `/iamport/payments/status/paid?limit=100&sorting=paid&_token=${accessToken}`
           );
         if (
           paymentsResponse.data &&
@@ -97,19 +89,34 @@ function MyPage() {
     if (itemList.length === 0) {
       return;
     }
-    const useData = itemList.filter((item) => item.custom_data);
+
+  const checkJson = function (str: string){
+    try{
+      JSON.parse(str);
+    }catch(e){
+      return false;
+    }
+    return true;
+  }
+  const useData = itemList.filter((item) => item.custom_data);
     useData.forEach((item) => {
-      if (item.custom_data) {
-        let parsedData: PageData[] = JSON.parse(item.custom_data);
-        parsedData = parsedData.map((data) => ({
-          ...data,
-          paid_at: item.paid_at,
-          merchant_uid: item.merchant_uid,
-        }));
-        setMydataList((prevDataList) => [...prevDataList, ...parsedData]);
-      }
-    });
+  if (checkJson(item.custom_data)) {
+    try {
+      let parsedData: PageData[] = JSON.parse(item.custom_data);
+      console.log(JSON.parse(item.custom_data)+"dddddd")
+      parsedData = parsedData.map((data) => ({
+        ...data,
+        paid_at: item.paid_at,
+        merchant_uid: item.merchant_uid,
+      }));
+      setMydataList((prevDataList) => [...prevDataList, ...parsedData]);
+    } catch (error) {
+      console.error("Error parsing custom_data:", error);
+    }
+  }
+  });
   }, [itemList]);
+
   const DeleteList = (itemnum: string) => {
     const MyPay = localStorage.getItem('mypayment');
     if (MyPay && MyPay.includes(itemnum)) {
@@ -146,11 +153,8 @@ function MyPage() {
           });
       }
     });
-    // if (confirm("주문을 취소 하시겠습니까?")) {
-    // } else {
-    //   Swal.fire("요청이 취소되었습니다!", "", "success");
-    // }
   };
+
   const getDate = function (param: any) {
     const date = new Date(param * 1000);
     const koreaTime = date.toLocaleString('ko-KR', {
@@ -168,7 +172,7 @@ function MyPage() {
           <div className="LeftContainer">
             <Category />
           </div>
-          ​
+        
           <div className="RightContainer">
             <div className="orderText">구매 내역</div>
             <div className="orderContainer">
@@ -195,12 +199,11 @@ function MyPage() {
                         </span>
                       </div>
                       <span className="orderList-priceBox">
-                        {item.price.toLocaleString()}원
+                        {item.price.slice(0, -3)}원
                       </span>
                       <div className="Buy-ButtonBox">
                         <button
-                          onClick={() => onClickDelete(item.merchant_uid)}
-                        >
+                          onClick={() => onClickDelete(item.merchant_uid)}>
                           x
                         </button>
                       </div>
@@ -208,7 +211,7 @@ function MyPage() {
                   ))}
               </div>
             </div>
-            ​<div className="RentContainer-text">대여내역</div>
+            <div className="RentContainer-text">대여내역</div>
             <div className="RentContainer">
               <div className="RentTop-Category">
                 {Object.keys(TopCategory).map((key) => {
@@ -232,7 +235,7 @@ function MyPage() {
                           {item.product_name}
                         </span>
                       </div>
-                      <span className="RentList-priceBox">{item.price}</span>
+                      <span className="RentList-priceBox">{item.price.slice(0, -3)}원</span>
                       <div className="Rent-ButtonBox">
                         <button
                           onClick={() => onClickDelete(item.merchant_uid)}

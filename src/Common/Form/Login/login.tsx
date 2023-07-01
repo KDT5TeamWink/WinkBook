@@ -79,7 +79,7 @@ function Login() {
                 <input
                   placeholder="비밀번호를 입력하세요"
                   autoComplete="off"
-                  type="text"
+                  type="password"
                   name="password"
                   value={password}
                   onChange={onChangeName}

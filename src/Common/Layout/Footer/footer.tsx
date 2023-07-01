@@ -14,6 +14,7 @@ const Footer = () => {
   const Jinyoung = 'https://github.com/jinyoungpark231';
   const Twinkle = 'https://github.com/KDT5TeamWink';
 
+
   return (
     <footer>
       <div className="footerContainer">
@@ -84,8 +85,11 @@ const Footer = () => {
             <p>박진영</p>
           </div>
         </div>
+        
       </div>
     </footer>
   );
+  
+
 };
 export default Footer;

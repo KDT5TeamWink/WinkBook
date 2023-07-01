@@ -80,15 +80,15 @@
     .NowBuy {
       width: 500px;
       position: absolute;
-      height: 120px;
+      height: 100px;
       left: 100px;
       border-bottom: 2px solid black;
 
       .Buy-Container {
-        width: 250px;
+        width: 270px;
         position: absolute;
         padding-bottom: 10px;
-        background-color: gold;
+        //background-color: gold;
         margin: 0 auto;
         left: 150px;
         right: 0;
@@ -96,7 +96,7 @@
 
         .Pay-Container {
           width: inherit;
-          background-color: rosybrown;
+          //background-color: rosybrown;
           display: flex;
           gap: 40px;
           font-size: 20px;
