@@ -1,26 +1,22 @@
 import { useState, useEffect } from 'react';
 import axios, { AxiosResponse } from 'axios';
 import Category from './common/components/Category';
-import { GetImpToken } from '@/Apis/productApi';
+//import { GetImpToken } from "@/Apis/productApi";
 import './MyPage.scss';
 import Swal from 'sweetalert2';
-
 interface PaymentItem {
   merchant_uid: string;
   custom_data: string;
   paid_at: string;
 }
-
 interface PaymentsResponse {
   response: {
     list: PaymentItem[];
   };
 }
-
 interface CategoryMap {
   readonly [key: string]: string;
 }
-
 interface PageData {
   gubun: string;
   merchant_uid: string;
@@ -30,7 +26,6 @@ interface PageData {
   custom_data: string;
   paid_at: string;
 }
-
 function MyPage() {
   const TopCategory: CategoryMap = {
     orderId: '주문번호',
@@ -39,25 +34,31 @@ function MyPage() {
     price: '상품가격',
     cancel: '구매취소',
   } as const;
-
   const [itemList, setItemList] = useState<PaymentItem[]>([]);
   const [mydataList, setMydataList] = useState<PageData[]>([]);
-
   const GetToken = async () => {
     try {
-      const tokenData = await GetImpToken();
-      const accessToken = tokenData.data.response.access_token;
+      const response = await axios.post(
+        '/iamport/users/getToken',
+        {
+          imp_key: '5758023681388354',
+          imp_secret:
+            'tCdwGmiflqhMA3It54n6aLBIeA7LCg0O3WYu5qI1SKpwQ85FKXtJsiHu8yUWTynhDx7fxCFY1wsA3KVc',
+        },
+        {
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
+      const accessToken = response.data.response.access_token;
       return accessToken;
     } catch (error) {
       console.log(error);
       throw error;
     }
   };
-
   const fetchData = async (): Promise<void> => {
     try {
       const paynumber: string | null = window.localStorage.getItem('mypayment');
-
       if (paynumber) {
         const merchantUids = JSON.parse(paynumber);
         const accessToken = await GetToken();
@@ -65,7 +66,6 @@ function MyPage() {
           await axios.get(
             `/iamport/payments/status/paid?limit=20&sorting=paid&_token=${accessToken}`
           );
-
         if (
           paymentsResponse.data &&
           paymentsResponse.data.response &&
@@ -89,11 +89,9 @@ function MyPage() {
       console.log('Error occurred:', error);
     }
   };
-
   useEffect(() => {
     fetchData();
   }, []);
-
   useEffect(() => {
     setMydataList([]);
     if (itemList.length === 0) {
@@ -112,17 +110,14 @@ function MyPage() {
       }
     });
   }, [itemList]);
-
   const DeleteList = (itemnum: string) => {
     const MyPay = localStorage.getItem('mypayment');
-
     if (MyPay && MyPay.includes(itemnum)) {
       const updatedList = MyPay.replace(itemnum, '').trim();
       localStorage.setItem('mypayment', updatedList);
     }
     fetchData();
   };
-
   const onClickDelete = (key: string) => {
     Swal.fire({
       title: '정말 환불하시겠습니까?',
@@ -152,12 +147,10 @@ function MyPage() {
       }
     });
     // if (confirm("주문을 취소 하시겠습니까?")) {
-
     // } else {
     //   Swal.fire("요청이 취소되었습니다!", "", "success");
     // }
   };
-
   const getDate = function (param: any) {
     const date = new Date(param * 1000);
     const koreaTime = date.toLocaleString('ko-KR', {
@@ -168,7 +161,6 @@ function MyPage() {
     });
     return koreaTime;
   };
-
   return (
     <>
       <div className="MyPage-AllLayout">
@@ -176,7 +168,7 @@ function MyPage() {
           <div className="LeftContainer">
             <Category />
           </div>
-
+          ​
           <div className="RightContainer">
             <div className="orderText">구매 내역</div>
             <div className="orderContainer">
@@ -202,7 +194,9 @@ function MyPage() {
                           {item.product_name}
                         </span>
                       </div>
-                      <span className="orderList-priceBox">{item.price}</span>
+                      <span className="orderList-priceBox">
+                        {item.price.toLocaleString()}원
+                      </span>
                       <div className="Buy-ButtonBox">
                         <button
                           onClick={() => onClickDelete(item.merchant_uid)}
@@ -214,8 +208,7 @@ function MyPage() {
                   ))}
               </div>
             </div>
-
-            <div className="RentContainer-text">대여내역</div>
+            ​<div className="RentContainer-text">대여내역</div>
             <div className="RentContainer">
               <div className="RentTop-Category">
                 {Object.keys(TopCategory).map((key) => {
@@ -257,5 +250,4 @@ function MyPage() {
     </>
   );
 }
-
 export default MyPage;

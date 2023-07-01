@@ -1,4 +1,4 @@
-.headerContainer{
+.headerContainer {
   position: fixed;
   width: 100%;
   max-width: 100%;
@@ -6,20 +6,20 @@
   height: 80px;
   background-color: rgb(255, 255, 255);
   border-bottom: 2px solid rgb(202, 159, 18);
-  background-size: 100% 100%;  // 배경 이미지의 크기를 100%로 설정
+  background-size: 100% 100%; // 배경 이미지의 크기를 100%로 설정
   padding: 0 20px;
   z-index: 900;
 
-    .itemsWrapper{
-      margin: 0 auto;
-      left: 0;
-      right: 0;
-      display: flex; 
-      position: absolute;
-      justify-content: space-evenly;
-      align-items: center;
-      width: 100%;
-    }
+  .itemsWrapper {
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    display: flex;
+    position: absolute;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+  }
 
   .logoBox {
     width: 150px;
@@ -85,35 +85,34 @@
       }
     }
 
+    .cart {
+      position: relative;
+      width: 60px;
+      height: 60px;
+      bottom: 12px;
+      left: 40px;
 
-      .cart {
-        position: relative;
-        width: 60px;
-        height: 60px;
-        bottom: 12px;
-        left:40px;
-        
-        .cartPhoto {
-          cursor: auto;
-          box-sizing: border-box;
-          position: absolute;
-          width: 50px;
-          height: 50px;
-          border-radius: 50%;
-          background-position: center;
-          background-size: contain;
-          background-repeat: no-repeat;
-        }
+      .cartPhoto {
+        cursor: auto;
+        box-sizing: border-box;
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
       }
+    }
   }
 
-  .Input-Buttom{
+  .Input-Buttom {
     width: 400px;
     padding-bottom: 80px;
     background-color: #ffff;
     position: absolute;
     margin-top: 45px;
-    max-height: 200px; 
+    max-height: 200px;
     overflow-y: auto;
     display: flex;
     border: 1px solid black;
@@ -124,7 +123,7 @@
       padding-bottom: 100px;
       margin-top: 10px;
 
-      .Input-Buttom__innerBox{
+      .Input-Buttom__innerBox {
         width: 340px;
         height: 160px;
         margin: 0 auto;
@@ -132,20 +131,20 @@
         margin-top: 12px;
         border-bottom: 1px solid black;
 
-        .Input-Buttom__ImageBox{
+        .Input-Buttom__ImageBox {
           width: 100px;
           padding-bottom: 150px;
           margin-left: 20px;
           position: relative;
           background-color: saddlebrown;
 
-          img{
+          img {
             width: 100px;
             height: auto;
           }
         }
 
-        .Input-Buttom__title{
+        .Input-Buttom__title {
           width: 210px;
           padding-bottom: 15px;
           position: relative;
@@ -153,11 +152,11 @@
           bottom: 100px;
           display: flex;
         }
-        span:nth-child(1){
+        span:nth-child(1) {
           width: 150px;
         }
 
-        span:nth-child(2){
+        span:nth-child(2) {
           position: relative;
           width: 100px;
           top: 13px;
