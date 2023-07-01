@@ -64,7 +64,7 @@ function MyPage() {
         const accessToken = await GetToken();
         const paymentsResponse: AxiosResponse<PaymentsResponse> =
           await axios.get(
-            `/iamport/payments/status/paid?limit=20&sorting=paid&_token=${accessToken}`
+            `/iamport/payments/status/paid?limit=100&sorting=paid&_token=${accessToken}`
           );
         if (
           paymentsResponse.data &&
@@ -97,16 +97,31 @@ function MyPage() {
     if (itemList.length === 0) {
       return;
     }
+    const checkJson = function (str: string) {
+      try {
+        JSON.parse(str);
+      } catch (e) {
+        return false;
+      }
+      return true;
+    };
     const useData = itemList.filter((item) => item.custom_data);
     useData.forEach((item) => {
-      if (item.custom_data) {
-        let parsedData: PageData[] = JSON.parse(item.custom_data);
-        parsedData = parsedData.map((data) => ({
-          ...data,
-          paid_at: item.paid_at,
-          merchant_uid: item.merchant_uid,
-        }));
-        setMydataList((prevDataList) => [...prevDataList, ...parsedData]);
+      console.log(checkJson(item.custom_data));
+      if (checkJson(item.custom_data)) {
+        try {
+          let parsedData: PageData[] = JSON.parse(item.custom_data);
+          console.log(JSON.parse(item.custom_data) + 'dddddd');
+          parsedData = parsedData.map((data) => ({
+            ...data,
+            paid_at: item.paid_at,
+            merchant_uid: item.merchant_uid,
+          }));
+          setMydataList((prevDataList) => [...prevDataList, ...parsedData]);
+        } catch (error) {
+          console.error('Error parsing custom_data:', error);
+          // Handle the error, e.g., show a message or skip this item
+        }
       }
     });
   }, [itemList]);
@@ -168,7 +183,7 @@ function MyPage() {
           <div className="LeftContainer">
             <Category />
           </div>
-          ​
+
           <div className="RightContainer">
             <div className="orderText">구매 내역</div>
             <div className="orderContainer">
@@ -208,7 +223,7 @@ function MyPage() {
                   ))}
               </div>
             </div>
-            ​<div className="RentContainer-text">대여내역</div>
+            <div className="RentContainer-text">대여내역</div>
             <div className="RentContainer">
               <div className="RentTop-Category">
                 {Object.keys(TopCategory).map((key) => {
