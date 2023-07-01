@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 const { VITE_IMP_KEY, VITE_IMP_SECERET } = import.meta.env;
 

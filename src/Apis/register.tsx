@@ -1,15 +1,15 @@
-import axios from "axios";
+import axios from 'axios';
 
 const { VITE_KDT5_API, VITE_KDT5_USER } = import.meta.env;
 
 const headers = {
-  "Content-Type": "application/json",
+  'Content-Type': 'application/json',
   apikey: VITE_KDT5_API,
   username: VITE_KDT5_USER,
 };
 
 const axiosInstance = axios.create({
-  baseURL: "https://asia-northeast3-heropy-api.cloudfunctions.net/api/auth",
+  baseURL: 'https://asia-northeast3-heropy-api.cloudfunctions.net/api/auth',
   headers,
 });
 
@@ -19,7 +19,7 @@ export const JoinForm = async (
   password: string,
   profileImgBase64: string
 ) => {
-  const URL = "/signup";
+  const URL = '/signup';
   const res = await axiosInstance.post(URL, {
     email,
     displayName,
@@ -30,14 +30,14 @@ export const JoinForm = async (
 };
 
 export const LoginForm = async (email: string, password: string) => {
-  const LOGINURL = "/login";
+  const LOGINURL = '/login';
   const res = await axiosInstance.post(LOGINURL, { email, password });
   return res.data;
 };
 
 export const LogoutForm = async () => {
-  const LOGOUTURL = "/logout";
-  const token = localStorage.getItem("token") as string;
+  const LOGOUTURL = '/logout';
+  const token = localStorage.getItem('token') as string;
   const res = await axiosInstance.post(
     LOGOUTURL,
     {},
@@ -47,8 +47,8 @@ export const LogoutForm = async () => {
 };
 
 export const TokenMe = async () => {
-  const AUTHME = "/me";
-  const token = localStorage.getItem("token") as string;
+  const AUTHME = '/me';
+  const token = localStorage.getItem('token') as string;
   const res = await axiosInstance.post(
     AUTHME,
     {},
@@ -63,8 +63,8 @@ export const InfoToken = async (
   oldPassword: string,
   newPassword: string
 ) => {
-  const InfoMe = "/user";
-  const token = localStorage.getItem("token") as string;
+  const InfoMe = '/user';
+  const token = localStorage.getItem('token') as string;
   const res = await axiosInstance.put(
     InfoMe,
     { displayName, profileImgBase64, oldPassword, newPassword },
