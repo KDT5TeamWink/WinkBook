@@ -1,10 +1,10 @@
-import BookCustom from "../../../bookcustom/bookcustom";
-import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import TopHeader from "./components/TopHeader";
-import { getDetail } from "@/Apis/productApi";
-import "./DetailPage.scss";
-import Swal from "sweetalert2";
+import BookCustom from '../../../bookcustom/bookcustom';
+import { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import TopHeader from './components/TopHeader';
+import { getDetail } from '@/Apis/productApi';
+import './DetailPage.scss';
+import Swal from 'sweetalert2';
 
 function DetailPage() {
   interface DetailInfo {
@@ -52,11 +52,11 @@ function DetailPage() {
 
   useEffect(() => {
     function scrollListener() {
-      window.addEventListener("scroll", handleScroll);
+      window.addEventListener('scroll', handleScroll);
     } //  window 에서 스크롤을 감시 시작
     scrollListener(); // window 에서 스크롤을 감시
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener('scroll', handleScroll);
     }; //  window 에서 스크롤을 감시를 종료
   });
 
@@ -67,30 +67,30 @@ function DetailPage() {
     })();
   }, []);
 
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem('token');
 
   const BuyBook = (detail: DetailInfo, type: string) => {
-    let Cart: DetailInfo[] = JSON.parse(localStorage.getItem("cart") || "[]");
+    let Cart: DetailInfo[] = JSON.parse(localStorage.getItem('cart') || '[]');
     if (token) {
       if (Cart.some((item) => item.product_no === detail.product_no)) {
-        Swal.fire("이미 장바구니에 담으셨습니다!", "", "warning");
+        Swal.fire('이미 장바구니에 담으셨습니다!', '', 'warning');
         return false;
       }
 
-      if (type === "rent") {
+      if (type === 'rent') {
         detail.rentdate = 7;
       }
       detail.gubun = type;
       Cart.push(detail);
       Cart = Array.from(new Set(Cart));
       Cart = [...Cart];
-      localStorage.setItem("cart", JSON.stringify(Cart));
-      Swal.fire("장바구니에 담겼습니다!", "", "success").then(() => {
-        navigate("/cart");
+      localStorage.setItem('cart', JSON.stringify(Cart));
+      Swal.fire('장바구니에 담겼습니다!', '', 'success').then(() => {
+        navigate('/cart');
       });
     } else {
-      Swal.fire("로그인 후 이용해주세요!", "", "warning").then(() => {
-        navigate("/login");
+      Swal.fire('로그인 후 이용해주세요!', '', 'warning').then(() => {
+        navigate('/login');
       });
     }
   };
@@ -102,15 +102,15 @@ function DetailPage() {
 
   const modifiedDescription = detail.description
     ? detail.description.replace(/<a\b[^>]*>/gi, (match) =>
-        match.replace("href", "data-disabled-href")
+        match.replace('href', 'data-disabled-href')
       )
-    : "";
+    : '';
 
   const renderCardPriceItems = () => {
     const cardPriceItems = {
-      "카드/간편결제할인": "",
-      "무이자 할부": "",
-      소득공제300원: "",
+      '카드/간편결제할인': '',
+      '무이자 할부': '',
+      소득공제300원: '',
     };
 
     return Object.entries(cardPriceItems).map(([key]) => (
@@ -150,7 +150,7 @@ function DetailPage() {
             <div className="OriginPrice">
               <span className="PriceText">판매가</span>
               <span className="PriceNumber">
-                {Number(detail.price).toFixed(0)}원{" "}
+                {Number(detail.price).toFixed(0)}원{' '}
               </span>
             </div>
             <div className="ContentContainer">
@@ -164,13 +164,13 @@ function DetailPage() {
             <div className="ButtonContainer">
               <button
                 className="CartAdd"
-                onClick={() => BuyBook(detail, "buy")}
+                onClick={() => BuyBook(detail, 'buy')}
               >
                 책 구매하기
               </button>
               <button
                 className="BookBill"
-                onClick={() => BuyBook(detail, "rent")}
+                onClick={() => BuyBook(detail, 'rent')}
               >
                 책 대여하기
               </button>
@@ -183,14 +183,14 @@ function DetailPage() {
           출판사 제공 <br />
           책소개
         </span>
-        <div className={`TopBox ${isScrolled ? "slide-down" : ""}`}>
+        <div className={`TopBox ${isScrolled ? 'slide-down' : ''}`}>
           {isScrolled ? (
             <TopHeader
               productName={detail.product_name}
               productPrice={detail.price}
             />
           ) : (
-            ""
+            ''
           )}
         </div>
 

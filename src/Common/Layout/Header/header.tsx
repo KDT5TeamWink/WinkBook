@@ -1,10 +1,10 @@
-import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { ChangeEvent } from "react";
-import "./headers.scss";
-import { LogoutForm, TokenMe } from "@/Apis/register";
-import { getList } from "@/Apis/productApi";
-import Swal from "sweetalert2";
+import { Link, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { ChangeEvent } from 'react';
+import './headers.scss';
+import { LogoutForm, TokenMe } from '@/Apis/register';
+import { getList } from '@/Apis/productApi';
+import Swal from 'sweetalert2';
 
 interface User {
   displayName: string;
@@ -19,9 +19,9 @@ interface Product {
 }
 
 function Header() {
-  const defaultProfileImgUrl = "/images/default-profile.jpg";
-  const [user, setUser] = useState<User>({ displayName: "", profileImg: "" });
-  const [keyword, setKeyWord] = useState("");
+  const defaultProfileImgUrl = '/images/default-profile.jpg';
+  const [user, setUser] = useState<User>({ displayName: '', profileImg: '' });
+  const [keyword, setKeyWord] = useState('');
   const [filteredItems, setFilteredItems] = useState([]);
   const [product, setProductInfo] = useState([]);
   const [showInputButton, setShowInputButton] = useState(false);
@@ -29,27 +29,27 @@ function Header() {
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setKeyWord(e.target.value);
-    setShowInputButton(e.target.value.trim() !== "");
+    setShowInputButton(e.target.value.trim() !== '');
   };
 
   const logoutHandler = () => {
     LogoutForm()
       .then(() => {
-        localStorage.removeItem("token");
-        Swal.fire("로그아웃 되었습니다!", "다음에 또 만나요!", "success");
-        navigate("/");
+        localStorage.removeItem('token');
+        Swal.fire('로그아웃 되었습니다!', '다음에 또 만나요!', 'success');
+        navigate('/');
       })
       .catch((error: string) => {
-        console.log("Logout failed:", error);
+        console.log('Logout failed:', error);
       });
   };
 
   const onSubmit = async () => {
-    navigate("/search/" + keyword);
+    navigate('/search/' + keyword);
     setShowInputButton(false);
   };
 
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
     const authenticate = async () => {
@@ -72,17 +72,17 @@ function Header() {
   }, [token]);
 
   const OnKeyPress = (e: any) => {
-    if (e.key === "Enter") {
-      if (keyword === "") {
-        Swal.fire("검색어를 입력해주세요!", "", "warning");
+    if (e.key === 'Enter') {
+      if (keyword === '') {
+        Swal.fire('검색어를 입력해주세요!', '', 'warning');
       } else {
         onSubmit(); // Enter 입력이 되면 클릭 이벤트 실행
       }
     }
   };
   const handleInputButtonClick = () => {
-    if (keyword === "") {
-      Swal.fire("검색어를 입력해주세요!", "", "warning");
+    if (keyword === '') {
+      Swal.fire('검색어를 입력해주세요!', '', 'warning');
     } else {
       onSubmit();
     }
@@ -145,7 +145,7 @@ function Header() {
                 <div className="Input-Buttom__inner">
                   {keyword &&
                     filteredItems.map((v: Product) => {
-                      if (v.product_name.trim() !== "") {
+                      if (v.product_name.trim() !== '') {
                         return (
                           <Link
                             to={`/detail/${v.product_no}`}

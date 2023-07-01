@@ -36,11 +36,7 @@ export async function getToken() {
     });
     token = data;
     console.log('request', data);
-    setCookie(
-      token.access_token,
-      token.expires_at,
-      token.refresh_token
-    );
+    setCookie(token.access_token, token.expires_at, token.refresh_token);
   } catch (err) {
     console.log(err);
   }
@@ -54,11 +50,7 @@ export async function refreshToken() {
       refresh_token: localStorage.getItem('refreshToken'),
     });
     token = data;
-    setCookie(
-      token.access_token,
-      token.expires_at,
-      token.refresh_token
-    );
+    setCookie(token.access_token, token.expires_at, token.refresh_token);
     console.log('refresh', data);
   } catch (err) {
     console.log(err);

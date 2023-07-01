@@ -1,14 +1,18 @@
-import "./footer.scss";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import './footer.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faGithub,
+  faFacebook,
+  faSquareInstagram,
+} from '@fortawesome/free-brands-svg-icons';
 
 const Footer = () => {
-  const Donguk = "https://github.com/foodeco";
-  const Haeun = "https://github.com/hahahaday12";
-  const Saeyeon = "https://github.com/saeyeonKim";
-  const Daehyun = "https://github.com/dhmoon11";
-  const Jinyoung = "https://github.com/jinyoungpark231";
-  const Twinkle = "https://github.com/KDT5TeamWink";
+  const Donguk = 'https://github.com/foodeco';
+  const Haeun = 'https://github.com/hahahaday12';
+  const Saeyeon = 'https://github.com/saeyeonKim';
+  const Daehyun = 'https://github.com/dhmoon11';
+  const Jinyoung = 'https://github.com/jinyoungpark231';
+  const Twinkle = 'https://github.com/KDT5TeamWink';
 
 
   return (
