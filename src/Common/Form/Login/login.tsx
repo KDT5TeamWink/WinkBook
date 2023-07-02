@@ -40,8 +40,6 @@ function Login() {
 
     try {
       const data = await LoginForm(email, password);
-      console.log(data);
-
       if (data.accessToken) {
         window.localStorage.setItem('token', data.accessToken);
         Swal.fire('로그인 되었습니다!', '반갑습니다:)', 'success').then(() => {

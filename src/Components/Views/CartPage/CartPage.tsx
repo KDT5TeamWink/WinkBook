@@ -81,17 +81,12 @@ function CartPage() {
 
   const calculateTotal = () => {
     setTotal(0);
-    console.log(selectedItem);
     let total = 0;
     if (Array.isArray(selectedItem)) {
       selectedItem.forEach((item:any) => {
         const itemPrice= parseInt(item.price);
-        console.log(itemPrice)
-        if (!isNaN(itemPrice)) {
-          console.log(typeof itemPrice)
-          
+        if (!isNaN(itemPrice)) {    
           total += itemPrice;
-          console.log(total);
         }
       });
     } else {
@@ -102,7 +97,6 @@ function CartPage() {
   };
 
   const RemoveBuyItem = (key: any) => {
-    console.log(key);
     Swal.fire({
       title: "정말 삭제하시겠습니까?",
       text: "",

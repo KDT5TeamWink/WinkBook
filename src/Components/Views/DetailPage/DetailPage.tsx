@@ -31,7 +31,6 @@ function DetailPage() {
     try {
       const data = await getDetail(productNo as string);
       setDetail(data.product);
-      console.log(data.product);
     } catch (err) {
       console.log(err);
     }
