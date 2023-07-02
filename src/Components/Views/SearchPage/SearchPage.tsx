@@ -69,15 +69,12 @@ export default function SearchPage() {
           .then((res) => setCount(res.data.count));
         const result = await SearchAPI(params.keyword);
         setSearch(result);
-
-        console.log(result);
         window.scrollTo(0, 0);
       }
     })();
   }, [params, offset]);
 
   const BuyBook = (search: SearchItem, type: string) => {
-    console.log(search);
     const cart: SearchItem[] = JSON.parse(localStorage.getItem("cart") || "[]");
 
     if (cart.some((item) => item.product_no === search.product_no)) {

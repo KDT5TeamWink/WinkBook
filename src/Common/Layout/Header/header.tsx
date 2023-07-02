@@ -104,7 +104,6 @@ function Header() {
       limit: 100,
     };
     const data = await getList(cate);
-    // console.log(data);
     setProductInfo(data);
   }
 

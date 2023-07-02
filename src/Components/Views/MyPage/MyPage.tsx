@@ -59,21 +59,7 @@ function MyPage() {
     }       
   }
 
-  // const GetJson = (data: any) => {
-  //   try {
-  //     console.log(data.match(user.email));
-  //     if (data.email == user.email) {
-  //       console.log(JSON.parse(data));
-  //       return true;
-  //     }
-  //     return false;
-  //   } catch (e) {
-  //     return false;
-  //   }
-  // };
-  
   const GetJson = (data:any) => {
-    // console.log(data)
     try{
         if(data){
           // 문자열 배열 형태로 들어감 
@@ -99,10 +85,8 @@ function MyPage() {
   const fetchData = async (): Promise<void> => {
     setMydataList([]);
     try {
-      //const paynumber: string | null = window.localStorage.getItem('mypayment');
       const paynumber = true;
       if (paynumber) {
-        //const merchantUids = JSON.parse(paynumber);
         const accessToken = await GetToken();
         const paymentsResponse: AxiosResponse<PaymentsResponse> =
           await axios.get(
@@ -119,17 +103,6 @@ function MyPage() {
           // 여기가 true일때 작동함.
             GetJson(item.custom_data)
           );
-
-          // const filteredList: PaymentItem[] =
-          //   paymentsResponse.data.response.list.filter((item) =>
-          //     //merchantUids.includes(item.merchant_uid)
-          //   //  item.custom_data && item.custom_data.includes(user.email)
-          //   // item.custom_data && item.custom_data == user.email
-          //    { console.log(item)
-          //     return item.custom_data && item.custom_data.indexOf(user.email) != -1}
-          //   );
-
-          console.log(filteredList)
           if (filteredList) {
             setItemList(filteredList);
           } else {
@@ -180,11 +153,8 @@ function MyPage() {
     return true;
   }
   const useData = itemList.filter((item) => 
-    //item.custom_data
     GetJson(item.custom_data)
   );
-
-  console.log(useData);
   setMydataList([]);
   useData.forEach((item) => {
   if (checkJson(item.custom_data)) {
@@ -196,25 +166,13 @@ function MyPage() {
         merchant_uid: item.merchant_uid,
       }));
 
-      console.log(parsedData);
       setMydataList((prevDataList) => [...prevDataList, ...parsedData]);
-      // setMydataList(parsedData);
     } catch (error) {
       console.error("Error parsing custom_data:", error);
     }
   }
   });
   }, [itemList]);
-
-  // const DeleteList = (itemnum: string) => {
-  //   const MyPay = localStorage.getItem('mypayment');
-  //   if (MyPay && MyPay.includes(itemnum)) {
-  //     const updatedList = MyPay.replace(itemnum, '').trim();
-  //     localStorage.setItem('mypayment', updatedList);
-  //   }
-  //   fetchData();
-  // };
-
 
   const onClickDelete = (key: string) => {
     Swal.fire({

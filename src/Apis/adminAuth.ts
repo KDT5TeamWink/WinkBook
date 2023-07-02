@@ -18,7 +18,6 @@ const ajax = axios.create({
 ajax.interceptors.request.use(
   async (config) => {
     const key = new RegExp(`accessToken=([^;]*)`);
-    console.log('config', config);
     config.headers['Authorization'] = `Bearer ${
       key.test(document.cookie) ? RegExp.$1 : ''
     }`;
@@ -41,8 +40,6 @@ ajax.interceptors.response.use(
   async (error) => {
     if (error.response?.status === 401) {
       const key = new RegExp(`accessToken=([^;]*)`);
-
-      console.log(key.test(document.cookie));
       if (!key.test(document.cookie) && !localStorage.getItem('refreshToken')) {
         await getToken();
       } else {

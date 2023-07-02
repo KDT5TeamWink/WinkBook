@@ -29,7 +29,6 @@ const { VITE_IMP_OWNER } = import.meta.env;
 
 const Payment = ({ amount, productlists, setdatalist }: PaymentInfo) => {
   const orderNumber = `mid_${new Date().getTime()}`;
-  console.log(orderNumber);
   const navigate = useNavigate();
   const [user, setUser] = useState<PaymentsUser>({
     displayName: '',
@@ -67,18 +66,12 @@ const Payment = ({ amount, productlists, setdatalist }: PaymentInfo) => {
 
 
   const onClickPayment = () => {
-    console.log(amount)
-    // console.log(productlists);
     productlists.forEach(function(item:any) {
       item['email'] = user.email;
     });
-    //productlists.email = user.email;
-    // console.log(productlists)
     const itemName = productlists
       .map((obj: { product_name: any }) => obj.product_name)
       .join(',');
-
-    // console.log(itemName);
     const IMP = (window as any).IMP;
     IMP.init(VITE_IMP_OWNER);
 
@@ -86,18 +79,14 @@ const Payment = ({ amount, productlists, setdatalist }: PaymentInfo) => {
       pg: 'html5_inicis', // PG사 html5_inicis: KG이니시스, kakaopay: 카카오페이, naverpay: 네이버페이, payco: 페이코
       pay_method: 'card', // 결제수단
       merchant_uid: orderNumber,
-      amount: formatter.format(amount), // 결제금액
+      amount: `${amount}`, // 결제금액
       name: `${itemName}`, // 주문명
       buyer_name: user.displayName, // 구매자 이름
       buyer_email: user.email,
       custom_data: productlists,
     };
-
-    console.log(data);
     IMP.request_pay(data, callback);
   };
-
-  const formatter = new Intl.NumberFormat("ko-KR");
 
   function callback(response: any) {
     const { success, error_msg } = response;
@@ -106,18 +95,7 @@ const Payment = ({ amount, productlists, setdatalist }: PaymentInfo) => {
       Swal.fire('결제 성공!', '', 'success').then(() => {
         navigate('/mypage');
       });
-      // const mypayarray: string | null =
-      //   window.localStorage.getItem('mypayment');
-      // const combinedArray: string[] | null = mypayarray
-      //   ? JSON.parse(mypayarray)
-      //   : null;
-      // if (!combinedArray) {
-      //   window.localStorage.setItem('mypayment', JSON.stringify([orderNumber]));
-      // } else {
-      //   combinedArray.push(orderNumber);
-      //   window.localStorage.setItem('mypayment', JSON.stringify(combinedArray));
-      // }
-
+    
       const productItemlist = productlists
         .map((obj: { product_no: any }) => obj.product_no)
         .join(',');
