@@ -15,7 +15,7 @@ interface Product {
   product_no: number;
   product_name: string;
   small_image: string;
-  price: string;
+  price: number;
 }
 
 function Header() {
@@ -114,6 +114,8 @@ function Header() {
     })();
   }, []);
 
+  const formatter = new Intl.NumberFormat("ko-KR");
+
   return (
     <>
       <header className="headerContainer">
@@ -130,6 +132,9 @@ function Header() {
               onBlur={() => {
                 setShowInputButton(false);
               }}
+              onFocus={() => {
+                setShowInputButton(true);
+              }}
             />
             <img
               src="/images/search-icon.png"
@@ -141,21 +146,21 @@ function Header() {
               <div className="Input-Buttom">
                 <div className="Input-Buttom__inner">
                   {keyword &&
-                    filteredItems.map((v: Product) => {
-                      if (v.product_name.trim() !== '') {
+                    filteredItems.map((item: Product) => {
+                      if (item.product_name.trim() !== '') {
                         return (
                           <Link
-                            to={`/detail/${v.product_no}`}
-                            key={v.product_no}
+                            to={`/detail/${item.product_no}`}
+                            key={item.product_no}
                             className="Input-Buttom__innerBox"
                           >
                             <div className="Input-Buttom__ImageBox">
-                              <img src={v.small_image} alt="searchbookimage" />
+                              <img src={item.small_image} alt="searchbookimage" />
                             </div>
 
                             <div className="Input-Buttom__title">
-                              <span>{v.product_name}</span>
-                              <span>{v.price.slice(0, -3)}원</span>
+                              <span>{item.product_name}</span>
+                              <span>{formatter.format(item.price)}원</span>
                             </div>
                           </Link>
                         );

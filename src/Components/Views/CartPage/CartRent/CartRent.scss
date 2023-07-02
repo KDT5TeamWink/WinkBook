@@ -23,22 +23,22 @@
 
   .Rental-Namebox {
     @include CartNameStyle;
-    left: 160px;
-  }
-
-  .Renatal-Price {
-    @include CartNameStyle;
-    left: 400px;
+    left: 230px;
   }
 
   .RentDay {
     @include CartNameStyle;
-    right: 400px;
+    left: 520px;
+  }
+  
+  .Renatal-Price {
+    @include CartNameStyle;
+    right: 370px;
   }
 
   .DeleteDay {
     @include CartNameStyle;
-    right: 150px;
+    right: 120px;
   }
 }
 
@@ -68,52 +68,46 @@
     .ImageBox {
       width: 100px;
       position: relative;
-      bottom: 10px;
+      bottom: 5px;
       margin-left: 120px;
-      background-color: rebeccapurple;
 
       img {
         width: inherit;
-        background-color: orange;
         height: auto;
       }
     }
 
     .Rental-TextInner {
-      width: 400px;
+      width: 150px;
       height: 100px;
       position: absolute;
-      top: 1px;
+      top: 25px;
       left: 260px;
       font-size: 20px;
     }
 
     .Rental-PriceInner {
       width: 100px;
-      height: 30px;
       position: absolute;
       top: 50px;
-      left: 420px;
+      right: 320px;
       font-size: 18px;
     }
 
     .Rental-RentDay {
-      width: 50px;
+      width: 100px;
+      height: 40px;
       position: absolute;
       top: 50px;
-      right: 420px;
+      left: 540px;
       font-size: 18px;
-
-      span {
-        width: auto;
-      }
     }
 
     .RentButtonBox {
       width: 60px;
       position: absolute;
       top: 40px;
-      right: 110px;
+      right: 90px;
 
       button {
         display: block;

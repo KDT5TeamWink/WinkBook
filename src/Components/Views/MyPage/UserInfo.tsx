@@ -120,11 +120,17 @@ function UserInfo() {
                             />
                           </label>
                         </div>
-                        <span className="fileMB">
-                          파일 용량은 1MB를 초과할 수 없습니다.
-                        </span>
-                      </div>
-
+                        <span className="fileMB">파일 용량은 1MB를 초과할 수 없습니다.</span>
+                      
+                        <div className="preview-container">
+                            {selectedImage ? (
+                              <img src={selectedImage} alt="Preview" />
+                            ) : (
+                              <span>이미지 미리보기</span>
+                            )}
+                        </div>
+                      </div>  
+                      
                       <div className="infoList">
                         <div className="infoItem">
                           <button className="infoFix" type="submit">
@@ -137,6 +143,10 @@ function UserInfo() {
                   </form>
                 </div>
               </div>
+            
+            
+            
+            
             </div>
           </div>
         </div>

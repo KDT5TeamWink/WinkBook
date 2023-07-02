@@ -75,6 +75,8 @@ const CartItems = ({
     </Box>
   );
 
+  const formatter = new Intl.NumberFormat("ko-KR");
+
   return (
     <>
       <div className="CartPageTable__Buy">
@@ -90,6 +92,7 @@ const CartItems = ({
                   checkedItems.length < buyItem.length
                 }
                 onChange={handleChange1}
+                style={{marginTop:"8px"}}
               />
             </div>
           }
@@ -122,7 +125,7 @@ const CartItems = ({
               </div>
 
               <div className="PriceInner">
-                <span>{Number(el.price).toFixed(0)}원</span>
+                <span>{formatter.format(el.price)}원</span>
               </div>
 
               <div className="CartButtonBox">

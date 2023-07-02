@@ -4,6 +4,7 @@ import react from "file:///C:/Users/user/Desktop/WinkBook/node_modules/@vitejs/p
 import sassDts from "file:///C:/Users/user/Desktop/WinkBook/node_modules/vite-plugin-sass-dts/dist/index.js";
 import mkcert from "file:///C:/Users/user/Desktop/WinkBook/node_modules/vite-plugin-mkcert/dist/mkcert.mjs";
 import path from "path";
+
 var __dirname = path.resolve();
 var vite_config_default = defineConfig({
   plugins: [react(), sassDts(), mkcert()],

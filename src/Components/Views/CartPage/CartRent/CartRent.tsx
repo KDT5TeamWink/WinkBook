@@ -78,6 +78,8 @@ interface RentItem {
       </Box>
     );
 
+    const formatter = new Intl.NumberFormat("ko-KR");
+
   return(
     <>
     <div className="RentPageTable">
@@ -90,6 +92,7 @@ interface RentItem {
             checked={allCheck}
             indeterminate={checkedItems.length > 0 && checkedItems.length < buyItem.length}
             onChange={handleChange1}
+            style={{marginTop:"8px"}}
             />
           </div>
         }
@@ -98,13 +101,13 @@ interface RentItem {
           <span>상품명</span>
       </div> 
 
-      <div className='Renatal-Price'>
-          <p>대여가격</p>
+      <div className='RentDay'>
+          <p>대여날짜</p>
       </div>
 
     
-      <div className='RentDay'>
-          <span>대여날짜</span>
+      <div className='Renatal-Price'>
+          <span>대여가격</span>
       </div>  
 
       <div className="DeleteDay">
@@ -124,14 +127,13 @@ interface RentItem {
             <img src={el.detail_image} alt='cartbookimage'/> 
           </div>
           <div className='Rental-TextInner'>
-            <span>{el.name}</span> 
-          </div>
-
-          <div className='Rental-PriceInner'>
-            <span>{Number(el.price).toFixed(0)}원</span>
+            <span>{el.product_name}</span> 
           </div>
           <div className='Rental-RentDay'>
             <span>{el.rentdate}일</span>
+          </div>
+          <div className='Rental-PriceInner'>
+            <span>{formatter.format(el.price)}원</span>
           </div>
           <div className="RentButtonBox">
             <button onClick={() => RemoveBuyItem(el.product_no)}>

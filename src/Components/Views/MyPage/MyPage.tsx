@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 import axios, { AxiosResponse } from 'axios';
 import Category from './common/components/Category';
-//import { GetImpToken } from "@/Apis/productApi";
+import { MypageToken } from '@/Apis/productApi';
+import { TokenMe } from '@/Apis/register';
 import './MyPage.scss';
 import Swal from 'sweetalert2';
+
 interface PaymentItem {
   merchant_uid: string;
   custom_data: string;
@@ -17,6 +19,12 @@ interface PaymentsResponse {
 interface CategoryMap {
   readonly [key: string]: string;
 }
+
+interface PaymentsUser {
+  displayName: string;
+  email: string;
+}
+
 interface PageData {
   gubun: string;
   merchant_uid: string;
@@ -36,31 +44,65 @@ function MyPage() {
   } as const;
   const [itemList, setItemList] = useState<PaymentItem[]>([]);
   const [mydataList, setMydataList] = useState<PageData[]>([]);
+  const [user, setUser] = useState<PaymentsUser>({
+    displayName: '',
+    email: '',
+  });
+
   const GetToken = async () => {
     try {
-      const response = await axios.post(
-        '/iamport/users/getToken',
-        {
-          imp_key: '5758023681388354',
-          imp_secret:
-            'tCdwGmiflqhMA3It54n6aLBIeA7LCg0O3WYu5qI1SKpwQ85FKXtJsiHu8yUWTynhDx7fxCFY1wsA3KVc',
-        },
-        {
-          headers: { 'Content-Type': 'application/json' },
-        }
-      );
-      const accessToken = response.data.response.access_token;
+      const accessToken = await MypageToken();
       return accessToken;
     } catch (error) {
       console.log(error);
       throw error;
     }
   };
-  const fetchData = async (): Promise<void> => {
+
+  // const GetJson = (data: any) => {
+  //   try {
+  //     console.log(data.match(user.email));
+  //     if (data.email == user.email) {
+  //       console.log(JSON.parse(data));
+  //       return true;
+  //     }
+  //     return false;
+  //   } catch (e) {
+  //     return false;
+  //   }
+  // };
+
+  const GetJson = (data: any) => {
+    // console.log(data)
     try {
-      const paynumber: string | null = window.localStorage.getItem('mypayment');
+      if (data) {
+        // 문자열 배열 형태로 들어감
+        const datalist = Object.assign(data);
+        // 문자형. 이메일이 있는지 없는지  없는게 -1 , 없는게 아닐시
+        if (datalist.indexOf('email') != -1) {
+          // email이랑 user.email이 동일한지 체크
+          if (datalist.match(user.email)) {
+            return true;
+          }
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
+    } catch (e) {
+      console.log(e);
+      return false;
+    }
+  };
+
+  const fetchData = async (): Promise<void> => {
+    setMydataList([]);
+    try {
+      //const paynumber: string | null = window.localStorage.getItem('mypayment');
+      const paynumber = true;
       if (paynumber) {
-        const merchantUids = JSON.parse(paynumber);
+        //const merchantUids = JSON.parse(paynumber);
         const accessToken = await GetToken();
         const paymentsResponse: AxiosResponse<PaymentsResponse> =
           await axios.get(
@@ -73,8 +115,20 @@ function MyPage() {
         ) {
           const filteredList: PaymentItem[] =
             paymentsResponse.data.response.list.filter((item) =>
-              merchantUids.includes(item.merchant_uid)
+              // 여기가 true일때 작동함.
+              GetJson(item.custom_data)
             );
+
+          // const filteredList: PaymentItem[] =
+          //   paymentsResponse.data.response.list.filter((item) =>
+          //     //merchantUids.includes(item.merchant_uid)
+          //   //  item.custom_data && item.custom_data.includes(user.email)
+          //   // item.custom_data && item.custom_data == user.email
+          //    { console.log(item)
+          //     return item.custom_data && item.custom_data.indexOf(user.email) != -1}
+          //   );
+
+          console.log(filteredList);
           if (filteredList) {
             setItemList(filteredList);
           } else {
@@ -92,11 +146,29 @@ function MyPage() {
   useEffect(() => {
     fetchData();
   }, []);
+
+  useEffect(() => {
+    const Payauthenticate = async () => {
+      try {
+        const userData = await TokenMe();
+        setUser((prevUser) => ({
+          ...prevUser,
+          displayName: userData.displayName,
+          email: userData.email,
+        }));
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    Payauthenticate();
+  }, []);
+
   useEffect(() => {
     setMydataList([]);
     if (itemList.length === 0) {
       return;
     }
+
     const checkJson = function (str: string) {
       try {
         JSON.parse(str);
@@ -105,34 +177,42 @@ function MyPage() {
       }
       return true;
     };
-    const useData = itemList.filter((item) => item.custom_data);
+    const useData = itemList.filter((item) =>
+      //item.custom_data
+      GetJson(item.custom_data)
+    );
+
+    console.log(useData);
+    setMydataList([]);
     useData.forEach((item) => {
-      console.log(checkJson(item.custom_data));
       if (checkJson(item.custom_data)) {
         try {
           let parsedData: PageData[] = JSON.parse(item.custom_data);
-          console.log(JSON.parse(item.custom_data) + 'dddddd');
           parsedData = parsedData.map((data) => ({
             ...data,
             paid_at: item.paid_at,
             merchant_uid: item.merchant_uid,
           }));
+
+          console.log(parsedData);
           setMydataList((prevDataList) => [...prevDataList, ...parsedData]);
+          // setMydataList(parsedData);
         } catch (error) {
           console.error('Error parsing custom_data:', error);
-          // Handle the error, e.g., show a message or skip this item
         }
       }
     });
   }, [itemList]);
-  const DeleteList = (itemnum: string) => {
-    const MyPay = localStorage.getItem('mypayment');
-    if (MyPay && MyPay.includes(itemnum)) {
-      const updatedList = MyPay.replace(itemnum, '').trim();
-      localStorage.setItem('mypayment', updatedList);
-    }
-    fetchData();
-  };
+
+  // const DeleteList = (itemnum: string) => {
+  //   const MyPay = localStorage.getItem('mypayment');
+  //   if (MyPay && MyPay.includes(itemnum)) {
+  //     const updatedList = MyPay.replace(itemnum, '').trim();
+  //     localStorage.setItem('mypayment', updatedList);
+  //   }
+  //   fetchData();
+  // };
+
   const onClickDelete = (key: string) => {
     Swal.fire({
       title: '정말 환불하시겠습니까?',
@@ -154,18 +234,16 @@ function MyPage() {
           .then((res) => {
             if (res.status == 200) {
               Swal.fire('주문이 취소되었습니다!', '', 'success');
-              DeleteList(key);
+              // 취소한후 다시 데이터 불러옴.
+              fetchData(); //DeleteList(key);
             } else {
               console.log(res.status);
             }
           });
       }
     });
-    // if (confirm("주문을 취소 하시겠습니까?")) {
-    // } else {
-    //   Swal.fire("요청이 취소되었습니다!", "", "success");
-    // }
   };
+
   const getDate = function (param: any) {
     const date = new Date(param * 1000);
     const koreaTime = date.toLocaleString('ko-KR', {
@@ -176,6 +254,9 @@ function MyPage() {
     });
     return koreaTime;
   };
+
+  const formatter = new Intl.NumberFormat('ko-KR');
+
   return (
     <>
       <div className="MyPage-AllLayout">
@@ -210,7 +291,7 @@ function MyPage() {
                         </span>
                       </div>
                       <span className="orderList-priceBox">
-                        {item.price.toLocaleString()}원
+                        {formatter.format(item.price)}원
                       </span>
                       <div className="Buy-ButtonBox">
                         <button
@@ -247,7 +328,9 @@ function MyPage() {
                           {item.product_name}
                         </span>
                       </div>
-                      <span className="RentList-priceBox">{item.price}</span>
+                      <span className="RentList-priceBox">
+                        {formatter.format(item.price)}원
+                      </span>
                       <div className="Rent-ButtonBox">
                         <button
                           onClick={() => onClickDelete(item.merchant_uid)}

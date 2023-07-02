@@ -6,8 +6,8 @@ interface Props {
   productNo: number;
   productImg: string;
   productName: string;
-  retailPrice: string;
-  price: string;
+  retailPrice: number;
+  price: number;
   summary: string;
 }
 
@@ -20,6 +20,8 @@ export default function BookInfo({
   summary,
 }: Props) {
   const [hover, setHover] = useState(false);
+
+const formatter = new Intl.NumberFormat("ko-KR");
 
   return (
     <Link
@@ -47,11 +49,11 @@ export default function BookInfo({
             <span>{productName.split('(')[0]}</span>
           </div>
           {retailPrice === price ? (
-            <div className="Main-Pricebox">{price.slice(0, -3)}원</div>
+            <div className="Main-Pricebox">{formatter.format(price)}원</div>
           ) : (
             <div className="Main-Pricebox">
-              <span className="retail-price">{retailPrice.slice(0, -3)}원</span>
-              <span>{price.slice(0, -3)}원</span>
+              <span className="retail-price">{formatter.format(retailPrice)}원</span>
+              <span>{formatter.format(price)}원</span>
             </div>
           )}
         </div>
