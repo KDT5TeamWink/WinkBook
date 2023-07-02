@@ -118,6 +118,8 @@ function DetailPage() {
     ));
   };
 
+  const formatter = new Intl.NumberFormat("ko-KR");
+
   return (
     <>
       <div className="DetailContainer">
@@ -150,7 +152,8 @@ function DetailPage() {
             <div className="OriginPrice">
               <span className="PriceText">판매가</span>
               <span className="PriceNumber">
-                {Number(detail.price).toFixed(0)}원{' '}
+
+                {formatter.format(detail.price)}원
               </span>
             </div>
             <div className="ContentContainer">

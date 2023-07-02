@@ -98,6 +98,8 @@ export default function SearchPage() {
     navigate("/cart");
   };
 
+  const formatter = new Intl.NumberFormat("ko-KR");
+
   return (
     <>
       {search?.length === 0 ? (
@@ -131,8 +133,8 @@ export default function SearchPage() {
                         <p>{item.product_tag}</p>
                       </div>
                       <div className="SearchPage__Price">
-                        <p> {item.price.slice(0, -3)}원</p>
-                        <p> {item.retail_price.slice(0, -3)}원</p>
+                        <p> {formatter.format(item.price)}원</p>
+                        <p> {formatter.format(item.retail_price)}원</p>
                       </div>
                     </div>
                     <div className="SearchPage__ButtonBox">

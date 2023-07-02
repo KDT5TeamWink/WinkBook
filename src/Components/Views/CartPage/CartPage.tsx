@@ -8,7 +8,7 @@ import Swal from "sweetalert2";
 interface BuyItem {
   id: number;
   product_name: string;
-  price: string;
+  price: number;
   detail_image: string;
   product_no: number;
 }
@@ -84,10 +84,14 @@ function CartPage() {
     console.log(selectedItem);
     let total = 0;
     if (Array.isArray(selectedItem)) {
-      selectedItem.forEach((item) => {
-        const itemPrice = parseFloat(item.price);
+      selectedItem.forEach((item:any) => {
+        const itemPrice= parseInt(item.price);
+        console.log(itemPrice)
         if (!isNaN(itemPrice)) {
+          console.log(typeof itemPrice)
+          
           total += itemPrice;
+          console.log(total);
         }
       });
     } else {
@@ -128,6 +132,7 @@ function CartPage() {
       }
     });
   };
+  const formatter = new Intl.NumberFormat("ko-KR");
 
   return (
     <>
@@ -159,14 +164,15 @@ function CartPage() {
             <div className="Buy-Container">
               <div className="Pay-Container">
                 <span>총 상품 가격 </span>
-                {ShowTotal && <h3>${Total}원</h3>}
+                {/* {ShowTotal && <h3>${Total}원</h3>} */}
+                {ShowTotal && <h3>{formatter.format(Total)}원</h3>}
               </div>
             </div>
 
             <div className="AllCount-Container">
               <div className="AllCount-Container__box">
                 <span>총 결제 예상 금액</span>
-                <span>${Total}</span>
+                <span>{formatter.format(Total)}원</span>
               </div>
             </div>
 

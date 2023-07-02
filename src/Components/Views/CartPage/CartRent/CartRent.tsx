@@ -8,7 +8,7 @@ import './CartRent.scss'
 interface RentItem {
   id: number;
   product_name: string;
-  price: string;
+  price: number;
   detail_image: string;
   product_no: number;
   gubun: string;
@@ -78,6 +78,8 @@ interface RentItem {
       </Box>
     );
 
+    const formatter = new Intl.NumberFormat("ko-KR");
+
   return(
     <>
     <div className="RentPageTable">
@@ -131,7 +133,7 @@ interface RentItem {
             <span>{el.rentdate}일</span>
           </div>
           <div className='Rental-PriceInner'>
-            <span>{el.price.slice(0, -3)}원</span>
+            <span>{formatter.format(el.price)}원</span>
           </div>
           <div className="RentButtonBox">
             <button onClick={() => RemoveBuyItem(el.product_no)}>
