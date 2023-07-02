@@ -15,7 +15,7 @@ interface Product {
   product_no: number;
   product_name: string;
   small_image: string;
-  price: string;
+  price: number;
 }
 
 function Header() {
@@ -114,6 +114,8 @@ function Header() {
     })();
   }, []);
 
+  const formatter = new Intl.NumberFormat("ko-KR");
+
   return (
     <>
       <header className="headerContainer">
@@ -158,7 +160,7 @@ function Header() {
 
                             <div className="Input-Buttom__title">
                               <span>{item.product_name}</span>
-                              <span>{item.price.slice(0, -3)}원</span>
+                              <span>{formatter.format(item.price)}원</span>
                             </div>
                           </Link>
                         );

@@ -7,12 +7,15 @@ type TopHeaderProps = {
 }
 
 const TopHeader: React.FC<TopHeaderProps> = ({ productName , productPrice}) => {
+
+  const formatter = new Intl.NumberFormat("ko-KR");
+
   return (
     <div className='TopHeader-container'>
       <ul className='TopHeader-container__text'>
         <li>[eBook] { productName }</li>
         <li>
-          {productPrice}원 (종이책 정가 대비 30%할인) 쿠폰할인가
+          {formatter.format(productPrice)}원 (종이책 정가 대비 30%할인) 쿠폰할인가
           <span>13,230원</span>
         </li>
       </ul>

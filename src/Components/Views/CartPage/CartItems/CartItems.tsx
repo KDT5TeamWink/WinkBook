@@ -9,7 +9,7 @@ interface BuyItem {
   id: number;
   gubun: string;
   product_name: string;
-  price: string;
+  price: number;
   detail_image: string;
   product_no: number;
   buyItem:number;
@@ -75,6 +75,8 @@ const CartItems = ({
     </Box>
   );
 
+  const formatter = new Intl.NumberFormat("ko-KR");
+
   return (
     <>
       <div className="CartPageTable__Buy">
@@ -123,7 +125,7 @@ const CartItems = ({
               </div>
 
               <div className="PriceInner">
-                <span>{el.price.slice(0, -3)}원</span>
+                <span>{formatter.format(el.price)}원</span>
               </div>
 
               <div className="CartButtonBox">
