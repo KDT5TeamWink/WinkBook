@@ -66,9 +66,7 @@ const Payment = ({ amount, productlists, setdatalist }: PaymentInfo) => {
 
 
   const onClickPayment = () => {
-    productlists.forEach(function(item:any) {
-      item['email'] = user.email;
-    });
+  
     const itemName = productlists
       .map((obj: { product_name: any }) => obj.product_name)
       .join(',');
@@ -93,21 +91,31 @@ const Payment = ({ amount, productlists, setdatalist }: PaymentInfo) => {
 
     if (success) {
       Swal.fire('결제 성공!', '', 'success').then(() => {
-        navigate('/mypage');
-      });
-    
-      const productItemlist = productlists
+        const mypayarray: string | null = window.localStorage.getItem("mypayment");
+        const combinedArray: string[] | null = mypayarray ? JSON.parse(mypayarray) : null;
+        if (!combinedArray) {
+          window.localStorage.setItem("mypayment", JSON.stringify([orderNumber]));
+        } else {
+          combinedArray.push(orderNumber);
+          window.localStorage.setItem("mypayment", JSON.stringify(combinedArray));
+        }  
+
+        const productItemlist = productlists
         .map((obj: { product_no: any }) => obj.product_no)
         .join(',');
-      const cartlist: BuyItem[] = JSON.parse(
+        const cartlist: BuyItem[] = JSON.parse(
         window.localStorage.getItem('cart') || '[]'
-      );
+        );
 
-      const updatedArray = cartlist.filter(
+        const updatedArray = cartlist.filter(
         (item) => !productItemlist.includes(item.product_no)
-      );
-      window.localStorage.setItem('cart', JSON.stringify(updatedArray));
-      setdatalist(updatedArray);
+        );
+        window.localStorage.setItem('cart', JSON.stringify(updatedArray));
+        setdatalist(updatedArray);
+        navigate('/mypage')
+      });
+    
+      
     } else {
       Swal.fire(`결제 실패: ${error_msg}`, '', 'error');
     }
