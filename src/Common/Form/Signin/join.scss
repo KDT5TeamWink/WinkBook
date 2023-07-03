@@ -1,6 +1,8 @@
 @mixin Container {
   padding-top: 80px;
   max-width: 1200px;
+  min-height: 100vh;
+  display: flex;
   padding-bottom: 80px;
   position: relative;
   margin: 0 auto;
