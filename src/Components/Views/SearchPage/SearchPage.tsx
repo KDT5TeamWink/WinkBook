@@ -1,16 +1,16 @@
-import { useState, useEffect } from "react";
-import "./SearchPage.scss";
-import axios from "axios";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import './SearchPage.scss';
+import axios from 'axios';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 const { VITE_CLIENT_ID } = import.meta.env;
-import Swal from "sweetalert2";
+import Swal from 'sweetalert2';
 
 const ajax = axios.create({
-  baseURL: "/cafe24",
+  baseURL: '/cafe24',
   headers: {
-    "Content-Type": "application/json",
-    "X-Cafe24-Api-Version": "2023-03-01",
-    "X-Cafe24-Client-Id": VITE_CLIENT_ID,
+    'Content-Type': 'application/json',
+    'X-Cafe24-Api-Version': '2023-03-01',
+    'X-Cafe24-Client-Id': VITE_CLIENT_ID,
   },
 });
 
@@ -44,7 +44,7 @@ export default function SearchPage() {
 
   async function SearchAPI(product_name: string) {
     try {
-      const res = await ajax.get("/products", {
+      const res = await ajax.get('/products', {
         params: {
           product_name,
           offset: offset * 10,
@@ -61,7 +61,7 @@ export default function SearchPage() {
     (async () => {
       if (params.keyword) {
         await ajax
-          .get("/products/count", {
+          .get('/products/count', {
             params: {
               product_name: params.keyword,
             },
@@ -75,27 +75,27 @@ export default function SearchPage() {
   }, [params, offset]);
 
   const BuyBook = (search: SearchItem, type: string) => {
-    const cart: SearchItem[] = JSON.parse(localStorage.getItem("cart") || "[]");
+    const cart: SearchItem[] = JSON.parse(localStorage.getItem('cart') || '[]');
 
     if (cart.some((item) => item.product_no === search.product_no)) {
-      Swal.fire("이미 장바구니에 담으셨습니다.", "", "warning");
+      Swal.fire('이미 장바구니에 담으셨습니다.', '', 'warning');
       return false;
     }
 
     const searchItem: SearchItem =
-      type === "rent"
+      type === 'rent'
         ? { ...search, rentdate: 7, gubun: type }
         : { ...search, gubun: type };
     cart.push(searchItem);
 
     const updatedCart = Array.from(new Set(cart));
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
 
-    alert("장바구니에 담겼습니다.");
-    navigate("/cart");
+    alert('장바구니에 담겼습니다.');
+    navigate('/cart');
   };
 
-  const formatter = new Intl.NumberFormat("ko-KR");
+  const formatter = new Intl.NumberFormat('ko-KR');
 
   return (
     <>
@@ -135,10 +135,10 @@ export default function SearchPage() {
                       </div>
                     </div>
                     <div className="SearchPage__ButtonBox">
-                      <button onClick={() => BuyBook(item, "buy")}>
+                      <button onClick={() => BuyBook(item, 'buy')}>
                         구매하기
                       </button>
-                      <button onClick={() => BuyBook(item, "rent")}>
+                      <button onClick={() => BuyBook(item, 'rent')}>
                         대여하기
                       </button>
                     </div>
@@ -156,14 +156,14 @@ export default function SearchPage() {
             >
               {Array(parseInt(((count - 0.1) / 10 + 1).toString()))
                 .fill(0)
-                .map((index) => (
-                  <li key={index}>
+                .map((i, index) => (
+                  <li key={index} value={i}>
                     <button
                       onClick={() => {
                         setOffset(index);
                       }}
                       id="click"
-                      className={index == offset ? "button_1" : "button_2"}
+                      className={index == offset ? 'button_1' : 'button_2'}
                     >
                       {index + 1}
                     </button>
