@@ -20,7 +20,6 @@ export default function Recommand() {
   async function recommand() {
     try {
       const res = await getRecommand();
-      console.log(res.products);
       setList(res.products);
       const productList = res.products.map((obj:any) => obj.product_no).join(",");
       return productList;
@@ -31,7 +30,6 @@ export default function Recommand() {
 
   async function getItem() {
     const productList = await recommand();
-    console.log(productList);
     const data = await getList({ product_no: productList });
     setList(data);
   }

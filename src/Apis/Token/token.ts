@@ -26,7 +26,6 @@ interface Token {
 let token: Token;
 
 export async function getToken() {
-  console.log('get');
   const params = new URLSearchParams(location.search);
   try {
     const { data } = await ajax.post('', {
@@ -35,7 +34,6 @@ export async function getToken() {
       code: params.get('code'),
     });
     token = data;
-    console.log('request', data);
     setCookie(token.access_token, token.expires_at, token.refresh_token);
   } catch (err) {
     console.log(err);
@@ -44,14 +42,12 @@ export async function getToken() {
 
 export async function refreshToken() {
   try {
-    console.log('refresh');
     const { data } = await ajax.post('', {
       grant_type: 'refresh_token',
       refresh_token: localStorage.getItem('refreshToken'),
     });
     token = data;
     setCookie(token.access_token, token.expires_at, token.refresh_token);
-    console.log('refresh', data);
   } catch (err) {
     console.log(err);
   }
