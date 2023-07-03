@@ -117,7 +117,7 @@ function DetailPage() {
     ));
   };
 
-  const formatter = new Intl.NumberFormat("ko-KR");
+  const formatter = new Intl.NumberFormat('ko-KR');
 
   return (
     <>
@@ -135,7 +135,7 @@ function DetailPage() {
           </div>
 
           <div className="BookimgBox">
-            <img src={detail.detail_image} />
+            <img src={detail.detail_image || `/images/no-photo.jpg`} />
           </div>
         </div>
 
@@ -151,7 +151,6 @@ function DetailPage() {
             <div className="OriginPrice">
               <span className="PriceText">판매가</span>
               <span className="PriceNumber">
-
                 {formatter.format(detail.price)}원
               </span>
             </div>

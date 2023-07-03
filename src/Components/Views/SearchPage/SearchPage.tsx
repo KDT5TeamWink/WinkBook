@@ -116,7 +116,10 @@ export default function SearchPage() {
                   <div className="SearchPage">
                     <Link to={`/detail/${item.product_no}`}>
                       <div className="SearchPage__Images">
-                        <img src={item.list_image} alt="책표지" />
+                        <img
+                          src={item.list_image || `/images/no-photo.jpg`}
+                          alt="책표지"
+                        />
                       </div>
                     </Link>
 
